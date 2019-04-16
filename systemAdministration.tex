@@ -1,7 +1,6 @@
 %%%% SEITENRAENDER, SCHRIFTGROESSE UND ZEILENABSTAND NICHT ABAENDERN => SONST GIBT ES PUNKTEABZUG
 \documentclass[a4paper,11pt,singlespacing]{article}
 % \usepackage[left=2.5cm,right=2.5cm,top=2.5cm]{geometry}
-
 \usepackage{setspace}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -15,43 +14,40 @@
 \usepackage{listings,xcolor}
 \usepackage[numbers,round]{natbib}
 
+\sloppy
+\setlength{\parindent}{0ex} % Absatzeinrückung verhindern
 \graphicspath{ {images/} }
 
-%opening	
+\begin{document}
+\pagenumbering{roman}
+
+% Cover
 \title{Systemadministration - Mailserver Honypot zum analysieren von Spam}
 \author{Manuel Adamns 27470, Michael Ruf 27428, Mario Waizenegger 29608}
-
-\pagenumbering{roman}
-\sloppy
-
-\begin{document}
-% Absatzeinrückung verhindern
-\setlength{\parindent}{0ex}
-
-
 \maketitle
-
-%%%% ZUSAMMENFASSUNG kommt zwischen \begin{abstract}  und   \end{abstract}
 \begin{abstract}
-
+Dies ist die Zusammenfassung TODO
 \end{abstract}
 
-
 \newpage
+
+% Table of contents
 \tableofcontents
-\newpage
 
+\newpage
 \pagenumbering{arabic}
 
+% Content
 \section{Einleitung/Motivation}\label{sec:EinleitungMotivation}
 
 	\subsection{Ziel der Arbeit}\label{Ziel}
+		TODO
 	
 	\subsection{Vorgehensweise}\label{sec:Vorgehensweise}
+		TODO
 
 	\subsection{Aufbau der Arbeit}\label{sec:Aufbau}
-	
-	
+		TODO
 
 
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
@@ -63,54 +59,55 @@
 	Beschreibung/definition des Begriffs \cite{BeispielBuch}
 	
 	\end{description}
-	
-	
+
 
 \section{Problemstellung}\label{sec:Problemstellung}
-
+	TODO
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
-
+	TODO
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
-
+	TODO
 
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
-
+	TODO
 
 
 \section{Umsetzung}\label{sec:Umsetzung}
-
+	TODO
 
 
 \section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
+	TODO
 
 
-
-\newpage
+% Quotes
 \bibliography{zitate}
 \bibliographystyle{plain}
 \addcontentsline{toc}{section}{Literatur}
 
+% Image listing
 \listoffigures
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
 
+% TODO What are listings?!
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
 
-
 \newpage
+
+% Additional stuff
 \section*{Anhang}\label{Anhang}
 \addcontentsline{toc}{section}{Anhang}
 
-
-
 \newpage
-\section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
 
+% Plagiarism declaration
+\section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
 
 
 \end{document}
