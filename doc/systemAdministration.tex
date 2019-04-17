@@ -48,12 +48,12 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 % Content
 \section{Einleitung/Motivation}\label{sec:Einleitung}
 
-	\subsection{Ziel der Arbeit}\label{sec:Ziel}
+	\subsection{Ziel der Arbeit}\label{sec:EinleitungZiel}
 		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von Spam Nachrichten erhalten werden.
 		Durch diese Informationen soll die die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
 		% TODO Bisschen kurz
 
-	\subsection{Motivation}\label{sec:Motivation}
+	\subsection{Motivation}\label{sec:EinleitungMotivation}
 		Die Nachvollziehbarkeit für das Versenden vom Spam ist vielen Menschen ein Rätsel.
 		Dies wirft die Fragen auf wieso jemand Spam verschicken sollte, wer Spam verschickt und warum.
 		Was passiert wenn man auf Spam absichtlich reagiert?
@@ -64,7 +64,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 		% - Findet man Informationen über Systeme, von denen Spam verschickt wird?
 		% - Werden die Nachrichten generiert? (Bots)
 	
-	\subsection{Vorgehensweise}\label{sec:Vorgehensweise}
+	\subsection{Vorgehensweise}\label{sec:EinleitungVorgehensweise}
 		Eingangsserver
 		\begin{enumerate}
 		\item Mail Eingangsserver bereitstellen und konfigurieren
@@ -81,7 +81,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 		\item Mails analysieren
 		\end{enumerate}
 
-	\subsection{Aufbau der Arbeit}\label{sec:Aufbau}
+	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
 		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM
 		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container
 		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
@@ -109,31 +109,63 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
-	% Mario
-	In der heutigen Zeit ist jeder mit dem Thema Spam konfrontiert und damit wie ein guter Schutz gegen Spammails realisiert werden kann.	
+%	% Mario
+%	In der heutigen Zeit ist jeder mit dem Thema Spam konfrontiert und damit wie ein guter Schutz gegen Spammails realisiert werden kann.	
+%	
+%	Um die Ziele von Spammern besser verstehen zu können, aber auch deren Zielgruppen zu ermitteln, sollen durch einen Mailserver Honypot Spamnachrichten empfangen/weitergeleitet und analysiert werden. 
+%	Dabei soll der Mailserver durch unzureichende Sicherheitskonfiguration (\nameref{itm:OpenRelay}) für potentielle Spammer interessant gemacht werden und damit als Ausgangsserver für den Versand von Spam Mails dienen.
+%	
+%	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.
+%\\
+%	Die Schwierigkeiten bei der Umsetzung für das \nameref{itm:OpenRelay} sind, dass der Server in der Spam-Community bekannt und akzeptiert werden muss, aber dieser auch möglichst lange nicht auf den "`\nameref{itm:OpenRelay}"'"~Blacklists auftaucht.
 	
-	Um die Ziele von Spammern besser verstehen zu können, aber auch deren Zielgruppen zu ermitteln, sollen durch einen Mailserver Honypot Spamnachrichten empfangen/weitergeleitet und analysiert werden. 
-	Dabei soll der Mailserver durch unzureichende Sicherheitskonfiguration (\nameref{itm:OpenRelay}) für potentielle Spammer interessant gemacht werden und damit als Ausgangsserver für den Versand von Spam Mails dienen.
+%	Bei der Verteilung von Mailadressen, könnten diese möglicherweise im Projektzeitraum nicht ausreichend verbreitet werden und somit nur wenige Spammails empfangen werden.
+%\\\\
+
+	% Neu
+	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
+		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
+		Die Authentizität des Mailservers gegenüber Anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert.
+		Der Server soll als Open-Relay dienen. Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
+		\\
+		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
+		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können Hooks eingesetzt werden.
+		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden.
+		% TODO Refs and Defs
+
+	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
+		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken.
+		Daher sollen mehrere Catch-All-Mail-Adressen (TODO Def) verwendet werden um sich bei unsichere Diensten anzumelden.
+		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links (TODO Def) enthalten sein können.
+		Die Durchführung sollte nicht so wirken als wäre dies maschinell bzw. absichtlich.
+		% TODO Refs and Defs
 	
-	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.
-\\
-	Die Schwierigkeiten bei der Umsetzung für das \nameref{itm:OpenRelay} sind, dass der Server in der Spam-Community bekannt und akzeptiert werden muss, aber dieser auch möglichst lange nicht auf den "`\nameref{itm:OpenRelay}"'"~Blacklists auftaucht.
-	
-	Bei der Verteilung von Mailadressen, könnten diese möglicherweise im Projektzeitraum nicht ausreichend verbreitet werden und somit nur wenige Spammails empfangen werden.
-\\\\
-	% Manu
-	Um bei Spammern als offener Relay-Server bekannt zu werden könnte es Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
-	Um den Empfang von Spam zu beschleunigen werden von uns verschiedene E-Mail-Adressen bei Socialmedia-Seiten und anderen unsicheren Seiten registriert.
-	Im Fall von Spam Empfang sollen dann auch eventuelle Links und Bilder in den Nachrichten geöffnet werden um die Aktivität der Mail für den Spammer anzuzeigen.
+	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
+		Der Ausgangsserver möge als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
+		Aufgrund dessen können versendet Spam-Mails abgehört und analyisiert werden.
+		Der Honeypot muss dafür bei Spammern als unsicherer Relay-Server und guter Spamverteiler bekannt werden.
+		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
+		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
+		\\
+		Nach Möglichkeit sollte der Server nicht in einer Open-Relay Blacklist auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist.
+		Da der Mailserver für ausschließlich Spam-Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
+		% TODO Refs and Defs
+
+	\subsection{Analysieren}\label{sec:ProblemstellungAnalysieren}
+		Da die Spam-Mails analysiert werden sollen besteht das Hauptproblem darin herauszufinden was genau Analysiert werden soll und kann.
+		Falls möglich wäre es sinnvoll festzustellen ob man über Spam-Mails eventuell Informationen über das System von dem verschickt wurde erhalten kann.
+		Könnte man den Weg den die Spam-Mails vom Versender bis zum Empfänger gekommen sind zurückverfolgen?
+		Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren.
+		% TODO Refs and Defs
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
-	\begin{itemize}
-	\item Der Mail-Server muss unter Spammern publik gemacht werden.
-	\item Der Mail-Server muss über DNS Einträge Mails signieren und weiter versenden können.
-	\item Der Mail-Server muss als Mail-Relay-Server aufgesetzt werden.
-	\item Es muss sichergestellt werden das Dritte keinen unberechtigten Zugriff auf die VM erhalten.
-	\end{itemize}
+	\begin{enumerate}
+	\item Der Mail-Server MUSS die Mails empfangen und senden können. % TODO Ref ProblemstellungKonfiguration
+	\item E-Mail-Adressen MÜSSEN bei diversen Diensten benutzt werden um den Erhalt von Spam einzuleiten. % TODO Ref
+	\item Der Mail-Server SOLL bei Spammern bekannt werden. Die Honeypot Funktionalität KANN den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~Blacklist auftauchen. % TODO Ref
+	\item Die E-Mails MÜSSEN analysiert werden können.
+	\end{enumerate}
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
