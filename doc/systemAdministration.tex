@@ -26,11 +26,11 @@
 \author{Manuel Adams 27470, Michael Ruf 27428, Mario Waizenegger 29608}
 \maketitle
 \begin{abstract}
-Heutzutage wird viel Spam verschickt. Einiges davon wird erkennt und gefiltert.
-Das Projekt befasst sich mit der Aufgabe Spam zu erhalten und als Verteiler zu dienen, um das Verhalten der Spammer und die konkreten Spam Nachrichten zu analysieren.
+Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
+Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und zum anderen als Verteiler für den Versandt von Spammails zu dienen. Damit soll das Verhalten der Spammer und die konkreten Spam Nachrichten analysiert werden.
 \\\\
 Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
-Um nötigen Daten zu erhalten wird der Mail-Server offen publiziert und sich mit mehreren Mail-Adressen bei ominösen Diensten registriert.
+Um die nötigen Daten zu erhalten wird der Mail-Server offen publiziert und durch mehreren Mail-Adressen bei ominösen Diensten registriert.
 \\\\
 Das Ziel des Projektes ist ...\color{red}{TODO}
 \end{abstract}
@@ -47,7 +47,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 \section{Einleitung/Motivation}\label{sec:Einleitung}
 
 	\subsection{Ziel der Arbeit}\label{sec:Ziel}
-		TODO
+		Es sollen durch einen Mailserver Honypot Erkenntnisse über Herkunft, Zweck und Zielgruppen von Spam Nachrichten erhalten werden. Damit die Motivation von Spammern besser verstanden wird und entsprechende Vorkehrungen zum Schutz gegen Spam aus den hier gewonnenen Ergebnissen erzielt werden kann.
 
 	% TODO Nehmen wir das?!
 	\subsection{Motivation}\label{sec:Motivation}
@@ -56,8 +56,8 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 		\item Was versucht man mit Spam zu erreichen?
 		\item Wer verschickt Spam?
 		\item Welche Zielgruppe hat Spam?
-		\item Findet man Informationen über Systeme, von denen Spam meist geschickt wird?
-		\item Werden die Nachrichten generiert?
+		\item Findet man Informationen über Systeme, von denen Spam verschickt wird?
+		\item Werden die Nachrichten generiert? (Bots)
 		\end{itemize}
 		Diese Fragen interessieren uns.
 	
@@ -72,13 +72,22 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
 	\begin{description}
-	\item[Begriffname\label{itm:BegriffReferenzname}]\hfill \\
-		Beschreibung/definition des Begriffs \cite{BeispielBuch}
+	\item[Open relay\label{itm:OpenRelay}]\hfill \\
+		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\end{description}
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
-	TODO
+	In der heutigen Zeit ist jeder mit dem Thema Spam konfrontiert und damit wie ein guter Schutz gegen Spammails realisiert werden kann.	
+	
+	Um die Ziele von Spammern besser verstehen zu können, aber auch deren Zielgruppen zu ermitteln, sollen durch einen Mailserver Honypot Spamnachrichten empfangen/weitergeleitet und analysiert werden. 
+	Dabei soll der Mailserver durch unzureichende Sicherheitskonfiguration (\nameref{itm:OpenRelay}) für potentielle Spammer interessant gemacht werden und damit als Ausgangsserver für den Versand von Spam Mails dienen.
+	
+	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.\\
+	
+	Die Schwierigkeiten bei der Umsetzung für das \nameref{itm:OpenRelay} sind, dass der Server in der Spam-Community bekannt und akzeptiert werden muss, aber dieser auch möglichst lange nicht auf den "`\nameref{itm:OpenRelay}"'"~Blacklists auftaucht.
+	
+	Bei der Verteilung von Mailadressen, könnten diese möglicherweise im Projektzeitraum nicht ausreichend verbreitet werden und somit nur wenige Spammails empfangen werden.
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
@@ -102,6 +111,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 
 
 % Quotes
+\newpage
 \bibliography{zitate}
 \bibliographystyle{plain}
 \addcontentsline{toc}{section}{Literatur}
@@ -110,7 +120,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 \listoffigures
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
 
-% TODO What are listings?!
+% TODO What are listings?! -> Code examples
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
 
