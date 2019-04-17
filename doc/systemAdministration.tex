@@ -74,13 +74,13 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Ausgangsserver ("`Open Relay"') % TODO Ref Michi
 		\begin{enumerate}
 		\item Mail Ausgangsserver bereitstellen und konfigurieren
-		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref Mario
+		\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
 		\item Eingehende Mails tatsächlich weiterleiten
 		\item Mails analysieren
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
-		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM Mario
+		Die Hochschule Weingarten stellt für das Projekt eine \nameref{itm:VirtuelleMaschine} zur Verfügung.
 		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container Manu
 		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
 		Nach Außen soll der Mail-Dienst zur Nutzung als Honeypot verfügbar sein.
@@ -102,8 +102,10 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
 	\item[Open relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
-	\item[Virtual Maschine (VM)\label{itm:VirtualMaschine}]\hfill \\
-		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{}
+	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
+		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
+	\item[Blacklist \label{itm:Blacklist}]\hfill \\
+		 Eine Blacklist oder "`schwarze Liste"' enthält eine Auflistung von Daten, die von einem Prozess ausgeschlossen werden solle. Das Gegenteil dazu ist eine Whitelist. \cite{Blacklist}
 	% TODO Container
 	\end{description}
 
@@ -113,7 +115,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
 		Die Authentizität des Mailservers gegenüber anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert. % Ref Michi
 		\\
-		Der Server soll als Open-Relay dienen. % Mario
+		Der Server soll als \nameref{itm:OpenRelay} dienen.
 		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
 		\\
 		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
@@ -137,7 +139,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
 		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
 		\\
-		Nach Möglichkeit sollte der Server nicht in einer Open-Relay Blacklist auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist. % Mario
+		Nach Möglichkeit sollte der Server nicht in einer \nameref{itm:OpenRelay} \nameref{itm:Blacklist} auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist.
 		Da der Mailserver für ausschließlich Spam-Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
 		% TODO Refs and Defs
 
@@ -154,7 +156,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	% Michi alle items
 	\item Der Mail-Server MUSS die Mails empfangen und senden können. % TODO Ref ProblemstellungKonfiguration
 	\item E-Mail-Adressen MÜSSEN bei diversen Diensten benutzt werden um den Erhalt von Spam einzuleiten. % TODO Ref
-	\item Der Mail-Server SOLL bei Spammern bekannt werden. Die Honeypot Funktionalität KANN den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~Blacklist auftauchen. % TODO Ref
+	\item Der Mail-Server SOLL bei Spammern bekannt werden. Die Honeypot Funktionalität KANN den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~\nameref{itm:Blacklist} auftauchen. % TODO Ref
 	\item Die E-Mails MÜSSEN analysiert werden können.
 	\end{enumerate}
 
