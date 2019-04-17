@@ -49,29 +49,37 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 \section{Einleitung/Motivation}\label{sec:Einleitung}
 
 	\subsection{Ziel der Arbeit}\label{sec:Ziel}
-		% Mario
-		Es sollen durch einen Mailserver Honypot Erkenntnisse über Herkunft, Zweck und Zielgruppen von Spam Nachrichten erhalten werden.
-		Damit die Motivation von Spammern besser verstanden wird und entsprechende Vorkehrungen zum Schutz gegen Spam aus den hier gewonnenen Ergebnissen erzielt werden kann.
-\\\\
-		% Manu
-		Es soll ein offener Relay-Mail-Server aufgesetzt werden, der über DNS, Spam-Mails signieren und weiterleiten soll um festzustellen woher Spam kommt und wie versucht wird mit Spam Geld zu verdienen oder welche Beweggründe sonst noch hinter Spam Versand stecken könnten. 
-		Hierzu wird im Rechenzentrum der Fachhochschule Weingarten eine ins Hochschulnetz abgeschottete VM zur Verfügung gestellt.
+		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von Spam Nachrichten erhalten werden.
+		Durch diese Informationen soll die die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
+		% TODO Bisschen kurz
 
-
-	% TODO Nehmen wir das?!
 	\subsection{Motivation}\label{sec:Motivation}
-		\begin{itemize}
-		\item Woher kommt Spam?
-		\item Was versucht man mit Spam zu erreichen?
-		\item Wer verschickt Spam?
-		\item Welche Zielgruppe hat Spam?
-		\item Findet man Informationen über Systeme, von denen Spam verschickt wird?
-		\item Werden die Nachrichten generiert? (Bots)
-		\end{itemize}
-		Diese Fragen interessieren uns.
+		Die Nachvollziehbarkeit für das Versenden vom Spam ist vielen Menschen ein Rätsel.
+		Dies wirft die Fragen auf wieso jemand Spam verschicken sollte, wer Spam verschickt und warum.
+		Was passiert wenn man auf Spam absichtlich reagiert?
+		Ein Spam Honeypot bietet die Möglichkeit diese Fragen zu analysieren und die Daten zu erheben.
+		Die Einrichtung, das Publizieren unter Spammern und der Erhalt vieler Spam Mails in kurzer Zeit ist eine gute Herausforderung.
+		% - Wirtschaftlichkeit
+		% - Andere Beweggründe
+		% - Findet man Informationen über Systeme, von denen Spam verschickt wird?
+		% - Werden die Nachrichten generiert? (Bots)
 	
 	\subsection{Vorgehensweise}\label{sec:Vorgehensweise}
-		TODO
+		Eingangsserver
+		\begin{enumerate}
+		\item Mail Eingangsserver bereitstellen und konfigurieren
+		\item DNS Server einrichten um realistische E-Mail-Adressen bereitzustellen
+		\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
+		\item Mails analysieren
+		\end{enumerate}
+
+		Ausgangsserver ("Open Relay") % TODO Ref
+		\begin{enumerate}
+		\item Mail Ausgangsserver bereitstellen und konfigurieren
+		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref
+		\item Eingehende Mails tatsächlich weiterleiten
+		\item Mails analysieren
+		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:Aufbau}
 		TODO
@@ -117,6 +125,7 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 	TODO
+	% Hierzu wird im Rechenzentrum der Fachhochschule Weingarten eine ins Hochschulnetz abgeschottete VM zur Verfügung gestellt.
 
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
