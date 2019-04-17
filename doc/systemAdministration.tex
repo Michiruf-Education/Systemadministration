@@ -23,7 +23,7 @@
 \pagenumbering{roman}
 
 % Cover
-\title{Systemadministration - Mailserver Honypot zum analysieren von Spam}
+\title{Systemadministration - Mailserver Honeypot zum analysieren von Spam}
 \author{Manuel Adams 27470, Michael Ruf 27428, Mario Waizenegger 29608}
 \maketitle
 \begin{abstract}
@@ -31,7 +31,7 @@ Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
 Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
 Damit soll das Verhalten der Spammer und Spam Nachrichten analysiert werden.
 \\\\
-Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
+Zur Durchführung wird hierzu ein Spam \nameref{itm:Honeypot} aufgesetzt.
 Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei unsicheren Diensten registriert.
 \end{abstract}
 
@@ -71,7 +71,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		\item Mails analysieren
 		\end{enumerate}
 
-		Ausgangsserver ("`Open Relay"') % TODO Ref Michi
+		Ausgangsserver
 		\begin{enumerate}
 		\item Mail Ausgangsserver bereitstellen und konfigurieren
 		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref Mario
@@ -105,25 +105,33 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	\item[Virtual Maschine (VM)\label{itm:VirtualMaschine}]\hfill \\
 		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{}
 	% TODO Container
+	\item[DNS\label{itm:DNS}]\hfill \\
+		Das Domain Name System (DNS) ist einer der wichtigsten Dienste in vielen IP-basierten Netzwerken. Seine Hauptaufgabe ist die Beantwortung von Anfragen zur Namensauflösung.\cite{DNS}
+	\item[DKIM\label{itm:DKIM}]\hfill \\
+		DKIM (DomainKeys Identified Mail) ist eine Methode der E-Mail-Authentifizierung. DKIM fügt Ihren Mails eine Signatur hinzu, die Ihrer Domain zugeordnet ist und bei allen ausgehenden E-Mails genutzt wird. Das Verwenden eines DomainKey ist eine Technik (ähnlich wie SPF), die das Fälschen des Absenders einer E-Mail erschweren soll.\cite{DKIM}
+	\item[Hook\label{itm:Hook}]\hfill \\
+		Hook (englisch für Haken, auch Einschubmethode genannt) bezeichnet in der Programmierung eine Schnittstelle, mit der fremder Programmcode in eine bestehende Anwendung integriert werden kann, um diese zu erweitern, deren Ablauf zu verändern oder um bestimmte Ereignisse abzufangen.\cite{Hook}
+	\item[Catch-All-Mail-Adressen\label{itm:Catch-All-Mail}]\hfill \\
+		Ein Catch-All-e-Mail-Konto ist eine Adresse, die alle Nachrichten mehr erhalten möchten, die an eine falsche e-Mail-Adresse für eine Domain adressiert sind angegeben ist.\cite{Catch-All-Mail}
 	\end{description}
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
 	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
 		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
-		Die Authentizität des Mailservers gegenüber anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert. % Ref Michi
+		Die Authentizität des Mailservers gegenüber anderen wird über verschiedene Mechanismen wie bspw. "`\nameref{itm:DKIM}"' \nameref{itm:DNS}-Einträge validiert.
 		\\
 		Der Server soll als Open-Relay dienen. % Mario
 		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
 		\\
 		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
-		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können Hooks eingesetzt werden. % Ref Michi
+		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können "`\nameref{itm:Hook}s"' eingesetzt werden.
 		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden.
 		% TODO Refs and Defs
 
 	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
 		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken.
-		Daher sollen mehrere Catch-All-Mail-Adressen (TODO Def) verwendet werden um sich bei unsichere Diensten anzumelden. % Michi
+		Daher sollen mehrere "`\nameref{itm:Catch-All-Mail}"' verwendet werden um sich bei unsichere Diensten anzumelden.
 		\\
 		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links (TODO Def) enthalten sein können.
 		\\
