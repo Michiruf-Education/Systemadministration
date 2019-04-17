@@ -28,7 +28,7 @@
 \maketitle
 \begin{abstract}
 Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
-Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und zum anderen als Verteiler für den Versandt von Spammails zu dienen.
+Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
 Damit soll das Verhalten der Spammer und Spam Nachrichten analysiert werden.
 \\\\
 Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
@@ -50,7 +50,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 
 	\subsection{Ziel der Arbeit}\label{sec:EinleitungZiel}
 		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von Spam Nachrichten erhalten werden.
-		Durch diese Informationen soll die die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
+		Durch diese Informationen soll die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
 		% TODO Bisschen kurz
 
 	\subsection{Motivation}\label{sec:EinleitungMotivation}
@@ -73,7 +73,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		\item Mails analysieren
 		\end{enumerate}
 
-		Ausgangsserver ("Open Relay") % TODO Ref
+		Ausgangsserver ("`Open Relay"') % TODO Ref
 		\begin{enumerate}
 		\item Mail Ausgangsserver bereitstellen und konfigurieren
 		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref
@@ -125,7 +125,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	% Neu
 	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
 		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
-		Die Authentizität des Mailservers gegenüber Anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert.
+		Die Authentizität des Mailservers gegenüber Anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert. % TODO Anderen
 		\\
 		Der Server soll als Open-Relay dienen.
 		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
@@ -138,13 +138,15 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
 		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken.
 		Daher sollen mehrere Catch-All-Mail-Adressen (TODO Def) verwendet werden um sich bei unsichere Diensten anzumelden.
+		\\
 		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links (TODO Def) enthalten sein können.
+		\\
 		Die Durchführung sollte nicht so wirken als wäre dies maschinell bzw. absichtlich.
 		% TODO Refs and Defs
 	
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
-		Der Ausgangsserver möge als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
-		Aufgrund dessen können versendet Spam-Mails abgehört und analyisiert werden.
+		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
+		Aufgrund dessen können versendete Spam-Mails abgehört und analyisiert werden.
 		Der Honeypot muss dafür bei Spammern als unsicherer Relay-Server und guter Spamverteiler bekannt werden.
 		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
 		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
@@ -184,29 +186,29 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 %
 %\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
 %	TODO
-%
-%
-%\newpage
-%
-%% Quotes
-%\bibliography{zitate}
-%\bibliographystyle{plain}
-%\addcontentsline{toc}{section}{Literatur}
-%
-%% Image listing
-%\listoffigures
-%\addcontentsline{toc}{section}{Abbildungsverzeichnis}
-%
-%% Listings (code examples, ...)
-%\lstlistoflistings
-%\addcontentsline{toc}{section}{Listings}
-%
-%\newpage
-%
-%% Additional stuff
-%\section*{Anhang}\label{Anhang}
-%\addcontentsline{toc}{section}{Anhang}
-%
+
+
+\newpage
+
+% Quotes
+\bibliography{zitate}
+\bibliographystyle{plain}
+\addcontentsline{toc}{section}{Literatur}
+
+% Image listing
+\listoffigures
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+
+% Listings (code examples, ...)
+\lstlistoflistings
+\addcontentsline{toc}{section}{Listings}
+
+\newpage
+
+% Additional stuff
+\section*{Anhang}\label{Anhang}
+\addcontentsline{toc}{section}{Anhang}
+
 %\newpage
 %
 %% Plagiarism declaration
