@@ -32,9 +32,7 @@ Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und soll zum
 Damit soll das Verhalten der Spammer und Spam Nachrichten analysiert werden.
 \\\\
 Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
-Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei ominösen Diensten registriert.
-%\\\\
-%Das Ziel des Projektes ist ...\color{red}{TODO}
+Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei unsicheren Diensten registriert.
 \end{abstract}
 
 \newpage
@@ -73,26 +71,26 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		\item Mails analysieren
 		\end{enumerate}
 
-		Ausgangsserver ("`Open Relay"') % TODO Ref
+		Ausgangsserver ("`Open Relay"') % TODO Ref Michi
 		\begin{enumerate}
 		\item Mail Ausgangsserver bereitstellen und konfigurieren
-		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref
+		\item Als "Open Relay" im Internet durchsickern lassen % TODO Ref Mario
 		\item Eingehende Mails tatsächlich weiterleiten
 		\item Mails analysieren
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
-		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM
-		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container
+		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM Mario
+		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container Manu
 		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
 		Nach Außen soll der Mail-Dienst zur Nutzung als Honeypot verfügbar sein.
 
-		Das Bild \ref{fig:structure} beschreibt den Aufbau.
+		Das Bild \ref{fig:Hierarchy} beschreibt den Aufbau.
 
 		\begin{figure}
 		\includegraphics[width=\linewidth]{2-Hierarchy.png}
 		\caption{Projektstruktur}
-		\label{fig:structure}
+		\label{fig:Hierarchy}
 		\end{figure}
 
 
@@ -100,44 +98,32 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
 	\begin{description}
-	% TODO Honeypot
+	\item[Honeypot\label{itm:Honeypot}]\hfill \\
+		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
 	\item[Open relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
-	% TODO VM
+	\item[Virtual Maschine (VM)\label{itm:VirtualMaschine}]\hfill \\
+		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{}
 	% TODO Container
 	\end{description}
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
-%	% Mario
-%	In der heutigen Zeit ist jeder mit dem Thema Spam konfrontiert und damit wie ein guter Schutz gegen Spammails realisiert werden kann.	
-%	
-%	Um die Ziele von Spammern besser verstehen zu können, aber auch deren Zielgruppen zu ermitteln, sollen durch einen Mailserver Honypot Spamnachrichten empfangen/weitergeleitet und analysiert werden. 
-%	Dabei soll der Mailserver durch unzureichende Sicherheitskonfiguration (\nameref{itm:OpenRelay}) für potentielle Spammer interessant gemacht werden und damit als Ausgangsserver für den Versand von Spam Mails dienen.
-%	
-%	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.
-%\\
-%	Die Schwierigkeiten bei der Umsetzung für das \nameref{itm:OpenRelay} sind, dass der Server in der Spam-Community bekannt und akzeptiert werden muss, aber dieser auch möglichst lange nicht auf den "`\nameref{itm:OpenRelay}"'"~Blacklists auftaucht.
-	
-%	Bei der Verteilung von Mailadressen, könnten diese möglicherweise im Projektzeitraum nicht ausreichend verbreitet werden und somit nur wenige Spammails empfangen werden.
-%\\\\
-
-	% Neu
 	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
 		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
-		Die Authentizität des Mailservers gegenüber Anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert. % TODO Anderen
+		Die Authentizität des Mailservers gegenüber anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert. % Ref Michi
 		\\
-		Der Server soll als Open-Relay dienen.
+		Der Server soll als Open-Relay dienen. % Mario
 		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
 		\\
 		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
-		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können Hooks eingesetzt werden.
+		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können Hooks eingesetzt werden. % Ref Michi
 		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden.
 		% TODO Refs and Defs
 
 	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
 		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken.
-		Daher sollen mehrere Catch-All-Mail-Adressen (TODO Def) verwendet werden um sich bei unsichere Diensten anzumelden.
+		Daher sollen mehrere Catch-All-Mail-Adressen (TODO Def) verwendet werden um sich bei unsichere Diensten anzumelden. % Michi
 		\\
 		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links (TODO Def) enthalten sein können.
 		\\
@@ -147,11 +133,11 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
 		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
 		Aufgrund dessen können versendete Spam-Mails abgehört und analyisiert werden.
-		Der Honeypot muss dafür bei Spammern als unsicherer Relay-Server und guter Spamverteiler bekannt werden.
+		Der Honeypot muss dafür bei Spammern als unsicherer Relay-Server und guter Spamverteiler bekannt werden. % Manu
 		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
 		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
 		\\
-		Nach Möglichkeit sollte der Server nicht in einer Open-Relay Blacklist auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist.
+		Nach Möglichkeit sollte der Server nicht in einer Open-Relay Blacklist auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist. % Mario
 		Da der Mailserver für ausschließlich Spam-Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
 		% TODO Refs and Defs
 
@@ -165,6 +151,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
 	\begin{enumerate}
+	% Michi alle items
 	\item Der Mail-Server MUSS die Mails empfangen und senden können. % TODO Ref ProblemstellungKonfiguration
 	\item E-Mail-Adressen MÜSSEN bei diversen Diensten benutzt werden um den Erhalt von Spam einzuleiten. % TODO Ref
 	\item Der Mail-Server SOLL bei Spammern bekannt werden. Die Honeypot Funktionalität KANN den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~Blacklist auftauchen. % TODO Ref
