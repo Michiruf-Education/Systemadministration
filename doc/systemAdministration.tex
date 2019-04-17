@@ -81,7 +81,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
 		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM Mario
-		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container Manu
+		Auf dieser werden die Dienste in (virtualisierten) \nameref{itm:Container}n aufgesetzt.
 		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
 		Nach Außen soll der Mail-Dienst zur Nutzung als Honeypot verfügbar sein.
 
@@ -101,10 +101,11 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	\item[Honeypot\label{itm:Honeypot}]\hfill \\
 		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
 	\item[Open relay\label{itm:OpenRelay}]\hfill \\
-		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
+	Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\item[Virtual Maschine (VM)\label{itm:VirtualMaschine}]\hfill \\
-		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{}
-	% TODO Container
+	Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{}
+	\item[Container\label{itm:Container}]\hfill \\
+	Containervirtualisierung ist eine Methode, um mehrere Instanzen eines Betriebssystems isoliert voneinander auf einem Hostsystem zu betreiben.\cite{}
 	\end{description}
 
 
@@ -131,9 +132,9 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		% TODO Refs and Defs
 	
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
-		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
+		Der Ausgangsserver soll als \nameref{itm:OpenRelay} Server für Spammer dienen.
 		Aufgrund dessen können versendete Spam-Mails abgehört und analyisiert werden.
-		Der Honeypot muss dafür bei Spammern als unsicherer Relay-Server und guter Spamverteiler bekannt werden. % Manu
+		Der \nameref{itm:Honeypot} muss dafür bei Spammern als unsicherer\nameref{itm:OpenRelay} und guter Spamverteiler bekannt werden.
 		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
 		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
 		\\
