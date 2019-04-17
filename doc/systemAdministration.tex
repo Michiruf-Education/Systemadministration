@@ -29,12 +29,12 @@
 \begin{abstract}
 Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
 Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und zum anderen als Verteiler für den Versandt von Spammails zu dienen.
-Damit soll das Verhalten der Spammer und die konkreten Spam Nachrichten analysiert werden.
+Damit soll das Verhalten der Spammer und Spam Nachrichten analysiert werden.
 \\\\
 Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
-Um die nötigen Daten zu erhalten wird der Mail-Server offen publiziert und durch mehreren Mail-Adressen bei ominösen Diensten registriert.
-\\\\
-Das Ziel des Projektes ist ...\color{red}{TODO}
+Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei ominösen Diensten registriert.
+%\\\\
+%Das Ziel des Projektes ist ...\color{red}{TODO}
 \end{abstract}
 
 \newpage
@@ -126,7 +126,9 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
 		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
 		Die Authentizität des Mailservers gegenüber Anderen wird über verschiedene Mechanismen wie bspw. DKIM DNS-Einträge validiert.
-		Der Server soll als Open-Relay dienen. Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
+		\\
+		Der Server soll als Open-Relay dienen.
+		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
 		\\
 		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
 		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können Hooks eingesetzt werden.
@@ -168,47 +170,46 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	\end{enumerate}
 
 
-\section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
-	TODO
-
-
-\section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
-	TODO
-
-
-\section{Umsetzung}\label{sec:Umsetzung}
-	TODO
-
-
-\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
-	TODO
-
-
-\newpage
-
-% Quotes
-\bibliography{zitate}
-\bibliographystyle{plain}
-\addcontentsline{toc}{section}{Literatur}
-
-% Image listing
-\listoffigures
-\addcontentsline{toc}{section}{Abbildungsverzeichnis}
-
-% TODO What are listings?! -> Code examples
-\lstlistoflistings
-\addcontentsline{toc}{section}{Listings}
-
-\newpage
-
-% Additional stuff
-\section*{Anhang}\label{Anhang}
-\addcontentsline{toc}{section}{Anhang}
-
-\newpage
-
-% Plagiarism declaration
-\section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
-
+%\section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
+%	TODO
+%
+%
+%\section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
+%	TODO
+%
+%
+%\section{Umsetzung}\label{sec:Umsetzung}
+%	TODO
+%
+%
+%\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
+%	TODO
+%
+%
+%\newpage
+%
+%% Quotes
+%\bibliography{zitate}
+%\bibliographystyle{plain}
+%\addcontentsline{toc}{section}{Literatur}
+%
+%% Image listing
+%\listoffigures
+%\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+%
+%% Listings (code examples, ...)
+%\lstlistoflistings
+%\addcontentsline{toc}{section}{Listings}
+%
+%\newpage
+%
+%% Additional stuff
+%\section*{Anhang}\label{Anhang}
+%\addcontentsline{toc}{section}{Anhang}
+%
+%\newpage
+%
+%% Plagiarism declaration
+%\section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
 
 \end{document}
