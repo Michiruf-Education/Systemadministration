@@ -14,6 +14,7 @@
 \usepackage{listings,xcolor}
 \usepackage[numbers,round]{natbib}
 
+% Configuration
 \sloppy
 \setlength{\parindent}{0ex} % Absatzeinrückung verhindern
 \graphicspath{ {images/} }
@@ -27,7 +28,8 @@
 \maketitle
 \begin{abstract}
 Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
-Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und zum anderen als Verteiler für den Versandt von Spammails zu dienen. Damit soll das Verhalten der Spammer und die konkreten Spam Nachrichten analysiert werden.
+Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und zum anderen als Verteiler für den Versandt von Spammails zu dienen.
+Damit soll das Verhalten der Spammer und die konkreten Spam Nachrichten analysiert werden.
 \\\\
 Zur Durchführung wird hierzu ein Spam Honeypot aufgesetzt.
 Um die nötigen Daten zu erhalten wird der Mail-Server offen publiziert und durch mehreren Mail-Adressen bei ominösen Diensten registriert.
@@ -47,7 +49,14 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 \section{Einleitung/Motivation}\label{sec:Einleitung}
 
 	\subsection{Ziel der Arbeit}\label{sec:Ziel}
-		Es sollen durch einen Mailserver Honypot Erkenntnisse über Herkunft, Zweck und Zielgruppen von Spam Nachrichten erhalten werden. Damit die Motivation von Spammern besser verstanden wird und entsprechende Vorkehrungen zum Schutz gegen Spam aus den hier gewonnenen Ergebnissen erzielt werden kann.
+		% Mario
+		Es sollen durch einen Mailserver Honypot Erkenntnisse über Herkunft, Zweck und Zielgruppen von Spam Nachrichten erhalten werden.
+		Damit die Motivation von Spammern besser verstanden wird und entsprechende Vorkehrungen zum Schutz gegen Spam aus den hier gewonnenen Ergebnissen erzielt werden kann.
+\\\\
+		% Manu
+		Es soll ein offener Relay-Mail-Server aufgesetzt werden, der über DNS, Spam-Mails signieren und weiterleiten soll um festzustellen woher Spam kommt und wie versucht wird mit Spam Geld zu verdienen oder welche Beweggründe sonst noch hinter Spam Versand stecken könnten. 
+		Hierzu wird im Rechenzentrum der Fachhochschule Weingarten eine ins Hochschulnetz abgeschottete VM zur Verfügung gestellt.
+
 
 	% TODO Nehmen wir das?!
 	\subsection{Motivation}\label{sec:Motivation}
@@ -72,26 +81,38 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
 	\begin{description}
+	% TODO Honeypot
 	\item[Open relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\end{description}
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
+	% Mario
 	In der heutigen Zeit ist jeder mit dem Thema Spam konfrontiert und damit wie ein guter Schutz gegen Spammails realisiert werden kann.	
 	
 	Um die Ziele von Spammern besser verstehen zu können, aber auch deren Zielgruppen zu ermitteln, sollen durch einen Mailserver Honypot Spamnachrichten empfangen/weitergeleitet und analysiert werden. 
 	Dabei soll der Mailserver durch unzureichende Sicherheitskonfiguration (\nameref{itm:OpenRelay}) für potentielle Spammer interessant gemacht werden und damit als Ausgangsserver für den Versand von Spam Mails dienen.
 	
-	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.\\
-	
+	Außerdem sollen unauffällige Mailadressen durch Anmeldung an ominösen Diensten und Plattformen im Netz verteilt werden, sodass an diese Adressen Spam empfangen werden kann.
+\\
 	Die Schwierigkeiten bei der Umsetzung für das \nameref{itm:OpenRelay} sind, dass der Server in der Spam-Community bekannt und akzeptiert werden muss, aber dieser auch möglichst lange nicht auf den "`\nameref{itm:OpenRelay}"'"~Blacklists auftaucht.
 	
 	Bei der Verteilung von Mailadressen, könnten diese möglicherweise im Projektzeitraum nicht ausreichend verbreitet werden und somit nur wenige Spammails empfangen werden.
+\\\\
+	% Manu
+	Um bei Spammern als offener Relay-Server bekannt zu werden könnte es Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
+	Um den Empfang von Spam zu beschleunigen werden von uns verschiedene E-Mail-Adressen bei Socialmedia-Seiten und anderen unsicheren Seiten registriert.
+	Im Fall von Spam Empfang sollen dann auch eventuelle Links und Bilder in den Nachrichten geöffnet werden um die Aktivität der Mail für den Spammer anzuzeigen.
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
-	TODO
+	\begin{itemize}
+	\item Der Mail-Server muss unter Spammern publik gemacht werden.
+	\item Der Mail-Server muss über DNS Einträge Mails signieren und weiter versenden können.
+	\item Der Mail-Server muss als Mail-Relay-Server aufgesetzt werden.
+	\item Es muss sichergestellt werden das Dritte keinen unberechtigten Zugriff auf die VM erhalten.
+	\end{itemize}
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
@@ -110,8 +131,9 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	TODO
 
 
-% Quotes
 \newpage
+
+% Quotes
 \bibliography{zitate}
 \bibliographystyle{plain}
 \addcontentsline{toc}{section}{Literatur}
