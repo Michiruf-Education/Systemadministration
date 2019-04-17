@@ -27,11 +27,11 @@
 \author{Manuel Adams 27470, Michael Ruf 27428, Mario Waizenegger 29608}
 \maketitle
 \begin{abstract}
-Heutzutage wird viel Spam verschickt. Einiges davon wird erkannt und gefiltert.
-Das Projekt befasst sich zum einen mit der Aufgabe Spam zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
-Damit soll das Verhalten der Spammer und Spam Nachrichten analysiert werden.
+Heutzutage wird viel \nameref{itm:Spam} verschickt. Einiges davon wird erkannt und gefiltert.
+Das Projekt befasst sich zum einen mit der Aufgabe \nameref{itm:Spam} zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
+Damit soll das Verhalten der Spammer und \nameref{itm:Spam} Nachrichten analysiert werden.
 \\\\
-Zur Durchführung wird hierzu ein Spam \nameref{itm:Honeypot} aufgesetzt.
+Zur Durchführung wird hierzu ein \nameref{itm:Spam} \nameref{itm:Honeypot} aufgesetzt.
 Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei unsicheren Diensten registriert.
 \end{abstract}
 
@@ -47,16 +47,16 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 \section{Einleitung/Motivation}\label{sec:Einleitung}
 
 	\subsection{Ziel der Arbeit}\label{sec:EinleitungZiel}
-		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von Spam Nachrichten erhalten werden.
+		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von \nameref{itm:Spam} Nachrichten erhalten werden.
 		Durch diese Informationen soll die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
-		% TODO Bisschen kurz
+		% NOTE Bisschen kurz
 
 	\subsection{Motivation}\label{sec:EinleitungMotivation}
-		Die Nachvollziehbarkeit für das Versenden vom Spam ist vielen Menschen ein Rätsel.
-		Dies wirft die Fragen auf wieso jemand Spam verschicken sollte, wer Spam verschickt und warum.
-		Was passiert wenn man auf Spam absichtlich reagiert?
-		Ein Spam Honeypot bietet die Möglichkeit diese Fragen zu analysieren und die Daten zu erheben.
-		Die Einrichtung, das Publizieren unter Spammern und der Erhalt vieler Spam Mails in kurzer Zeit ist eine gute Herausforderung.
+		Die Nachvollziehbarkeit für das Versenden vom \nameref{itm:Spam} ist vielen Menschen ein Rätsel.
+		Dies wirft die Fragen auf wieso jemand \nameref{itm:Spam} verschicken sollte, wer \nameref{itm:Spam} verschickt und warum.
+		Was passiert wenn man auf \nameref{itm:Spam} absichtlich reagiert?
+		Ein \nameref{itm:Spam} \nameref{itm:Honeypot} bietet die Möglichkeit diese Fragen zu analysieren und die Daten zu erheben.
+		Die Einrichtung, das Publizieren unter Spammern und der Erhalt vieler \nameref{itm:Spam} Mails in kurzer Zeit ist eine gute Herausforderung.
 		% - Wirtschaftlichkeit
 		% - Andere Beweggründe
 		% - Findet man Informationen über Systeme, von denen Spam verschickt wird?
@@ -66,7 +66,7 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Eingangsserver
 		\begin{enumerate}
 		\item Mail Eingangsserver bereitstellen und konfigurieren
-		\item DNS Server einrichten um realistische E-Mail-Adressen bereitzustellen
+		\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
 		\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
 		\item Mails analysieren
 		\end{enumerate}
@@ -98,17 +98,18 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
 	\begin{description}
+	\item[Spam\label{itm:Spam}]\hfill \\
+		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten (Informationen) bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
 	\item[Honeypot\label{itm:Honeypot}]\hfill \\
 		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
-	\item[Open relay\label{itm:OpenRelay}]\hfill \\
+	\item[Open Relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
 		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
 	\item[Blacklist \label{itm:Blacklist}]\hfill \\
 		Eine Blacklist oder "`schwarze Liste"' enthält eine Auflistung von Daten, die von einem Prozess ausgeschlossen werden solle. Das Gegenteil dazu ist eine Whitelist. \cite{Blacklist}
 	\item[Container\label{itm:Container}]\hfill \\
-		Containervirtualisierung ist eine Methode, um mehrere Instanzen eines Betriebssystems isoliert voneinander auf einem Hostsystem zu betreiben.\cite{}
-	% TODO Container
+		Containervirtualisierung ist eine Methode, um mehrere Instanzen eines Betriebssystems isoliert voneinander auf einem Hostsystem zu betreiben.\cite{Container}
 	\item[DNS\label{itm:DNS}]\hfill \\
 		Das Domain Name System (DNS) ist einer der wichtigsten Dienste in vielen IP-basierten Netzwerken. Seine Hauptaufgabe ist die Beantwortung von Anfragen zur Namensauflösung.\cite{DNS}
 	\item[DKIM\label{itm:DKIM}]\hfill \\
@@ -131,43 +132,38 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
 		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können "`\nameref{itm:Hook}s"' eingesetzt werden.
 		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden.
-		% TODO Refs and Defs
 
 	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
 		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken.
 		Daher sollen mehrere "`\nameref{itm:Catch-All-Mail}"' verwendet werden um sich bei unsichere Diensten anzumelden.
 		\\
-		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links (TODO Def) enthalten sein können.
+		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links enthalten sein können. % NOTE Def Tacking
 		\\
 		Die Durchführung sollte nicht so wirken als wäre dies maschinell bzw. absichtlich.
-		% TODO Refs and Defs
 	
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
-		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'" Server für Spammer dienen.
-		Aufgrund dessen können versendete Spam-Mails abgehört und analyisiert werden.
+		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'"~Server für Spammer dienen.
+		Aufgrund dessen können versendete \nameref{itm:Spam}"~Mails abgehört und analysiert werden.
 		Der \nameref{itm:Honeypot} muss dafür bei Spammern als unsicherer\nameref{itm:OpenRelay} und guter Spamverteiler bekannt werden.
 		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden.
 		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
 		\\
 		Nach Möglichkeit sollte der Server nicht in einer \nameref{itm:OpenRelay} \nameref{itm:Blacklist} auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist.
-		Da der Mailserver für ausschließlich Spam-Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
-		% TODO Refs and Defs
+		Da der Mailserver für ausschließlich \nameref{itm:Spam}"~Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
 
 	\subsection{Analysieren}\label{sec:ProblemstellungAnalysieren}
-		Da die Spam-Mails analysiert werden sollen besteht das Hauptproblem darin herauszufinden was genau Analysiert werden soll und kann.
-		Falls möglich wäre es sinnvoll festzustellen ob man über Spam-Mails eventuell Informationen über das System von dem verschickt wurde erhalten kann.
-		Könnte man den Weg den die Spam-Mails vom Versender bis zum Empfänger gekommen sind zurückverfolgen?
+		Da die \nameref{itm:Spam}-Mails analysiert werden sollen besteht das Hauptproblem darin herauszufinden was genau analysiert werden soll und kann.
+		Falls möglich wäre es sinnvoll festzustellen ob man über \nameref{itm:Spam}"~Mails eventuell Informationen über das System von dem verschickt wurde erhalten kann.
+		Könnte man den Weg den die \nameref{itm:Spam}"~Mails vom Versender bis zum Empfänger gekommen sind zurückverfolgen?
 		Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren.
-		% TODO Refs and Defs
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
 	\begin{enumerate}
-	% Michi alle items
-	\item Der Mail-Server MUSS die Mails empfangen und senden können. (\autoref{sec:ProblemstellungKonfiguration})
-	\item E-Mail-Adressen MÜSSEN bei diversen Diensten benutzt werden um den Erhalt von Spam einzuleiten. (\autoref{sec:ProblemstellungMailsVerteilen})
-	\item Der Mail-Server SOLL bei Spammern bekannt werden. Die Honeypot Funktionalität KANN den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~\nameref{itm:Blacklist} auftauchen. (\autoref{sec:ProblemstellungPublizieren})
-	\item Die E-Mails MÜSSEN analysiert werden können. (\autoref{sec:ProblemstellungAnalysieren})
+	\item Der Mail"~Server \textbf{muss} die Mails empfangen und senden können. (\autoref{sec:ProblemstellungKonfiguration})
+	\item E"~Mail"~Adressen \textbf{müssen} bei diversen Diensten benutzt werden um den Erhalt von \nameref{itm:Spam} einzuleiten. (\autoref{sec:ProblemstellungMailsVerteilen})
+	\item Der Mail"~Server \textbf{soll} bei Spammern bekannt werden. Die \nameref{itm:Honeypot} Funktionalität \textbf{kann} den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~\nameref{itm:Blacklist} auftauchen. (\autoref{sec:ProblemstellungPublizieren})
+	\item Die E"~Mails \textbf{müssen} analysiert werden können. (\autoref{sec:ProblemstellungAnalysieren})
 	\end{enumerate}
 
 
