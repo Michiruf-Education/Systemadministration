@@ -82,7 +82,18 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:Aufbau}
-		TODO
+		Die Hochschule Weingarten stellt für das Projekt eine Virtuelle Maschine (VM) zur Verfügung. %TODO Ref VM
+		Auf dieser werden die Dienste in (virtualisierten) Containern aufgesetzt. % TODO Ref Container
+		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
+		Nach Außen soll der Mail-Dienst zur Nutzung als Honeypot verfügbar sein.
+
+		Das Bild \ref{fig:structure} beschreibt den Aufbau.
+
+		\begin{figure}
+		\includegraphics[width=\linewidth]{2-Hierarchy.png}
+		\caption{Projektstruktur}
+		\label{fig:structure}
+		\end{figure}
 
 
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
@@ -92,6 +103,8 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 	% TODO Honeypot
 	\item[Open relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
+	% TODO VM
+	% TODO Container
 	\end{description}
 
 
@@ -125,7 +138,6 @@ Das Ziel des Projektes ist ...\color{red}{TODO}
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 	TODO
-	% Hierzu wird im Rechenzentrum der Fachhochschule Weingarten eine ins Hochschulnetz abgeschottete VM zur Verfügung gestellt.
 
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
