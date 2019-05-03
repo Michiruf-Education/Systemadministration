@@ -43,7 +43,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 % Content
 \section{Einleitung}\label{sec:Einleitung}
-	% "Wir" erlaubt
+	% NOTE "Wir" erlaubt
 	Warum \nameref{itm:Spam} versandt wird ist vielen Menschen ein Rätsel.
 	Das wirft die Fragen auf, wer Spam versendet und was die Beweggründe von Spammern sind.
 	Wie geht man mit Spam um und was passiert wenn man auf \nameref{itm:Spam} reagiert?
@@ -72,7 +72,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Aus Sicherheitsgründen muss die VM ins interne Netz abgeschottet sein.
 		Der Aufbau ist in \autoref{fig:Hierarchy} visualisiert.
 
-		% TODO Schrift vom Bild viel zu klein
 		\begin{figure}[H]
 		\includegraphics[width=\linewidth]{2-Hierarchy.png}
 		\caption{Netzwerkstruktur}
@@ -111,7 +110,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten (Informationen) bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
 	\item[Honeypot\label{itm:Honeypot}]\hfill \\
 		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
-	\item[Open Relay\label{itm:OpenRelay}]\hfill \\
+	\item[Open-Relay\label{itm:OpenRelay}]\hfill \\
 		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
 		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
@@ -131,63 +130,82 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 
 \section{Problemstellung}\label{sec:Problemstellung}
-	% Hier erstmal noch zusammen fassen
-
+	Spammer dokumentieren ihre Arbeit eher nicht.
+	Daher sind deren Vorgehensweisen unklar.
+	Um einen Einblick zu erhalten sind nachfolgende Probleme zu lösen.
 	% Unterpunkte:
 	% - Sehr konkret
 	% - Forschungsfrage festnageln
 
 	\subsection{Konfiguration}\label{sec:ProblemstellungKonfiguration}
-		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen und zu senden.
-		Die Authentizität des Mailservers gegenüber anderen wird über verschiedene Mechanismen wie bspw. "`\nameref{itm:DKIM}"' \nameref{itm:DNS}-Einträge validiert.
+		Um einen reibungslosen Ablauf zu gewährleisten muss der Mailserver in der Lage sein Mails zu empfangen.
+		Empfangene Mails sollen persistiert werden.
+		Eine hohe Verfügbarkeit ist hier von Vorteil.
 		\\
-		Der Server soll als \nameref{itm:OpenRelay} dienen.
-		Dabei soll der Server durch unzureichende Sicherheitskonfiguration den Versand von externen Mails erlauben.
+		Der Server soll zudem als \nameref{itm:OpenRelay} dienen.
+		Hierfür muss dieser so konfiguriert werden, dass eingehende externe Mails nicht abgewiesen werden.
 		\\
-		Mails die empfangen und gesendet werden sollen persistiert werden um jederzeit in der Lage zu sein diese Daten zu analysieren.
-		Hierfür bietet sich ein Datenbank Server an. Um die Mails abzugreifen können "`\nameref{itm:Hook}s"' eingesetzt werden.
-		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden.
+		Um die Mails abzulegen bietet sich ein Datenbank Server an.
+		Die Daten auf dem Mail-Server dürfen dadurch jederzeit verworfen werden und Änderungen am Mailserver können ohne Auswirkung auf vorhandene Daten umgesetzt werden.
 
-	% Abschnitt unklar, wieder schrittweise vorgehen
 	\subsection{Mail-Adressen verteilen}\label{sec:ProblemstellungMailsVerteilen}
-		% 1. Problem: Mails müssen echt wirken... evtl. Unterpunkte dann mit Auflistung wie wir das erreichen
-		% 2. Wie schaffen wir das -> frühe Verteilung (und hier dann das Warum von unten)
-		Die Schwierigkeit E-Mail-Adressen als echt wirken zu lassen um damit Spam zu erhalten lässt sich durch eine frühe Verteilung bzw. Verwendung der E-Mail-Adressen bewirken. % Warum?!
-		Daher sollen mehrere "`\nameref{itm:Catch-All-Mail}"' verwendet werden um sich bei unsichere Diensten anzumelden.
-		\\
-		Um die E-Mail-Adresse als echt wirken zu lassen und den Erhalt zu beschleunigen bietet es sich an auf Links eingegangener Mails zu reagieren und diese anzuklicken, da Tracking-Links enthalten sein können. % NOTE Def Tacking
-		\\
-		Die Durchführung sollte nicht so wirken als wäre dies maschinell bzw. absichtlich. % Wieso kommt das nun hier? Also quasi wieder echt wirken
-	
+		Damit authentische Spam Mails erhalten werden müssen die E-Mail-Adressen echt wirken.
+		Um das zu erreichen müssen die Adressen
+		\begin{itemize}
+		\item möglichst lange, also möglichst früh in Verwendung sein,
+		\item aktiv benutzt werden
+		\item und bei möglichst vielen Diensten benutzt werden.
+		\end{itemize}
+		Es soll identifiziert werden können von welchem Dienst eine Mail eingeht.
+		Zudem bietet es sich an auf eingehende Spam-Mails zu reagieren indem man bspw. auf vorhandene Links klickt, da Tracking-Links enthalten sein können oder auf die Mail antwortet. % TODO Def Tracking
+
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
-		Der Ausgangsserver soll als "`\nameref{itm:OpenRelay}"'"~Server für Spammer dienen.
-		Aufgrund dessen können versendete \nameref{itm:Spam}"~Mails abgehört und analysiert werden.
-		Der \nameref{itm:Honeypot} muss dafür bei Spammern als unsicherer\nameref{itm:OpenRelay} und guter Spamverteiler bekannt werden.
-		Im Internet muss die Adresse des Servers hierzu an den richtigen Stellen verteilt werden. % Was ist richtig? -> So verteilen, dass Spammer die erhalten
-		Dieser Vorgang könnte Monate dauern, daher muss noch eine Möglichkeit gefunden werden, diesen Prozess zu beschleunigen.
-		\\
-		Nach Möglichkeit sollte der Server nicht in einer \nameref{itm:OpenRelay} \nameref{itm:Blacklist} auftauchen, da er ansonsten nicht mehr attraktiv für Spammer ist.
-		Da der Mailserver für ausschließlich \nameref{itm:Spam}"~Mails verwendet wird, wird sich dies wahrscheinlich nicht verhindern lassen.
+		Der \nameref{itm:Honeypot} muss bei Spammern als unsicher wirkender \nameref{itm:OpenRelay} und guter Spamverteiler bekannt werden.
+		Im Internet muss die Adresse des Servers hierzu so verteilt werden, dass Spammer darauf aufmerksam werden.
+		Nach Möglichkeit sollte der Server nicht in einer \nameref{itm:OpenRelay} \nameref{itm:Blacklist} auftauchen, da er ansonsten nicht mehr nützlich für Spammer ist.
 
 	\subsection{Analysieren}\label{sec:ProblemstellungAnalysieren}
-		Da die \nameref{itm:Spam}-Mails analysiert werden sollen besteht das Hauptproblem darin herauszufinden was genau analysiert werden soll und kann.
-		Falls möglich wäre es sinnvoll festzustellen ob man über \nameref{itm:Spam}"~Mails eventuell Informationen über das System von dem verschickt wurde erhalten kann.
-		Könnte man den Weg den die \nameref{itm:Spam}"~Mails vom Versender bis zum Empfänger gekommen sind zurückverfolgen?
-		Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren.
+		Es soll erarbeitet werden, welche Aspekte von Spam analysiert werden können:
+		\begin{itemize}
+		\item Kann man Informationen über das System von dem gesendet wurde erhalten?
+		\item Könnte man den Weg den die \nameref{itm:Spam}"~Mails vom Versender bis zum Empfänger genommen haben zurückverfolgen?
+		\item Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren?
+		\end{itemize}
 
 
-% Schrägstiche in Überschriften wegmachen
-\section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
-	% Was brauchen wir für Lösung von Problemstellung
-	% TODO Text vor aufzählen
-	Folgende technische Anforderungen müssen... damit ...
+\section{Anforderungsanalyse}\label{sec:Anforderungsanalyse}
+	Folgende Anforderungen \textbf{MÜSSEN}/\textbf{SOLLEN}/\textbf{KÖNNEN} erarbeitet werden, damit die \nameref{sec:Problemstellung} gelöst werden kann:
 
-	\begin{enumerate}
-	\item Der Mail"~Server \textbf{muss} die Mails empfangen und senden können. (\autoref{sec:ProblemstellungKonfiguration})
-	\item E"~Mail"~Adressen \textbf{müssen} bei diversen Diensten benutzt werden um den Erhalt von \nameref{itm:Spam} einzuleiten. (\autoref{sec:ProblemstellungMailsVerteilen})
-	\item Der Mail"~Server \textbf{soll} bei Spammern bekannt werden. Die \nameref{itm:Honeypot} Funktionalität \textbf{kann} den Spammern möglichst lange unerkannt bleiben und nach Möglichkeit auf keiner "`\nameref{itm:OpenRelay}"'"~\nameref{itm:Blacklist} auftauchen. (\autoref{sec:ProblemstellungPublizieren})
-	\item Die E"~Mails \textbf{müssen} analysiert werden können. (\autoref{sec:ProblemstellungAnalysieren})
-	\end{enumerate}
+	\begin{itemize}
+	\item
+		Der Mail"~Server \textbf{MUSS} die Mails empfangen können.
+		(\ref{sec:ProblemstellungKonfiguration})
+	\item
+		Es \textbf{MUSS} auf eingehende Spam"~Mails reagiert werden.
+		(\ref{sec:ProblemstellungMailsVerteilen})
+	\item
+		Es \textbf{MUSS} erarbeitet werden, welche Aspekte von Spam analysiert werden können.
+		(\ref{sec:ProblemstellungAnalysieren})
+	\item
+		Der Mail"~Server \textbf{SOLL} als \nameref{itm:OpenRelay} dienen.
+		Diese Mails sollen nicht versendet, sondern lediglich persistiert werden.
+		(\ref{sec:ProblemstellungKonfiguration})
+	\item
+		Die Mail"~Adressen \textbf{SOLLEN} echt wirken.
+		(\ref{sec:ProblemstellungMailsVerteilen})
+	\item
+		Die Adresse des \nameref{itm:OpenRelay} Servers \textbf{SOLL} bei Spammern bekannt werden.
+		(\ref{sec:ProblemstellungPublizieren})
+	\item
+		Die Daten \textbf{KÖNNEN} auf einem Datenbankserver abgelegt werden, welcher über Mail"~"`\nameref{itm:Hook}s"' die Daten bekommt.
+		(\ref{sec:ProblemstellungKonfiguration})
+	\item
+		Zur Identifizierung \textbf{KANN} sich bei den Diensten mit einer "`\nameref{itm:Catch-All-Mail}"' mit einem Präfix für den jeweiligen Dienst registriert werden.
+		(\ref{sec:ProblemstellungMailsVerteilen})
+	\item
+		Der Server \textbf{KÖNNTE} nicht in einer \nameref{itm:OpenRelay} \nameref{itm:Blacklist} auftauchen.
+		(\ref{sec:ProblemstellungPublizieren})
+	\end{itemize}
 
 
 %\section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
@@ -202,6 +220,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 %	TODO
 %
 %
+%% Chrisi: Schrägstiche in Überschriften wegmachen
 %\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
 %	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
 %	"Wir" ist hier erlaubt
@@ -219,16 +238,16 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 \listoffigures
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
 
-% Listings (code examples, ...)
-\lstlistoflistings
-\addcontentsline{toc}{section}{Listings}
-
-\newpage
-
-% Additional stuff
-\section*{Anhang}\label{Anhang}
-\addcontentsline{toc}{section}{Anhang}
-
+%% Listings (code examples, ...)
+%\lstlistoflistings
+%\addcontentsline{toc}{section}{Listings}
+%
+%\newpage
+%
+%% Additional stuff
+%\section*{Anhang}\label{Anhang}
+%\addcontentsline{toc}{section}{Anhang}
+%
 %\newpage
 %
 %% Plagiarism declaration
