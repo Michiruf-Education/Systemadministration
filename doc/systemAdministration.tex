@@ -29,11 +29,8 @@
 \maketitle
 \begin{abstract}
 Heutzutage wird viel \nameref{itm:Spam} verschickt. Einiges davon wird erkannt und gefiltert.
-% Umdrehen. Erst sagen was erreichen, und dann wie
-% "Ziel ist es die Analysen zu ermöglichen" (muss nicht sein, dass wir die erreichen)
-Ein Mailserver soll zum einen \nameref{itm:Spam}-Nachrichten erhalten und zum anderen als offener Verteiler für Spammer verfügbar sein.
-Zum einen soll der Inhalt von Spam-Nachrichten und zum anderen das Verhalten der Spammer analysiert werden.
-Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
+Um die Analyse von Spam-Nachrichten und deren Versender zu ermöglichen, wird ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
+Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener Verteiler für Spammer verfügbar sein.
 \end{abstract}
 
 \newpage
@@ -46,17 +43,16 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 
 % Content
 \section{Einleitung}\label{sec:Einleitung}
-% "wir" erlaubt (auch in Fazit)
-% Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
+	% "Wir" erlaubt
 	Warum \nameref{itm:Spam} versandt wird ist vielen Menschen ein Rätsel.
 	Das wirft die Fragen auf, wer Spam versendet und was die Beweggründe von Spammern sind.
 	Wie geht man mit Spam um und was passiert wenn man auf \nameref{itm:Spam} reagiert?
 	Ein \nameref{itm:Spam} \nameref{itm:Honeypot} bietet die Möglichkeit diese Fragen zu analysieren und die nötigen Daten zu erheben.
-	% Warum lohnt sich das?
-	\\ % Absatz optional (bei uns evtl. eher nicht)
-	% Warum schwierig
-	% Zeitaufwendig
-	% -> Kann man beim Ergebnis nochmal Stellungnahme nehmen oder hier nochmal verfeinern
+	% NOTE Warum lohnt sich das?
+	\\
+	Da die Methoden von erfolgreichen Spammern nicht dokumentiert sind, ist das Bekanntmachen des "`\nameref{itm:OpenRelay}"'"~Servers schwierig.
+	Zudem ist es zeitaufwendig die eigenen Mail-Adressen unter Spammern bekannt zu machen und viele authentische Spam-Mails in kurzer Zeit zu erhalten eine Herausforderung.
+	% NOTE Man kann man beim Ergebnis nochmal Stellungnahme hierzu nehmen oder den Text hier ergänzen
 	% -----
 	% - Wirtschaftlichkeit
 	% - Andere Beweggründe
@@ -65,18 +61,16 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 
 	\subsection{Ziel der Arbeit}\label{sec:EinleitungZiel}
 		Es soll durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von \nameref{itm:Spam} Nachrichten erhalten werden.
-		Durch diese Informationen soll die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
-		% Was wird genau analysiert
-		% NOTE Bisschen kurz
+		Zusätzlich soll erarbeitet werden welche weiteren nützlichen Informationen man den Mails entnehmen kann.
+		Durch diese Informationen soll die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz ermöglicht werden.
+		% NOTE Was wird genau analysiert
 	
 	\subsection{Vorgehensweise}\label{sec:EinleitungVorgehensweise}
-		% Reihenfolge drehen: von Spam zur notwendigen VM gehen, nicht die VM erwähnen und dann Richtung Spam gehen
-		Auf einer \nameref{itm:VirtuelleMaschine} werden die Dienste in \nameref{itm:Container}n aufgesetzt.
+		Um den Honeypot zu realisieren muss der Mail-Dienst aus dem Internet zugänglich sein.
+		Dieser besteht hierbei aus Ausgangsserver und Eingangsserver.
+		Hierzu werden auf einer \nameref{itm:VirtuelleMaschine} die Dienste in \nameref{itm:Container}n aufgesetzt.
+		Aus Sicherheitsgründen muss die VM ins interne Netz abgeschottet sein.
 		Der Aufbau ist in \autoref{fig:Hierarchy} visualisiert.
-		% TODO Dann nochmal darauf eingehen
-		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
-		%%%Nach außen soll der Mail-Dienst zur Nutzung als \nameref{itm:Honeypot} verfügbar sein.
-		Nach außen soll der Mail-Dienst als Ausgangsserver und Eingangsserver für Mails verfügbar sein.
 
 		% TODO Schrift vom Bild viel zu klein
 		\begin{figure}[H]
@@ -85,7 +79,7 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 		\label{fig:Hierarchy}
 		\end{figure}
 
-		Den Eingangsserver betreffend gibt es folgende Aufgaben % umformulieren
+		Um den Eingangsserver zu realisieren sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
 		\item Mail Eingangsserver bereitstellen und konfigurieren
 		\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
@@ -93,7 +87,7 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 		\item Mails analysieren
 		\end{enumerate}
 
-		Ausgangsserver % same shit
+		Den Ausgangsserver betreffend sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
 		\item Mail Ausgangsserver bereitstellen und konfigurieren
 		\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
@@ -111,6 +105,7 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
+	% NOTE Alle nochmal durchnudeln
 	\begin{description}
 	\item[Spam\label{itm:Spam}]\hfill \\
 		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten (Informationen) bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
@@ -208,6 +203,8 @@ Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
 %
 %
 %\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
+%	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
+%	"Wir" ist hier erlaubt
 %	TODO
 
 
