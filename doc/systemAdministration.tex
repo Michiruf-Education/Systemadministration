@@ -13,6 +13,7 @@
 \usepackage[rightcaption]{sidecap}
 \usepackage{listings,xcolor}
 \usepackage[numbers,round]{natbib}
+\usepackage{float} % For image floating ([H] -> "here")
 
 % Configuration
 \sloppy
@@ -28,11 +29,12 @@
 \maketitle
 \begin{abstract}
 Heutzutage wird viel \nameref{itm:Spam} verschickt. Einiges davon wird erkannt und gefiltert.
-Das Projekt befasst sich zum einen mit der Aufgabe \nameref{itm:Spam} zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
-Damit soll das Verhalten der Spammer und \nameref{itm:Spam} Nachrichten analysiert werden.
-\\\\
-Zur Durchführung wird hierzu ein \nameref{itm:Spam} \nameref{itm:Honeypot} aufgesetzt.
-Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei unsicheren Diensten registriert.
+%%%Das Projekt befasst sich zum einen mit der Aufgabe \nameref{itm:Spam} zu erhalten und soll zum anderen als Verteiler für Spammails zu dienen.
+Ein Mailserver soll zum einen \nameref{itm:Spam}-Nachrichten erhalten und zum anderen als offener Verteiler für Spammer verfügbar sein.
+%%%Damit soll das Verhalten der Spammer und \nameref{itm:Spam} Nachrichten analysiert werden.
+Zum einen soll der Inhalt von Spam-Nachrichten und zum anderen das Verhalten der Spammer analysiert werden.
+Zur Durchführung wird hierzu ein Mailserver \nameref{itm:Honeypot} aufgesetzt.
+%%%Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen publiziert und sich mit mehreren E-Mail-Adressen bei unsicheren Diensten registriert.
 \end{abstract}
 
 \newpage
@@ -45,24 +47,36 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 
 % Content
 \section{Einleitung/Motivation}\label{sec:Einleitung}
+	%%%Die Nachvollziehbarkeit für das Versenden vom \nameref{itm:Spam} ist vielen Menschen ein Rätsel.
+	Warum \nameref{itm:Spam} versandt wird ist vielen Menschen ein Rätsel.
+	%%%Dies wirft die Fragen auf wieso jemand \nameref{itm:Spam} verschicken sollte, wer \nameref{itm:Spam} verschickt und warum.
+	Das wirft die Fragen auf, wer Spam versendet und was die Beweggründe von Spammern sind.
+	Was passiert wenn man auf \nameref{itm:Spam} absichtlich reagiert?
+	Ein \nameref{itm:Spam} \nameref{itm:Honeypot} bietet die Möglichkeit diese Fragen zu analysieren und die nötigen Daten zu erheben.
+	%%%Die Einrichtung, das Publizieren unter Spammern und der Erhalt vieler \nameref{itm:Spam} Mails in kurzer Zeit ist eine gute Herausforderung.
+	% - Wirtschaftlichkeit
+	% - Andere Beweggründe
+	% - Findet man Informationen über Systeme, von denen Spam verschickt wird?
+	% - Werden die Nachrichten generiert? (Bots)
 
 	\subsection{Ziel der Arbeit}\label{sec:EinleitungZiel}
-		Es sollen durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von \nameref{itm:Spam} Nachrichten erhalten werden.
+		Es soll durch einen Mailserver Honeypot Erkenntnisse über Herkunft, Zweck und Zielgruppe von \nameref{itm:Spam} Nachrichten erhalten werden.
 		Durch diese Informationen soll die Motivation von Spammern besser verstanden und entsprechende Vorkehrungen zum Schutz erzielt werden können.
 		% NOTE Bisschen kurz
-
-	\subsection{Motivation}\label{sec:EinleitungMotivation}
-		Die Nachvollziehbarkeit für das Versenden vom \nameref{itm:Spam} ist vielen Menschen ein Rätsel.
-		Dies wirft die Fragen auf wieso jemand \nameref{itm:Spam} verschicken sollte, wer \nameref{itm:Spam} verschickt und warum.
-		Was passiert wenn man auf \nameref{itm:Spam} absichtlich reagiert?
-		Ein \nameref{itm:Spam} \nameref{itm:Honeypot} bietet die Möglichkeit diese Fragen zu analysieren und die Daten zu erheben.
-		Die Einrichtung, das Publizieren unter Spammern und der Erhalt vieler \nameref{itm:Spam} Mails in kurzer Zeit ist eine gute Herausforderung.
-		% - Wirtschaftlichkeit
-		% - Andere Beweggründe
-		% - Findet man Informationen über Systeme, von denen Spam verschickt wird?
-		% - Werden die Nachrichten generiert? (Bots)
 	
 	\subsection{Vorgehensweise}\label{sec:EinleitungVorgehensweise}
+		%%%Die Hochschule Weingarten stellt für das Projekt eine \nameref{itm:VirtuelleMaschine} zur Verfügung.
+		Auf einer \nameref{itm:VirtuelleMaschine} (\autoref{fig:Hierarchy}) werden die Dienste in \nameref{itm:Container}n (\autoref{fig:Hierarchy}) aufgesetzt.
+		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein (\autoref{fig:Hierarchy}).
+		%%%Nach außen soll der Mail-Dienst zur Nutzung als \nameref{itm:Honeypot} verfügbar sein.
+		Nach außen soll der Mail-Dienst als Ausgangsserver und Eingangsserver für Mails verfügbar sein.
+
+		\begin{figure}[H]
+		\includegraphics[width=\linewidth]{2-Hierarchy.png}
+		\caption{Projektskizze}
+		\label{fig:Hierarchy}
+		\end{figure}
+
 		Eingangsserver
 		\begin{enumerate}
 		\item Mail Eingangsserver bereitstellen und konfigurieren
@@ -80,18 +94,8 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
-		Die Hochschule Weingarten stellt für das Projekt eine \nameref{itm:VirtuelleMaschine} zur Verfügung.
-		Auf dieser werden die Dienste in (virtualisierten) \nameref{itm:Container}n aufgesetzt.
-		Die VM muss aus Sicherheitsgründen ins interne Netz abgeschottet sein.
-		Nach Außen soll der Mail-Dienst zur Nutzung als Honeypot verfügbar sein.
-
-		Das Bild \ref{fig:Hierarchy} beschreibt den Aufbau.
-
-		\begin{figure}
-		\includegraphics[width=\linewidth]{2-Hierarchy.png}
-		\caption{Projektstruktur}
-		\label{fig:Hierarchy}
-		\end{figure}
+		% Hier geht es wirklich um den Aufbau der wissenschaftlichen Arbeit, nicht um das Projekt
+		TODO
 
 
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
@@ -156,6 +160,9 @@ Um die nötigen Daten zu erhalten wird der Mail-Server als Ausgangsserver offen 
 		Falls möglich wäre es sinnvoll festzustellen ob man über \nameref{itm:Spam}"~Mails eventuell Informationen über das System von dem verschickt wurde erhalten kann.
 		Könnte man den Weg den die \nameref{itm:Spam}"~Mails vom Versender bis zum Empfänger gekommen sind zurückverfolgen?
 		Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren.
+
+
+%%% TODO Technische Problemstellung??? /// Oder Problemstellung in Anforderungsanalyse packen <-------
 
 
 \section{Anforderungsanalyse/Priorisierung}\label{sec:AnforderungsanalysePriorisierung}
