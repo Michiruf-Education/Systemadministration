@@ -1,0 +1,54 @@
+mail:
+  container_name: mail-in
+  ports:
+    # Without /tcp the port was not open for any reason
+    - "25:25/tcp"
+    - "143:143"
+    - "587:587"
+    - "993:993"
+  hostname: mail
+  domainname: babedibubip.de
+  environment:
+    # TODO Disable all security / spam stuff
+    # One dir for docker backups
+    - ONE_DIR=1
+    
+    # Debug
+    - DMS_DEBUG=1
+    
+    # Enable modules
+    - ENABLE_SPAMASSASSIN=0
+    - ENABLE_CLAMAV=0
+    - ENABLE_FAIL2BAN=0
+    - ENABLE_POSTGREY=0
+    - SPOOF_PROTECTION=0
+    
+    # Create ssl cert and embed it manually
+    ### This is not working properly for any reason
+    ### To get shit done, domain is set up in ssl container
+    #- VIRTUAL_HOST=mail.babedibubip.de
+    #- VIRTUAL_PORT=80
+    #- SSL_TYPE=manual
+    #- SSL_CERT_PATH=/etc/manual-ssl/chained.pem
+    #- SSL_KEY_PATH=/etc/manual-ssl/domain.key
+    
+    # Set the post master
+    - POSTMASTER_ADDRESS=postmaster@babedibubip.de
+  image: tvial/docker-mailserver:latest
+  volumes:
+    - ../DATA/mail-in/data:/var/mail
+    - ../DATA/mail-in/state:/var/mail-state
+    - ../DATA/mail-in/config:/tmp/docker-mailserver
+    - ../DATA/mail-in/logs:/var/log/mail
+    # Mount the ssl for this service manually
+    #- ../DATA/ssl/mail.babedibubip.de/production:/etc/manual-ssl
+    #- ../DATA/ssl/mail.babedibubip.de/staging:/etc/manual-ssl
+  cap_add:
+    - NET_ADMIN
+    - SYS_PTRACE
+  tty: true
+  stdin_open: true
+  restart: always
+
+# Client-settings-discovery could be done via https://hub.docker.com/r/jsmitsnl/docker-email-autodiscover/
+# Since Thunderbird guesses the configuration and its a valid one, no need to do this for one mail account

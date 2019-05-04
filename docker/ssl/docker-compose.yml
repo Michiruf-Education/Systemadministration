@@ -1,0 +1,20 @@
+ssl:
+  container_name: ssl
+  ports:
+    - "80:80/tcp"
+    - "443:443/tcp"
+  environment:
+    DOMAINS: '
+      mail.babedibubip.de,
+    '
+    #STAGE: 'production'
+    FORCE_RENEW: 'true'
+    CLIENT_MAX_BODY_SIZE: 0
+  image: steveltn/https-portal:latest
+  volumes:
+    - ../DATA/ssl:/var/lib/https-portal
+    # Enables a docker lookup of services for them to configure https themselves
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  tty: true
+  stdin_open: true
+  restart: always

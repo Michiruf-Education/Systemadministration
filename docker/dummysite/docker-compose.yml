@@ -1,0 +1,33 @@
+wordpress:
+  container_name: dummysite_wordpress
+  ports:
+    - "10080:80"
+  environment:
+    VIRTUAL_HOST: babedibubip.de
+    VIRTUAL_PORT: 10080
+    WORDPRESS_DB_HOST: db:3306
+    WORDPRESS_DB_USER: wordpress
+    WORDPRESS_DB_PASSWORD: TODO
+  image: wordpress:latest
+  volumes:
+    - ../DATA/dummysite/wordpress:/var/www/html
+    - ../DATA/dummysite/config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+  links:
+    - db
+  tty: true
+  stdin_open: true
+  restart: always
+
+db:
+  container_name: dummysite_db
+  environment:
+    MYSQL_ROOT_PASSWORD: TODO_ROOT
+    MYSQL_DATABASE: wordpress
+    MYSQL_USER: wordpress
+    MYSQL_PASSWORD: TODO
+  image: mysql:5.7
+  volumes:
+    - ../DATA/dummysite/mysql:/var/lib/mysql
+  tty: true
+  stdin_open: true
+  restart: always

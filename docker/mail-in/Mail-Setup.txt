@@ -1,0 +1,11 @@
+cd /docker/mail
+docker-compose up -d
+docker-compose down
+ln -s /docker/DATA/mail/config config
+ln -s /docker/DATA/mail/data/ maildata
+ln -s /docker/DATA/mail/state/ mailstate
+chmod +x setup.sh
+./setup.sh email add mail@michiruf.de PASSWORD
+./setup.sh config dkim
+
+### Then setup DNS Stuff
