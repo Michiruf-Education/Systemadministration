@@ -1,4 +1,4 @@
-mail:
+mail-in:
   container_name: mail-in
   ports:
     # Without /tcp the port was not open for any reason
