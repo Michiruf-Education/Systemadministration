@@ -4,9 +4,9 @@ ssl:
     - "80:80/tcp"
     - "443:443/tcp"
   environment:
-    #DOMAINS: '
-    #  mail.babedibubip.de
-    #'
+    DOMAINS: '
+      mail.babedibubip.de
+    '
     STAGE: 'production'
     SERVER_NAMES_HASH_BUCKET_SIZE: 64
     CLIENT_MAX_BODY_SIZE: 0
