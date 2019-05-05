@@ -1,0 +1,11 @@
+test:
+  container_name: test_helloworld
+  ports:
+    - "11080:80/tcp"
+  environment:
+    VIRTUAL_HOST: test.babedibubip.de
+    VIRTUAL_PORT: 11080
+  image: nginxdemos/hello
+  tty: true
+  stdin_open: true
+  restart: always
