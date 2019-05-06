@@ -1,8 +1,14 @@
 mail-out:
   container_name: mail-out
-  #ports:
-  #  - "20022:22"
+  ports:
+    - "25:25"
+    - "587:587"
   build: .
+  volumes:
+    # TODO Use DATA (and also move the folders live)
+    #- ../DATA/mail-out/config:/etc/smtpd
+    - ./config:/etc/smtpd
+    - ./mail-queue:/var/spool/mail
   tty: true
   stdin_open: true
   restart: always

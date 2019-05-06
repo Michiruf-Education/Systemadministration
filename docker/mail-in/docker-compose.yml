@@ -2,9 +2,9 @@ mail-in:
   container_name: mail-in
   ports:
     # Without /tcp the port was not open for any reason
-    - "25:25/tcp"
+    #- "25:25/tcp"
     - "143:143"
-    - "587:587"
+    #- "587:587"
     - "993:993"
   hostname: mail
   domainname: babedibubip.de
