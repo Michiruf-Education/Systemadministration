@@ -1,5 +1,5 @@
 test:
-  container_name: test_helloworld
+  container_name: dummy-helloworld-test
   ports:
     - "11080:80/tcp"
   environment:

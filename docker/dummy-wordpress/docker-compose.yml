@@ -1,5 +1,5 @@
 wordpress:
-  container_name: dummysite_wordpress
+  container_name: dummy-wordpress_wordpress
   ports:
     - "10080:80"
   environment:
@@ -19,7 +19,7 @@ wordpress:
   restart: always
 
 db:
-  container_name: dummysite_db
+  container_name: dummy-wordpress_db
   environment:
     MYSQL_ROOT_PASSWORD: TODO_ROOT
     MYSQL_DATABASE: wordpress
