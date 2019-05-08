@@ -16,7 +16,7 @@ mail-in:
     # Debug
     - DMS_DEBUG=1
     
-    # Enable modules
+    # Disable modules
     - ENABLE_SPAMASSASSIN=0
     - ENABLE_CLAMAV=0
     - ENABLE_FAIL2BAN=0

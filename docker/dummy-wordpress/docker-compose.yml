@@ -10,8 +10,8 @@ wordpress:
     WORDPRESS_DB_PASSWORD: TODO
   image: wordpress:latest
   volumes:
-    - ../DATA/dummysite/wordpress:/var/www/html
-    - ../DATA/dummysite/config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    - ../DATA/dummy-wordpress/wordpress:/var/www/html
+    - ../DATA/dummy-wordpress/config/php.conf.uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
   links:
     - db
   tty: true
@@ -27,7 +27,7 @@ db:
     MYSQL_PASSWORD: TODO
   image: mysql:5.7
   volumes:
-    - ../DATA/dummysite/mysql:/var/lib/mysql
+    - ../DATA/dummy-wordpress/mysql:/var/lib/mysql
   tty: true
   stdin_open: true
   restart: always
