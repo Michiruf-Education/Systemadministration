@@ -97,7 +97,7 @@ URL:	amazon.de
 
 ebay
 Name:	spargel-15
-E-Mail:	@babedibubip.de
+E-Mail:	spargelstecher@babedibubip.de
 URL:	ebay.de
 
 c-dating

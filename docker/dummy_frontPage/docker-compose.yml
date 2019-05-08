@@ -1,5 +1,5 @@
 static:
-  container_name: docker-static
+  container_name: dummy-frontPage
   ports:
     - "12080:80/tcp"
   environment:
