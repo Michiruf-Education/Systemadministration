@@ -1,0 +1,11 @@
+static:
+  container_name: docker-static
+  ports:
+    - "12080:80/tcp"
+  environment:
+    VIRTUAL_HOST: babedibubip.de
+    VIRTUAL_PORT: 12080
+  build: .
+  tty: true
+  stdin_open: true
+  restart: always
