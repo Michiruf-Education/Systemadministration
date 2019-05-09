@@ -7,7 +7,7 @@ MUSS / KANN:
 * OpenRelay konfigurieren, OpenSMPTD ist da (Absprache mit Eggi wäre da gut, damit wir da auf der sicheren Seite sind)
 * ~~Seite Aufsetzen, entweder plain html, ganz schäbig, oder paar Sample Inhalte in Wordpress klatschen (da gibts auch Demo Seiten von Templates, die einem da bisschen Content reinmachen)~~
 * ~~Mail-Adresse auf der Seite anzeigen~~
-* Seite indexieren lassen, wo auch immer (google duckduckgo, ...)
+* ~~Seite indexieren lassen, wo auch immer (google duckduckgo, ...)
 * Hook für eingehende Mails in separatem Container
 * Hook für ausgehende Mails in separatem Container
 * Datenbank-Server einrichten
