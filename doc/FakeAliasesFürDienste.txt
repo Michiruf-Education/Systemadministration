@@ -33,6 +33,7 @@ E-Mail:	RudiRammler@babedibubip.de
 URL:	porntrex.com
 
 nutaku:
+Name:	Mongo
 E-Mail:	Mongo@babedibubip.de
 URL:	nutaku.net
 
@@ -72,6 +73,7 @@ E-Mail:	ficker@babedibubip.de
 URL:	bild.de
 
 banggood:
+Name: 	Banger
 E-Mail:	banger@babedibubip.de
 URL:	banggood.com
 
@@ -104,3 +106,7 @@ c-dating
 Name:	SchwanzusLongus
 E-Mail:	SchwanzusLongus@babedibubip.de
 URL:	c-date.de
+
+amateurcommunity (Spam aus von der Fh Mail-Adresse)
+E-Mail:	Heimerdinger@babedibubip.de
+URL:	amateurcommunity.com
