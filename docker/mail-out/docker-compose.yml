@@ -1,14 +1,22 @@
 mail-out:
   container_name: mail-out
-  ports:
-    - "25:25"
-    - "587:587"
+  hostname: relay
+  domainname: babedibubip.de
+  #ports:
+  #  - "25:25"
+  #  - "465:465"
+  #  - "587:587"
+  expose:
+    - "25"
+    - "465"
+    - "587"
   build: .
   volumes:
     # TODO Use DATA (and also move the folders live)
-    #- ../DATA/mail-out/config:/etc/smtpd
-    - ./config:/etc/smtpd
-    - ./mail-queue:/var/spool/mail
+    - ../DATA/mail-out/config:/etc/opensmtpd
+    #- ./config:/etc/smtpd
+    - ../DATA/mail-out/mail-queue:/var/spool/smtpd
+    #- ./mail-queue:/var/spool/mail
   tty: true
   stdin_open: true
   restart: always

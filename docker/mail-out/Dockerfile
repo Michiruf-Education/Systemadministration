@@ -2,6 +2,6 @@ FROM alpine:latest
 RUN apk --update-cache --no-cache add opensmtpd
 VOLUME /etc/smtpd /var/spool/mail
 
-EXPOSE 25 587
+EXPOSE 25 465 587
 
 ENTRYPOINT ["/usr/sbin/smtpd", "-d"]
