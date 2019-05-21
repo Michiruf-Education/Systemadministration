@@ -22,7 +22,8 @@ php:
   ports:
     - "9000:9000"
   container_name: dummy-frontpage_php
-  image: php:7-fpm
+  build: .
+  dockerfile: Dockerfile-php
   volumes:
     - ./www:/html
   links:

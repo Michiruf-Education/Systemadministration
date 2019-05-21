@@ -1,0 +1,27 @@
+db:
+  container_name: mail-db
+  environment:
+    MYSQL_ROOT_PASSWORD: P2VER3usSoD6dkWoHlQG
+    MYSQL_DATABASE: honeypot
+  image: mysql:5.7
+  volumes:
+    - ../DATA/dummy-frontpage/mysql:/var/lib/mysql
+  tty: true
+  stdin_open: true
+  restart: always
+
+phpmyadmin:
+  container_name: mail-db_phpmyadmin
+  ports:
+    - "14080:80/tcp"
+  environment:
+    VIRTUAL_HOST: babedibubip.de
+  environment:
+    VIRTUAL_HOST: maildb.babedibubip.de
+    VIRTUAL_PORT: 14080
+  image: phpmyadmin/phpmyadmin
+  links:
+    - db
+  tty: true
+  stdin_open: true
+  restart: always
