@@ -1,11 +1,16 @@
 mail-in:
   container_name: mail-in
   ports:
-    # Without /tcp the port was not open for any reason
+    # Ports in this order:
+    # TLS SMTP
+    # TLS IMAP
+    # Unknown (by research now)
+    # SSL IMAP
+
     - "25:25/tcp"
-    - "143:143"
-    #- "587:587"
-    - "993:993"
+    - "143:143/tcp"
+    #- "587:587/tcp"
+    - "993:993/tcp"
   hostname: mail
   domainname: babedibubip.de
   environment:
