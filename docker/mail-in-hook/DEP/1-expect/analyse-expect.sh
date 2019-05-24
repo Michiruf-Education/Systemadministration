@@ -1,5 +1,8 @@
 #!/usr/bin/expect
 
+# Setup expect
+log_user 0
+
 # Grab environment variables via expect to handle them like usual
 set MAIL_HOST $env(MAIL_HOST)
 set MAIL_PORT $env(MAIL_PORT)
@@ -17,5 +20,6 @@ expect "A OK"
 send ". fetch 1 rfc822.header\n"
 
 
-
+puts $expect_out(buffer)
 expect eof
+exit

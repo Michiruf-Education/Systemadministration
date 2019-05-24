@@ -1,5 +1,3 @@
 FROM alpine:latest
 RUN apk update && \
-    apk add openssl && \
-    apk add expect && \
-    apk add bash
+    apk add php7 php7-curl php7-mysqli

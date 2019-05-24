@@ -1,19 +1,20 @@
 hook:
   container_name: mail-in-hook
   environment:
-    SQL_HOST: mail-db
-    SQL_USER: root
-    SQL_PASSWORD: ElyIg2G9RKkEglizc58A
-    SQL_DATABASE: mail
-    SQL_TABLE: ingoing
     MAIL_HOST: mail-in
     MAIL_PORT: 993
     MAIL_USER: mail@babedibubip.de
     MAIL_PASSWORD: Wdq4Yv0XSUlDUikXhCYm
+    SQL_HOST: mail-db
+    SQL_PORT: 3306
+    SQL_USER: root
+    SQL_PASSWORD: ElyIg2G9RKkEglizc58A
+    SQL_DATABASE: mail
+    SQL_TABLE: ingoing
   build: .
   # TODO Use COPY directive in Dockerfile instead
   volumes:
-    - ./scripts/test.sh:/test.sh
+    - ./analyze.php:/processMails
   external_links:
     - mail-db
     - mail-in
