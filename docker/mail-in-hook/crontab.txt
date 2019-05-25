@@ -1,0 +1,1 @@
+*/30 * * * * /process-mails.sh >> /var/log/process-mails.log

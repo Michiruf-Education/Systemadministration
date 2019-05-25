@@ -68,7 +68,7 @@ class Analyzer
     {
         /** @noinspection SqlNoDataSourceInspection */
         $query = <<<QUERY
-CREATE TABLE IF NOT EXISTS {$this->sqlTable}(
+CREATE TABLE IF NOT EXISTS `{$this->sqlTable}` (
   `To` VARCHAR(255) NOT NULL,
   `From` VARCHAR(255) NOT NULL,
   `Subject` VARCHAR(255),
@@ -136,7 +136,7 @@ QUERY;
     {
         /** @noinspection SqlNoDataSourceInspection */
         $query = <<<QUERY
-INSERT IGNORE INTO {$this->sqlTable}
+INSERT IGNORE INTO `{$this->sqlTable}`
 VALUES(
   '{$mailInformation['To']}',
   '{$mailInformation['From']}',

@@ -12,9 +12,6 @@ hook:
     SQL_DATABASE: mail
     SQL_TABLE: ingoing
   build: .
-  # TODO Use COPY directive in Dockerfile instead
-  volumes:
-    - ./analyze.php:/processMails
   external_links:
     - mail-db
     - mail-in
