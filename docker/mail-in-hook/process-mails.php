@@ -195,7 +195,7 @@ QUERY;
     }
 }
 
-$analyzer = new Analyzer("INBOX.Analyze");
+$analyzer = new Analyzer("INBOX");
 $analyzer->process();
 
 // Because cli does not handle a newline itself
