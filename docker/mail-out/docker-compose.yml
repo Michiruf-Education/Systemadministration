@@ -2,14 +2,17 @@ mail-out:
   container_name: mail-out
   hostname: relay
   domainname: babedibubip.de
-  #ports:
-  #  - "25:25"
-  #  - "465:465"
-  #  - "587:587"
-  expose:
-    - "25"
-    - "465"
-    - "587"
+  ports:
+     # Ports in this order:
+    # TLS SMTP
+    # TLS IMAP
+    # Unknown (by research now)
+    # SSL IMAP
+
+    - "25:25/tcp"
+    - "143:15143/tcp"
+    - "587:587/tcp"
+    - "993:15993/tcp"
   build: .
   volumes:
     # TODO Use DATA (and also move the folders live)
