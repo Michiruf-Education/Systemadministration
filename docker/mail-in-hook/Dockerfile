@@ -10,8 +10,8 @@ RUN php /composer-setup.php --install-dir=/usr/local/bin --filename=composer && 
 RUN composer require ddeboer/imap
 
 # Add our script
-COPY process-mails.php /process-mails.sh
-RUN chmod +x /process-mails.sh
+COPY process-mails.php /process-mails
+RUN chmod +x /process-mails
 
 # Add cronjob
 COPY crontab.txt /crontab.txt

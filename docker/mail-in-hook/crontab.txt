@@ -1,1 +1,1 @@
-*/30 * * * * /process-mails.sh
+*/30 * * * * /process-mails
