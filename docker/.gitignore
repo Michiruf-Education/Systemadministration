@@ -1,1 +1,2 @@
-/.idea/
+# Ignore all files starting with a dot
+.*
