@@ -12,6 +12,9 @@ hook:
     SQL_DATABASE: mail
     SQL_TABLE: ingoing
   build: .
+  # Only for dev
+  #volumes:
+  #  - ./process-mails.php:/process-mails.sh
   external_links:
     - mail-db
     - mail-in
