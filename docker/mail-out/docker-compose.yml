@@ -1,19 +1,33 @@
-mail-out:
+smtpd:
   container_name: mail-out
-  hostname: relay
-  domainname: babedibubip.de
   ports:
-    - "2525:25/tcp"
-    - "1587:587/tcp"
-    - "15993:993/tcp"
+    - "15025:25/tcp"
+    - "15587:587/tcp"
   build: .
+  dockerfile: Dockerfile-opensmtpd
   volumes:
-    # TODO Use DATA (and also move the folders live)
-    - ../DATA/mail-out/config:/etc/smtpd
-    #- ./config:/etc/smtpd
-    - ../DATA/mail-out/mail-queue:/var/spool/smtpd
-    #- ./mail-queue:/var/spool/mail
+    - ./smtpd.conf:/etc/smtpd/smtpd.conf:ro
+    #- ../DATA/mail-out/spool-smtpd:/var/spool/smtpd
+    #- ./DATA-spool-smtpd:/var/spool/mail
+
+    #- ./dovecot.conf:/etc/dovecot/dovecot.conf
+    - ./dovecot-users:/etc/dovecot/dovecot-users
+    - ./dovecot-passwd:/etc/dovecot/dovecot-passwd
   tty: true
   stdin_open: true
   restart: always
 
+dovecot:
+  container_name: mail-out_dovecot
+  ports:
+    - "15143:143/tcp"
+    - "15993:993/tcp"
+  build: .
+  dockerfile: Dockerfile-dovecot
+  volumes:
+    #- ./dovecot.conf:/etc/dovecot/dovecot.conf
+    - ./dovecot-users:/etc/dovecot/dovecot-users
+    - ./dovecot-passwd:/etc/dovecot/dovecot-passwd
+  tty: true
+  stdin_open: true
+  restart: always

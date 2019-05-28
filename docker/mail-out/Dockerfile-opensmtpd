@@ -1,0 +1,31 @@
+FROM alpine:latest
+
+# Package manager variant
+RUN apk --update-cache --no-cache add opensmtpd
+
+## Self building variant. Requirements:
+## autoconf (http://www.gnu.org/software/autoconf/)
+## automake (http://www.gnu.org/software/automake/)
+## bison (http://www.gnu.org/software/bison/) or byacc (http://invisible-island.net/byacc/byacc.html)
+## libevent (http://libevent.org/)
+## libtool (http://www.gnu.org/software/libtool/)
+## libressl (https://www.libressl.org/)
+## libasr (https://opensmtpd.org/archives/libasr-1.0.2.tar.gz)
+#RUN apk update
+#RUN apk add git
+#RUN git clone -b portable git://github.com/OpenSMTPD/OpenSMTPD.git opensmtpd
+#RUN apk add build-base fts-dev zlib-dev
+#RUN apk add autoconf automake bison libevent-dev libtool libressl-dev libasr-dev
+#RUN cd opensmtpd* && \
+#    ./bootstrap && \
+#    ./configure && \
+#    make && \
+#    sudo make install
+### +dovecote
+
+# TODO Remove
+RUN apk --update-cache --no-cache add bash
+
+EXPOSE 25 587
+
+ENTRYPOINT [ "smtpd", "-dv" ]

@@ -1,0 +1,11 @@
+FROM alpine:latest
+
+# Use package mager
+RUN apk --update-cache --no-cache add dovecot
+
+# TODO Remove
+RUN apk --update-cache --no-cache add bash
+
+EXPOSE 143 993
+
+ENTRYPOINT [ "dovecot", "start" ]
