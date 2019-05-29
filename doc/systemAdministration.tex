@@ -211,33 +211,35 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 %	TODO
 	\subsection{Provider}\label{sec:Provider}
-		\subsubsection
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+		Für das Hosting des Mailserver \autoref{itm:Honeypot} muss ein geeigneter Provider für eine \autoref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
+		\begin{itemize}
+		    \item anonymes Hosting (kein Bezug zur Hochschule oder uns als Personen), Domain mit Whois-Schutz
+			\item ausreichend Speicher für mehrere Docker Container und die empfangenen Spam-Mails
+			\item vertretbare Kosten bzw. Mietlaufzeit
+			\item Möglichkeit zur DNS Administration
+		\end{itemize}
+		
+		Hierfür kann eine \autoref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externen Provider für das Hosting genutzt werden.
+		
 
-	\subsection{Host-Maschine}\label{sec:Host-Maschine}
-		\subsubsection
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+   \subsection{Host-Maschine}\label{sec:Host-Maschine}
+				   \begin{itemize}
+				   \item
 
-	\subsection{Mailserver}\label{sec:Mailserver}
-		\subsubsection
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+				   \end{itemize}
 
-	\subsection{Virtualisierung}\label{sec:Virtualisierung}
+  \subsection{Mailserver}\label{sec:Mailserver}
+				   \begin{itemize}
+				   \item
+
+				  \end{itemize}
+
+	\subsection{Betriebssystem/Virtualisierung}\label{sec:Betriebssystem/Virtualisierung}
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
 			\begin{itemize}
 			\item
 				Würde den aufwand der Virtualisierung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen.
 			\end{itemize}
-
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
 			\begin{itemize}
 			\item
@@ -247,7 +249,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			\item
 				Die Daten liegen in bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was die Backups von Daten verlangsamt.
 			\end{itemize}
-
 		\subsubsection{Docker}\label{Docker}
 			\begin{itemize}
 			\item
@@ -362,9 +363,21 @@ restart: always
 \section*{Anhang}\label{Anhang}
 \addcontentsline{toc}{section}{Anhang}
 %
-\newpage
+
 %
 %% Plagiarism declaration
+\begin{newpage}
+\vspace*{\fill}
 \section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
+	Hiermit versichere ich, die vorliegende Arbeit selbstständig und unter ausschließlicher Verwendung der angegebenen Literatur und Hilfsmittel erstellt zu haben. Die Arbeit wurde bisher, in gleicher oder ähnlicher Form, keiner anderen Prüfungsbehörde vorgelegt und auch nicht veröffentlicht.\\
+
+\vspace{3cm}
+\begin{tabular*}{\textwidth}{c@{\extracolsep\fill}cc}
+\cline{1-1}
+\cline{3-3}
+\\
+\ \ \ \ \ \ \ \ \ Unterschrift\ \ \ \ \ \ \ \ \ \ & & \ \ \ \ \ \ \ \ \ Ort, Datum\ \ \ \ \ \ \ \ \ \\
+\end{tabular*}
+\end{newpage}
 
 \end{document}
