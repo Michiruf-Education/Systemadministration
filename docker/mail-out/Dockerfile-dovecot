@@ -1,11 +1,16 @@
-FROM alpine:latest
+#FROM alpine:latest
+#
+#RUN apk --update-cache --no-cache add dovecot
+#
+## TODO Remove
+#RUN apk --update-cache --no-cache add bash
+#
+#EXPOSE 143 993
+#
+##ENTRYPOINT [ "dovecot", "start" ]#
 
-# Use package mager
-RUN apk --update-cache --no-cache add dovecot
-
-# TODO Remove
-RUN apk --update-cache --no-cache add bash
-
-EXPOSE 143 993
-
-ENTRYPOINT [ "dovecot", "start" ]
+### TODO Does not work at all...
+FROM instrumentisto/dovecot:alpine
+CMD echo ${USERNAME}:{PLAIN} > /etc/dovecot/dovecot-passwd
+#RUN doveadm pw -s PLAIN -p ${PASSWORD} >> /etc/dovecot/dovecot-passwd
+#RUN echo "::::::" >> /etc/dovecot/dovecot-passwd

@@ -3,6 +3,7 @@ FROM alpine:latest
 # Package manager variant
 RUN apk --update-cache --no-cache add opensmtpd
 
+## TODO Does not work, remove later
 ## Self building variant. Requirements:
 ## autoconf (http://www.gnu.org/software/autoconf/)
 ## automake (http://www.gnu.org/software/automake/)
