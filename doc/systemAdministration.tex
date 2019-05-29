@@ -220,62 +220,98 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\end{itemize}
 		
 		Hierfür kann eine \autoref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externen Provider für das Hosting genutzt werden.
-		
 
-   \subsection{Host-Maschine}\label{sec:Host-Maschine}
-				   \begin{itemize}
-				   \item
-
-				   \end{itemize}
-
-  \subsection{Mailserver}\label{sec:Mailserver}
-				   \begin{itemize}
-				   \item
-
-				  \end{itemize}
+	\subsection{Host-OS}\label{sec:Host-Maschine}
+		\subsubsection{OpenBSD}\label{sec:OpenBSD}
+			\begin{itemize}
+			\item
+				OpenBSD ist sehr kompakt und übersichtlich, jedoch eine eher selten verwendete UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
+			\end{itemize}
+		\subsubsection{Debian}\label{sec:Debian}
+			\begin{itemize}
+			\item
+				Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich sehr gut als Server-Betriebssystem.
+			\end{itemize}
+		\subsubsection{Windows}\label{sec:Windows}
+			\begin{itemize}
+			\item
+				Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da die meiste Software für Unix-Systeme ausgelegt ist in diesem Bereich.
+			\end{itemize}
+	\subsection{Mailserver}\label{sec:Mailserver}
+		\subsubsection{Mailserver}\label{sec:Mailserver}
+			\begin{itemize}
+			\item
+				
+			\end{itemize}
 
 	\subsection{Betriebssystem/Virtualisierung}\label{sec:Betriebssystem/Virtualisierung}
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
 			\begin{itemize}
 			\item
-				Würde den aufwand der Virtualisierung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen.
+				Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. 
+			\item
+				Für Test-Konfigurationen und Backups wäre das Risiko von Datenverlust oder Ausfall der Dienste zu groß.
 			\end{itemize}
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
 			\begin{itemize}
 			\item
 				Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.
 			\item
-				Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten betrifft, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.
+				Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.
 			\item
-				Die Daten liegen in bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was die Backups von Daten verlangsamt.
+				Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
 			\end{itemize}
 		\subsubsection{Docker}\label{Docker}
 			\begin{itemize}
 			\item
 				Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich.
-				Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach mit Git geteilt und Versionifiziert werden.
+				Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden.
 			\item
-				Docker-\nameref{itm:Container} sind mit sehr wenig aufwand reproduzierbar und austauschbar, auch das Hostsystem ist einfach austauschbar.
-				Docker-\nameref{itm:Container} können in sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht.
+				Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar.
+				Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht.
 				Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen.
 			\item
-				Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Hostsystem keinen Schaden verursachen.
+				Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen.
 			\item
 				Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen.
 			\item
-				Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert was das erstellen von Backups erleichtert und beschleunigt.
+				Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
 			\end{itemize}
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 %	TODO
-%
-%
+\subsection{Provider}\label{sec:Provider}
+		\subsubsection{Netcup}\label{sec:Netcup}
+			\begin{itemize}
+			\item
+				
+			\end{itemize}
+
+	\subsection{Host-OS}\label{sec:Host-Maschine}
+		\subsubsection{Debian}\label{sec:Debian}
+			\begin{itemize}
+			\item
+				
+			\end{itemize}
+
+	\subsection{Mailserver}\label{sec:Mailserver}
+		\subsubsection{OpenSMTP}\label{sec:OpenSMTP}
+			\begin{itemize}
+			\item
+				
+			\end{itemize}
+	\subsection{Virtualisierung}\label{sec:Virtualisierung}
+		\subsubsection{Docker-Container}\label{sec:Docker-Container}
+			\begin{itemize}
+			\item
+			
+			\end{itemize}
+
 \section{Umsetzung}\label{sec:Umsetzung}
 %	TODO
 %
 %
-%% Chrisi: Schrägstiche in Überschriften wegmachen
-\section{Fazit/Ausblick/Übertragbarkeit}\label{sec:Fazit/Ausblick/Übertragbarkeit}
+\section{Fazit}\label{sec:Fazit}
 %	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
 %	"Wir" ist hier erlaubt
 %	TODO
@@ -295,67 +331,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 %% Listings (code examples, ...)
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
-	\begin{lstlisting}[caption={Mail-in, docker-compose.yml}]
-mail-in:
-	container_name: mail-in
-ports:
-	# Ports in this order:
-	# TLS SMTP
-	# TLS IMAP
-	# Unknown (by research now)
-	# SSL IMAP
-	
-	- "25:25/tcp"
-	- "143:143/tcp"
-	- "587:587/tcp"
-	- "993:993/tcp"
-hostname: mail
-domainname: babedibubip.de
-environment:
-# One dir for docker backups
-- ONE_DIR=1
-
-# Debug
-- DMS_DEBUG=1
-
-# Disable modules
-- ENABLE_SPAMASSASSIN=0
-- ENABLE_CLAMAV=0
-- ENABLE_FAIL2BAN=0
-- ENABLE_POSTGREY=0
-- SPOOF_PROTECTION=0
-
-# Create ssl cert and embed it manually
-### This is not working properly for any reason
-### Domain is set up in ssl container
-#- VIRTUAL_HOST=mail.babedibubip.de
-#- VIRTUAL_PORT=80
-- SSL_TYPE=manual
-- SSL_CERT_PATH=/etc/manual-ssl/signed.crt
-- SSL_KEY_PATH=/etc/manual-ssl/domain.key
-
-# Set the post master
-- POSTMASTER_ADDRESS=postmaster@babedibubip.de
-image: tvial/docker-mailserver:latest
-volumes:
-	- ../DATA/mail-in/data:/var/mail
-	- ../DATA/mail-in/state:/var/mail-state
-	- ../DATA/mail-in/config:/tmp/docker-mailserver
-	- ../DATA/mail-in/logs:/var/log/mail
-	# Mount the ssl for this service manually
-	- ../DATA/ssl/mail.babedibubip.de/production:/etc/manual-ssl
-	#- ../DATA/ssl/mail.babedibubip.de/staging:/etc/manual-ssl
-cap_add:
-	- NET_ADMIN
-	- SYS_PTRACE
-tty: true
-stdin_open: true
-restart: always
-
-# Client-settings-discovery could be done via 
-#https://hub.docker.com/r/jsmitsnl/docker-email-autodiscover/
-# Since Thunderbird guesses the configuration and its a valid one,
-#no need to do this for one mail account
+	\begin{lstlisting}[caption={Beispiel}]
 	\end{lstlisting}
 \newpage
 %
