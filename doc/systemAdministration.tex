@@ -209,7 +209,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
-%	TODO
+	Nachfolgende Lösungsvoschläge werden recherchiert und im nachfolgenden Kapitel auf ihre Eignung überprüft.
 	\subsection{Provider}\label{sec:Provider}
 		Für das Hosting des Mailserver \nameref{itm:Honeypot} muss ein geeigneter Provider für eine \nameref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
 		\begin{itemize}
@@ -256,7 +256,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
-%	TODO
+	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
 		Bei der Provider Wahl wurde zunächst eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Außerdem würde dies die nötige Anonymität und Rechtssicherheit geben.
 		
@@ -307,27 +307,48 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		
 		
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
-		\subsubsection{Docker-Container}\label{sec:AuswahlLösungDocker-Container}
-			Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
+		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
 			
 
 \section{Umsetzung}\label{sec:Umsetzung}
 %	TODO
 	
-	\subsection{HostEinrichtung}\label{sec:UmsetzungHostEinrichtung}
+	\subsection{beim Provider registrieren}\label{sec:beimProviderRegistrieren} %Mario
+
+	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung} %Mario
+		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
+
+		\subsubsection{Docker aufsetzen}\label{sec:DockerAufsetzen}
+
+		\subsubsection{Ordner Strukturen anlegen}\label{OrdnerStrukturenAnlegen}
 	
-	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
+	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver} %Manu
+		\subsection{Docker Konfiguration}\label{DockerKonfiguration}
+
+		\subsubsection{Konfiguration für ssl}\label{}
+
+		\subsubsection{Docker für Datenbank aufsetzenl}\label{}
+
+		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{}
+
+	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+		\subsubsection{OpenSMTPD Konfigurieren}\label{}
+		\subsubsection{Dovecot Konfigurieren}\label{}
+
+	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten} %Manu
+		\subsubsection{bei Diversen Diensten registrieren}\label{}
+		
+		\subsubsection{auf Spam reagieren}\label{}
 	
-	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
+	\subsection{Website}\label{sec:UmsetzungWebsite} %Manu
+		\subsubsection{Webservice konfigurieren}\label{}
+
+		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
+
+		\subsubsection{HTMl-Seite einrichten}\label{}
+
+		\subsubsection{WP-Login-Honeypot konfigurieren}\label{}
 	
-	\subsection{Website}\label{sec:UmsetzungWebsite}
-	
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay}
-
-
-
-
-
 \section{Fazit}\label{sec:Fazit}
 %	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
 %	"Wir" ist hier erlaubt
