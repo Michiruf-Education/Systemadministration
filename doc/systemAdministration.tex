@@ -277,11 +277,10 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-		\subsubsection{Debian}\label{sec:AuswahlLösungDebian}
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+	\subsubsection{Debian}\label{sec:Debian}
+			Die Wahl des Host-Betriebsystems fiel auf eine Virtuelle Debian Maschine.
+			Diese wird uns vorkonfiguriert von unserem Provider Netcup bereitgestellt, im Projekt verlauf müssen somit nur noch Änderungen der bestehenden Konfiguration vorgenommen werden, ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang mit Debian hat und die nötigen Konfigurationen gut Dokumentiert sind.
+Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten Gründen.
 
 	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
 		Aufgrund der verfügbaren Zeit für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das schnell und einfach in einem Docker-\nameref{itm:Container}	eingerichtet werden kann. Aus diesem Grund können für die beiden Anwendungsfälle auch unterschiedliche Mailserver aufgesetzt werden.
@@ -309,10 +308,8 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
 		\subsubsection{Docker-Container}\label{sec:AuswahlLösungDocker-Container}
-			\begin{itemize}
-			\item
+			Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
 			
-			\end{itemize}
 
 \section{Umsetzung}\label{sec:Umsetzung}
 %	TODO
