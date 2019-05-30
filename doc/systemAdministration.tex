@@ -222,23 +222,15 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
+		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
-			\begin{itemize}
-			\item
-				OpenBSD ist sehr kompakt und übersichtlich, jedoch eine eher selten verwendete UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
-			\end{itemize}
+			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine eher selten verwendete UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
 		\subsubsection{Debian}\label{sec:Debian}
-			\begin{itemize}
-			\item
-				Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich sehr gut als Server-Betriebssystem.
-			\end{itemize}
+			Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich sehr gut als Server-Betriebssystem.
 		\subsubsection{Windows}\label{sec:Windows}
-			\begin{itemize}
-			\item
-				Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da die meiste Software für Unix-Systeme ausgelegt ist in diesem Bereich.
-			\end{itemize}
-			
-			
+			Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da die meiste Software für Unix-Systeme ausgelegt ist in diesem Bereich.
+
+
 	\subsection{Mailserver}\label{sec:Mailserver}
 		Als Mailserver für den Eingangsserver und das \nameref{itm:OpenRelay} kommen die folgenden Tools in Frage. 
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
@@ -249,39 +241,17 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Konfiguration über Konfigurations-Dateien eine Menge an Tools mitliefert um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
 
 
-	\subsection{Betriebssystem/Virtualisierung}\label{sec:Betriebssystem/Virtualisierung}
+	\subsection{Virtualisierung}\label{sec:Virtualisierung}
+		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
+
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
-			\begin{itemize}
-			\item
-				Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. 
-			\item
-				Für Test-Konfigurationen und Backups wäre das Risiko von Datenverlust oder Ausfall der Dienste zu groß.
-			\end{itemize}
+			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Für Test-Konfigurationen und Backups wäre das Risiko von Datenverlust oder Ausfall der Dienste zu groß.
+
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			\begin{itemize}
-			\item
-				Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.
-			\item
-				Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.
-			\item
-				Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
-			\end{itemize}
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
+
 		\subsubsection{Docker}\label{Docker}
-			\begin{itemize}
-			\item
-				Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich.
-				Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden.
-			\item
-				Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar.
-				Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht.
-				Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen.
-			\item
-				Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen.
-			\item
-				Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen.
-			\item
-				Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
-			\end{itemize}
+			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 %	TODO
