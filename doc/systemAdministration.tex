@@ -211,15 +211,15 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 %	TODO
 	\subsection{Provider}\label{sec:Provider}
-		Für das Hosting des Mailserver \autoref{itm:Honeypot} muss ein geeigneter Provider für eine \autoref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
+		Für das Hosting des Mailserver \nameref{itm:Honeypot} muss ein geeigneter Provider für eine \nameref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
 		\begin{itemize}
 		    \item anonymes Hosting (kein Bezug zur Hochschule oder uns als Personen), Domain mit Whois-Schutz
-			\item ausreichend Speicher für mehrere Docker Container und die empfangenen Spam-Mails
-			\item vertretbare Kosten bzw. Mietlaufzeit
+			\item ausreichend Speicher für mehrere Docker-\nameref{itm:Container} und die empfangenen Spam-Mails
 			\item Möglichkeit zur DNS Administration
+			\item vertretbare Kosten bzw. Mietlaufzeit
 		\end{itemize}
 		
-		Hierfür kann eine \autoref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externen Provider für das Hosting genutzt werden.
+		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
@@ -237,12 +237,17 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			\item
 				Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da die meiste Software für Unix-Systeme ausgelegt ist in diesem Bereich.
 			\end{itemize}
+			
+			
 	\subsection{Mailserver}\label{sec:Mailserver}
-		\subsubsection{Mailserver}\label{sec:Mailserver}
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+		Als Mailserver für den Eingangsserver und das \nameref{itm:OpenRelay} kommen die folgenden Tools in Frage. 
+		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
+			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+		\subsubsection{Dovecot}\label{sec:Dovecot}
+		Dovecot ist ein sicherer Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+		\subsubsection{Fullstack Docker Mailserver}\label{sec:FullstackDockerMailserver}
+			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Konfiguration über Konfigurations-Dateien eine Menge an Tools mitliefert um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
+
 
 	\subsection{Betriebssystem/Virtualisierung}\label{sec:Betriebssystem/Virtualisierung}
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
@@ -345,6 +350,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 \begin{newpage}
 \vspace*{\fill}
 \section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
+\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
 	Hiermit versichere ich, die vorliegende Arbeit selbstständig und unter ausschließlicher Verwendung der angegebenen Literatur und Hilfsmittel erstellt zu haben. Die Arbeit wurde bisher, in gleicher oder ähnlicher Form, keiner anderen Prüfungsbehörde vorgelegt und auch nicht veröffentlicht.\\
 
 \vspace{3cm}
