@@ -256,12 +256,24 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 %	TODO
-\subsection{Provider}\label{sec:Provider}
-		\subsubsection{Netcup}\label{sec:Netcup}
-			\begin{itemize}
-			\item
-				
-			\end{itemize}
+	\subsection{Provider}\label{sec:Provider}
+		Bei der Provider Wahl wurde zunächst eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Außerdem würde dies die nötige Anonymität und Rechtssicherheit geben.
+		
+		Nachfolgend wird die DMZ des Rechenzentrum und externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
+		
+		\subsubsection{DMZ Hochschulrechenzentrum}\label{sec:DMZHochschulrechenzentrum}
+			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck in der DMZ des Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Außerdem soll das \nameref{itm:OpenRelay} als schlecht konfigurierter Mailserver wirken, der unbewusst falsch konfiguriert wurde. Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
+			
+			Abgesehen davon wurde der Antrag über eine VM im Rechenzentrum der Hochschule abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für diese Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und damit den Mailverkehr der Hochschule einschränken oder blockieren. Sofern von der VM Spam-Mails nach außen gelangen.
+			
+			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung eine externer Provider in Betracht gezogen.
+		
+		\subsubsection{Externe Provider}\label{sec:ExterneProvider}
+			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern ist die Entscheidung auf Netcup gefallen, da das Preisleistungsangebot für eine \nameref{itm:VirtuelleMaschine} die Anforderungen erfüllt hat.
+			Hier wurde eine \nameref{itm:VirtuelleMaschine} inklusive Domain angemietet um darauf die Konfiguration für Eingangsmailserver und  \nameref{itm:OpenRelay} aufzubauen.
+			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und die \nameref{itm:VirtuelleMaschine} bietet für den Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
+			
+			
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
 		\subsubsection{Debian}\label{sec:Debian}
