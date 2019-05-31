@@ -21,19 +21,20 @@
 \setlength{\parindent}{0ex} % Absatzeinrückung verhindern
 \graphicspath{ {images/} }
 
-% listings in bash style
-\lstset{
-  language=bash,
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  numbers=left,
-  basicstyle=\scriptsize\ttfamily,
-  showspaces=false,
-  frame=shadowbox,
-  escapeinside={(*@}{@*)},
-  xleftmargin=0.5cm
-}
+%% listings in bash style
+%\lstset{
+%  language=bash,
+%  keywordstyle=\color{blue},
+%  commentstyle=\color{dkgreen},
+%  stringstyle=\color{mauve},
+%  numbers=left,
+%  basicstyle=\scriptsize\ttfamily,
+%  showspaces=false,
+%  frame=shadowbox,
+%  xleftmargin=0.5cm,
+%  escapeinside={(*@}{@*)},
+%  morecomment={[l]\#\ }
+%}
 
 \begin{document}
 \pagenumbering{roman}
@@ -451,6 +452,7 @@ $ sudo docker run hello-world
 			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert.
 
 	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+	
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
 
@@ -495,7 +497,10 @@ $ sudo docker run hello-world
 %% Listings (code examples, ...)
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
-	\begin{lstlisting}[caption={Maileingangsserver}]
+	
+	
+	
+\begin{lstlisting}[caption={Maileingangsserver}]
 mail-in:
   container_name: mail-in
   ports:
