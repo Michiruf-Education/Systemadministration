@@ -13,12 +13,27 @@
 \usepackage[rightcaption]{sidecap}
 \usepackage{listings,xcolor}
 \usepackage[numbers,round]{natbib}
+\usepackage{textcomp}
 \usepackage{float} % For image floating ([H] -> "here")
 
 % Configuration
 \sloppy
 \setlength{\parindent}{0ex} % Absatzeinrückung verhindern
 \graphicspath{ {images/} }
+
+% listings in bash style
+\lstset{
+  language=bash,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  numbers=left,
+  basicstyle=\scriptsize\ttfamily,
+  showspaces=false,
+  frame=shadowbox,
+  escapeinside={(*@}{@*)},
+  xleftmargin=0.5cm
+}
 
 \begin{document}
 \pagenumbering{roman}
@@ -101,6 +116,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 %		TODO
 
 
+\newpage
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
 	
@@ -129,6 +145,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	\end{description}
 
 
+\newpage
 \section{Problemstellung}\label{sec:Problemstellung}
 	Spammer dokumentieren ihre Arbeit eher nicht.
 	Daher sind deren Vorgehensweisen unklar.
@@ -173,6 +190,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\end{itemize}
 
 
+\newpage
 \section{Anforderungsanalyse}\label{sec:Anforderungsanalyse}
 	Folgende Anforderungen \textbf{MÜSSEN}/\textbf{SOLLEN}/\textbf{KÖNNEN} erarbeitet werden, damit die \nameref{sec:Problemstellung} gelöst werden kann:
 
@@ -208,6 +226,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	\end{itemize}
 
 
+\newpage
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 	Nachfolgende Lösungsvoschläge werden recherchiert und im nachfolgenden Kapitel auf ihre Eignung überprüft.
 	\subsection{Provider}\label{sec:Provider}
@@ -255,6 +274,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\subsubsection{Docker}\label{Docker}
 			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
 
+\newpage
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
@@ -263,15 +283,15 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Nachfolgend wird die DMZ des Rechenzentrum und externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
 		
 		\subsubsection{DMZ Hochschulrechenzentrum}\label{sec:AuswahlLösungDMZHochschulrechenzentrum}
-			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck in der DMZ des Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Außerdem soll das \nameref{itm:OpenRelay} als schlecht konfigurierter Mailserver wirken, der unbewusst falsch konfiguriert wurde. Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
+			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck in der DMZ des Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Außerdem soll das \nameref{itm:OpenRelay} als Mailserver wirken, der unbewusst falsch konfiguriert wurde. Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
 			
-			Abgesehen davon wurde der Antrag über eine VM im Rechenzentrum der Hochschule abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für diese Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und damit den Mailverkehr der Hochschule einschränken oder blockieren. Sofern von der VM Spam-Mails nach außen gelangen.
+			Abgesehen davon wurde der Antrag über eine VM im Rechenzentrum der Hochschule abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und den Mailverkehr der Hochschule einschränken oder blockieren. Sofern von der VM Spam-Mails nach außen gelangen.
 			
-			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung eine externer Provider in Betracht gezogen.
+			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
 		
 		\subsubsection{Externe Provider}\label{sec:AuswahlLösungExterneProvider}
-			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern ist die Entscheidung auf Netcup gefallen, da das Preisleistungsangebot für eine \nameref{itm:VirtuelleMaschine} die Anforderungen erfüllt hat.
-			Hier wurde eine \nameref{itm:VirtuelleMaschine} inklusive Domain angemietet um darauf die Konfiguration für Eingangsmailserver und  \nameref{itm:OpenRelay} aufzubauen.
+			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern ist die Entscheidung auf \textsf{Netcup} gefallen, da das Preisleistungsangebot für eine \nameref{itm:VirtuelleMaschine} die Anforderungen erfüllt hat.
+			Hier ist eine \nameref{itm:VirtuelleMaschine} inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
 			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und die \nameref{itm:VirtuelleMaschine} bietet für den Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
 			
 			
@@ -308,19 +328,99 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
 		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
+		
 			
-
+\newpage
 \section{Umsetzung}\label{sec:Umsetzung}
 %	TODO
 	
-	\subsection{beim Provider registrieren}\label{sec:beimProviderRegistrieren} %Mario
-
+	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} %Mario
+		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen Provider gehostet, da das RZ der Hochschule zu diesem Zweck keine VM zur Verfügung stellen konnte.
+		
+		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inkl. einer Domain von der Hochschule bestätigt.  
+		
+		Bei der Registrierung auf \textsf{Netcup} wurde der kleinste Virtuelle Server (VPS 200 G8) gewählt, da dieser mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist. Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
+		
+		Für die Domain haben wir uns für den unauffälligen Namen \textit{babedibubip.de} entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei \textsf{Netcup} ist für die Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zu uns hergestellt werden kann. 
+		
+		
 	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung} %Mario
+		Auf der angemieteten Maschine läuft ein Debian als Host, auf dem die Docker-\nameref{itm:Container} aufgesetzt werden. Für die Mailserver wird außerdem der DNS entsprechend konfiguriert.
+		
+		Zu Beginn werden Systemupdates geladen und nicht benötigte Dienste auf dem Debian-Host deaktiviert oder entfernt.
+		
 		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
+			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für \texttt{mail} und für den \nameref{itm:OpenRelay} ein Eintrag mit \texttt{relay} angelegt. Beide zeigen auf die IP-Adresse der Hostmaschine. Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschließend bei den Konfiguration der Docker-\nameref{itm:Container}.
+			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein \texttt{www} Eintrag für die Website erstellt.
 
-		\subsubsection{Docker aufsetzen}\label{sec:DockerAufsetzen}
+		\subsubsection{Docker}\label{sec:DockerAufsetzen}
+			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss zunächst der Docker Dienst installiert werden.
+			
+			Zunächst müssen allgemeine Updates geladen und installiert werden. Da Docker anschließend über \texttt{HTTPS} von einem Repository geladen wird, muss \texttt{apt} dies zunächst erlaubt werden. \cite{dockerInstall} 
+			
+			Dazu wird das Kommando aus \autoref{lst:aptRepositoryHTTPS} ausgeführt: 
+\begin{lstlisting}[label={lst:aptRepositoryHTTPS},caption={allow \texttt{apt} to use repository over \texttt{HTTPS} \cite{dockerInstall}}]
+$ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    software-properties-common
+\end{lstlisting}
 
-		\subsubsection{Ordner Strukturen anlegen}\label{OrdnerStrukturenAnlegen}
+	Anschießend wird der GPG Key von der offiziellen Docker Website hinzugefügt.
+\begin{lstlisting}[label={lst:addDockerGPGKey},caption={add Docker’s official GPG key \cite{dockerInstall}}]
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | 
+	sudo apt-key add -
+\end{lstlisting}
+
+	Die Korrektheit des Schlüssels kann mit dem Befehl
+\begin{lstlisting}[label={lst:addDockerGPGKey},caption={check Docker key \cite{dockerInstall}}]
+$ sudo apt-key fingerprint 0EBFCD88
+\end{lstlisting}
+überprüft werden, indem der Fingerabdruck mitgegeben wird.
+
+	Nun kann das eigentliche Repository über den nachfolgenden Befehl hinzugefügt werden. Dabei kann zwischen einer stabilen und Testversionen ausgewählt werden. 
+\begin{lstlisting}[label={lst:addDockerGPGKey},caption={add Docker repository \cite{dockerInstall}}]
+$ sudo add-apt-repository \ 
+   (*@"@*)deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable(*@"@*)
+\end{lstlisting}
+
+	Sicherheitshalber wird vor der Installation nochmals ein Update für alle Pakete ausgeführt.
+\begin{lstlisting}[label={lst:addDockerGPGKey},caption={update packages \cite{dockerInstall}}]
+$ sudo apt-get update
+\end{lstlisting}
+
+	Nun kann die aktuelle Version von \textsf{Docker CE} und \textsf{containerd} installiert werden. Dies geschieht mit dem Befehl:
+\begin{lstlisting}[label={lst:addDockerGPGKey},caption={install Docker CE and containerd \cite{dockerInstall}}]
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+\end{lstlisting}
+
+	Um zu prüfen ob der Dienst korrekt läuft, wird der folgende Befehl verwendet.
+\begin{lstlisting}[label={lst:verifyDockerInstall},caption={verify Docker CE installation \cite{dockerInstall}}]
+$ sudo docker run hello-world
+\end{lstlisting}
+
+	Nach diesen Schritten ist der Docker-Dienst nun einsatzbereit. Darin können jetzt verschiedenen Docker-\nameref{itm:Container} eingerichtet und ausgeführt werden.
+
+		\subsubsection{Ordner Strukturen}\label{OrdnerStrukturen}
+\begin{wrapfigure}{r}{0.35\textheight}
+	\centering
+    \includegraphics[width=0.5\textwidth]{hostTree.png}
+    \caption{Hostsystem - Ordnerstruktur}
+	\label{fig:HostsystemOrdnerstruktur}
+\end{wrapfigure}			
+			Um eine übersichtliche Struktur für die Docker-\nameref{itm:Container} und die zugehörigen Daten auf dem Hostsystem zu erhalten, wird eine entsprechende Ordnerstruktur angelegt, die ebenfalls in der Versionsverwaltung übernommen wird.
+			
+			Jeder der übergeordneten Ordner repräsentiert einen \nameref{itm:Container} (\autoref{fig:HostsystemOrdnerstruktur}).
+			
+			Unter \texttt{dummy-frontpage} befindet sich eine PHP Anwendung und eine einfache Website mit einem Wordpress Admin-Panel, wie in \autoref{sec:UmsetzungWebsite} beschrieben. 
+			Nachfolgend sind die Docker-\nameref{itm:Container} für die Maildatenbank (\texttt{mail-db}), den Maileingangsserver (\texttt{mail-in}) mit dem dazugehörigen \nameref{itm:Hook} (\texttt{mail-in-hook}) und der \nameref{itm:OpenRelay} (\texttt{mail-out}). Im Ordner \texttt{ssl} ist ein \nameref{itm:Container} mit einem \texttt{HTTPS}-Portal definiert, um die \texttt{SSL} Zertifikate zu verwalten.
+			
+			Innerhalb dieser Ordner befinden sich die Konfigurationsdateien für die Docker-\nameref{itm:Container}, sowie Test- und Informationsdateien.
+		
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver} %Manu
 		\subsection{Docker Konfiguration}\label{DockerKonfiguration}
@@ -332,8 +432,8 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{}
 
 	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
-		\subsubsection{OpenSMTPD Konfigurieren}\label{}
-		\subsubsection{Dovecot Konfigurieren}\label{}
+		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
+		\subsubsection{Dovecot}\label{OpenRelayDovecot}
 
 	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten} %Manu
 		\subsubsection{bei Diversen Diensten registrieren}\label{}
