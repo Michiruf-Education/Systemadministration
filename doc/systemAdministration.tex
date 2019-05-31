@@ -440,41 +440,58 @@ $ sudo docker run hello-world
 			Spam soll nicht gefiltert oder geblockt werden, daher werden Module wie Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
 		\end{itemize}
 			
-		\subsubsection{Konfiguration für ssl}\label{SSl-Container}
+		\subsubsection{SSL Konfiguration}\label{SSl-Container}
 			%referenz zum ssl docker code
 			Das beziehen der SSL-Zertifikate erfolg über den SSL-Docker-Container, dieser wurde vorkonfiguriert bezogen und wird dann angepasst um automatisch die Zertifikate auszustellen und zu prüfen.
 
-		\subsubsection{Docker für Datenbank aufsetzenl}\label{DB-Container}
+		\subsubsection{Datenbank Container}\label{DB-Container}
 %referenz zu DB-Container code
 			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden wird über ein Phpmyadmin-Image eingebunden und ist eine mySQl Datenbank, um  per Cronjob alle 30 Minuten die Mails mittels Php-Script zu speichern wird hier der Port 80/TCP benötigt. 
 
-		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{DB-Hook-Container}
+		\subsubsection{Datenbank Hook}\label{DB-Hook-Container}
 			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert.
 
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
-	
-		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
-		\subsubsection{Dovecot}\label{OpenRelayDovecot}
 
-	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten} %Manu
-		\subsubsection{bei Diversen Diensten registrieren}\label{}
+	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert, der von Mails von allen Adressen akzeptiert und damit so wirkt als würde er diese weiterleiten.
+		
+		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
+			Da die Konfiguration des \textsf{OpenSmtpd} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
+			
+			Die Ports die nach außen im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} definiert. Darin werden außerdem die Speicherbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Speicherbereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSmtpd} abgelegt. Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
+			
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt. Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt, als in den meisten Tutorials. Dies hat zur Folge das die Konfiguration eines \textsf{OpenSmtpd} innerhalb des Docker-\nameref{itm:Container} diverse Schwierigkeiten und Tücken mit sich bringt. 
+			Nach zahlreichen Konfigurationsversuchen, die nicht zum gewünschten Erfolg geführt haben, wurde deshalb beschlossen das \nameref{itm:OpenRelay} auf eine andere Weise zu konfigurieren. Um innerhalb des Projektzeitraums noch den gewünschten Erfolg erzielen zu können.
+			
+		\subsubsection{Dovecot}\label{OpenRelayDovecot}
+			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSmtpd} eigenständig in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} ergänzt.
+			
+			Dabei dient der \textsf{OpenSmtpd} als \nameref{itm:OpenRelay} der Mails von allen Absendeadressen an alle Zieladressen weiterleitet. Allerding werden diese nicht nach außen ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Mailserver. Dieser dient als zusätzlicher SMTP-Knoten, an den der \textsf{OpenSmtpd} seine ausgehenden Mails weiterleitet. Der \nameref{sec:Dovecot} wird so konfiguriert, dass dieser keine Mails weiterleitet, sonder diese nur speichert. Somit versiegen die Mails die vom \textsf{OpenSmtpd} weitergeleitet werden. Trotzdem wirkt der \textsf{OpenSmtpd} als \nameref{itm:OpenRelay}, weil er weiter leitet und keine negative Rückmeldung an den Absender gibt.
+			
+			Die Komplikationen bei der Konfiguration des \nameref{itm:OpenRelay} haben dazu geführt, dass dieser erst zum Ende des Projektzeitraums publiziert werden kann. Somit werden sich die Erkenntnisse daraus voraussichtlich erst im Anschluss an dieses Projekt ergeben.
+
+
+	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
+		Um den Empfang von Spam sicher zu stellen, werden verschiedene Maßnahmen ergriffen um Mailadressen zu verteilen und Spammer die Möglichkeit zu geben diese im Netz anzugreifen.
+	 %Manu
+		\subsubsection{Registrierung bei Diensten}\label{AdressenVerbreitenRegistrierenDiensten}
 			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
-		\subsubsection{auf Spam reagieren}\label{}
+		\subsubsection{Reaktion auf Spam}\label{AdressenVerbreitenReaktionSpam}
 			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vorallem wird geschaut ob sich evtl noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl den Erhalt von mehr Spam beschleunigen kann.
 	
 	\subsection{Website}\label{sec:UmsetzungWebsite} %Manu
 		Hierfür wird ein Docker-Webserver-Container aufgesetzt und eine Statische HTML Seite angezeigt
-		\subsubsection{Webservice konfigurieren}\label{}
+		\subsubsection{Webservice}\label{WebsiteWebservice}
 			Für den Container wird ein nginx:alpine Image geladen und Konfiguriert das eine statische Seite angezeigt werden kann, hierfür wird der Port 80/TCP benötigt.
 % link markieren
 			Die Seite ist under der Adresse https://babedibubip.de erreichbar.
-		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
+		\subsubsection{Wordpress}\label{WebsiteWordpress}
 			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
 			
-		\subsubsection{HTML-Seite einrichten}\label{}
+		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
 			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse https://babedibubip.de erreichbar.
 
-		\subsubsection{WP-Login-Honeypot konfigurieren}\label{}
+		\subsubsection{WP-Login-Honeypot}\label{WebsiteWP-Login-Honeypot}
 			Da wir auch schauen wollten ob versucht wird sich mit Fake-Daten bei unseren Diensten anzumelden wurde auf der HTML-Seite noch ein Login hinzugefügt der nur die versuchten Login-Daten in die Datenbank speichert. Es ist kein Login möglich.
 	
 \section{Fazit}\label{sec:Fazit}
@@ -490,15 +507,23 @@ $ sudo docker run hello-world
 \bibliographystyle{plain}
 \addcontentsline{toc}{section}{Literatur}
 
+\newpage
 % Image listing
 \listoffigures
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
 
+
+\newpage
 %% Listings (code examples, ...)
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
 	
 	
+%
+%% Additional stuff
+\section*{Anhang}\label{Anhang}
+\addcontentsline{toc}{section}{Anhang}
+%
 	
 \begin{lstlisting}[caption={Maileingangsserver}]
 mail-in:
@@ -608,11 +633,7 @@ phpmyadmin:
   restart: always
 	\end{lstlisting}
 \newpage
-%
-%% Additional stuff
-\section*{Anhang}\label{Anhang}
-\addcontentsline{toc}{section}{Anhang}
-%
+
 
 %
 %% Plagiarism declaration
