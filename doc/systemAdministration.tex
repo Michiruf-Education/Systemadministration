@@ -323,13 +323,32 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		\subsubsection{Ordner Strukturen anlegen}\label{OrdnerStrukturenAnlegen}
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver} %Manu
-		\subsection{Docker Konfiguration}\label{DockerKonfiguration}
+		Der Mail-Eingangserver besteht aus mehreren Compenenten die in verschiedenen Container aufgesetzt werden.
+		\subsubsection{Docker Konfiguration}\label{Mail-In-Container}
+			%referenz zum docker image und konfig code
+			Es wird ein Full-Stack-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert. Um Mails empfangen und per Imap über einen Mail Client beziehen zu können benötigen wir die Ports:
+		\begin{itemize}
+			\item
+				25 für TLS SMTP
+			\item
+				143 TLS IMAP
+			\item
+				587 TLS default mail submission port
+			\item
+				993 SSL IMAP
+			Spam soll nicht gefiltert oder geblockt werden, daher werden Module wie Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
+		\end{itemize}
+			
+		\subsubsection{Konfiguration für ssl}\label{SSl-Container}
+			%referenz zum ssl docker code
+			Das beziehen der SSL-Zertifikate erfolg über den SSL-Docker-Container, dieser wurde vorkonfiguriert bezogen und wird dann angepasst um automatisch die Zertifikate auszustellen und zu prüfen.
 
-		\subsubsection{Konfiguration für ssl}\label{}
+		\subsubsection{Docker für Datenbank aufsetzenl}\label{DB-Container}
+%referenz zu DB-Container code
+			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden wird über ein Phpmyadmin-Image eingebunden und ist eine mySQl Datenbank, um  per Cronjob alle 30 Minuten die Mails mittels Php-Script zu speichern wird hier der Port 80/TCP benötigt. 
 
-		\subsubsection{Docker für Datenbank aufsetzenl}\label{}
-
-		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{}
+		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{DB-Hook-Container}
+			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert.
 
 	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
 		\subsubsection{OpenSMTPD Konfigurieren}\label{}
@@ -337,17 +356,24 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 
 	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten} %Manu
 		\subsubsection{bei Diversen Diensten registrieren}\label{}
-		
+			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
 		\subsubsection{auf Spam reagieren}\label{}
+			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vorallem wird geschaut ob sich evtl noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl den Erhalt von mehr Spam beschleunigen kann.
 	
 	\subsection{Website}\label{sec:UmsetzungWebsite} %Manu
+		Hierfür wird ein Docker-Webserver-Container aufgesetzt und eine Statische HTML Seite angezeigt
 		\subsubsection{Webservice konfigurieren}\label{}
-
+			Für den Container wird ein nginx:alpine Image geladen und Konfiguriert das eine statische Seite angezeigt werden kann, hierfür wird der Port 80/TCP benötigt.
+% link markieren
+			Die Seite ist under der Adresse https://babedibubip.de erreichbar.
 		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
-
-		\subsubsection{HTMl-Seite einrichten}\label{}
+			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
+			
+		\subsubsection{HTML-Seite einrichten}\label{}
+			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse https://babedibubip.de erreichbar.
 
 		\subsubsection{WP-Login-Honeypot konfigurieren}\label{}
+			Da wir auch schauen wollten ob versucht wird sich mit Fake-Daten bei unseren Diensten anzumelden wurde auf der HTML-Seite noch ein Login hinzugefügt der nur die versuchten Login-Daten in die Datenbank speichert. Es ist kein Login möglich.
 	
 \section{Fazit}\label{sec:Fazit}
 %	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
@@ -369,7 +395,112 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 %% Listings (code examples, ...)
 \lstlistoflistings
 \addcontentsline{toc}{section}{Listings}
-	\begin{lstlisting}[caption={Beispiel}]
+	\begin{lstlisting}[caption={Maileingangsserver}]
+mail-in:
+  container_name: mail-in
+  ports:
+    # Ports in this order:
+    # TLS SMTP
+    # TLS IMAP
+    # Unknown (by research now)
+    # SSL IMAP
+
+    - "25:25/tcp"
+    - "143:143/tcp"
+    - "587:587/tcp"
+    - "993:993/tcp"
+  hostname: mail
+  domainname: babedibubip.de
+  environment:
+    # TODO Disable all security / spam stuff
+    # One dir for docker backups
+    - ONE_DIR=1
+    
+    # Debug
+    - DMS_DEBUG=1
+    
+    # Disable modules
+    - ENABLE_SPAMASSASSIN=0
+    - ENABLE_CLAMAV=0
+    - ENABLE_FAIL2BAN=0
+    - ENABLE_POSTGREY=0
+    - SPOOF_PROTECTION=0
+    
+    # Create ssl cert and embed it manually
+    ### This is not working properly for any reason
+    ### To get shit done, domain is set up in ssl container
+    #- VIRTUAL_HOST=mail.babedibubip.de
+    #- VIRTUAL_PORT=80
+    - SSL_TYPE=manual
+    - SSL_CERT_PATH=/etc/manual-ssl/signed.crt
+    - SSL_KEY_PATH=/etc/manual-ssl/domain.key
+    
+    # Set the post master
+    - POSTMASTER_ADDRESS=postmaster@babedibubip.de
+  image: tvial/docker-mailserver:latest
+  volumes:
+    - ../DATA/mail-in/data:/var/mail
+    - ../DATA/mail-in/state:/var/mail-state
+    - ../DATA/mail-in/config:/tmp/docker-mailserver
+    - ../DATA/mail-in/logs:/var/log/mail
+    # Mount the ssl for this service manually
+    - ../DATA/ssl/mail.babedibubip.de/production:/etc/manual-ssl
+    #- ../DATA/ssl/mail.babedibubip.de/staging:/etc/manual-ssl
+  cap_add:
+    - NET_ADMIN
+    - SYS_PTRACE
+  tty: true
+  stdin_open: true
+  restart: always
+	\end{lstlisting}
+	\begin{lstlisting}[caption=SSL-Container]
+ssl:
+  container_name: ssl
+  ports:
+    - "80:80/tcp"
+    - "443:443/tcp"
+  environment:
+    DOMAINS: '
+      mail.babedibubip.de
+    '
+    STAGE: 'production'
+    SERVER_NAMES_HASH_BUCKET_SIZE: 64
+    CLIENT_MAX_BODY_SIZE: 0
+  image: steveltn/https-portal:1.6.1
+  volumes:
+    - ../DATA/ssl:/var/lib/https-portal
+    # Enables a docker lookup of services for them to configure https themselves
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  tty: true
+  stdin_open: true
+  restart: always
+	\end{lstlisting}
+	\begin{lstlisting}[caption=DB-Container]
+db:
+  container_name: mail-db
+  environment:
+    MYSQL_ROOT_PASSWORD: ElyIg2G9RKkEglizc58A
+    MYSQL_DATABASE: mail
+  image: mysql:5.7
+  volumes:
+    - ../DATA/mail-db/mysql:/var/lib/mysql
+  tty: true
+  stdin_open: true
+  restart: always
+
+phpmyadmin:
+  container_name: mail-db_phpmyadmin
+  ports:
+    - "14080:80/tcp"
+  #environment:
+  #  VIRTUAL_HOST: maildb.babedibubip.de
+  #  VIRTUAL_PORT: 14080
+  image: phpmyadmin/phpmyadmin
+  links:
+    - db
+  tty: true
+  stdin_open: true
+  restart: always
 	\end{lstlisting}
 \newpage
 %
