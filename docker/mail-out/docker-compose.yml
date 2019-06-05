@@ -20,8 +20,6 @@ dovecot:
   ports:
     - "15143:143/tcp"
     - "15993:993/tcp"
-  #build: .
-  #dockerfile: Dockerfile-dovecot
   image: instrumentisto/dovecot:alpine
   volumes:
     - ../DATA/mail-out/dovecot:/home/vmail/
