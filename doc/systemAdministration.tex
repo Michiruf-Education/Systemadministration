@@ -261,11 +261,11 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	\subsection{Host-OS}\label{sec:Host-Maschine}
 		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
-			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine eher selten verwendete UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
+			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine auf Sicherheit ausgelegte UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
 		\subsubsection{Debian}\label{sec:Debian}
-			Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich sehr gut als Server-Betriebssystem.
+			Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich als Server-Betriebssystem.
 		\subsubsection{Windows}\label{sec:Windows}
-			Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da die meiste Software für Unix-Systeme ausgelegt ist in diesem Bereich.
+			Ist trotz großer Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da viel Open-Source-Software nur für Linux Distributionen erhältlich ist.
 
 
 	\subsection{Mailserver}\label{sec:Mailserver}
@@ -274,7 +274,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
 			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
 		\subsubsection{Dovecot}\label{sec:Dovecot}
-		Dovecot ist ein sicherer Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+		Dovecot ist ein Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
 		\subsubsection{Postfix}\label{sec:Postfix}
 			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:FullstackDockerMailserver}
@@ -284,10 +284,10 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
 
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
-			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Für Test-Konfigurationen und Backups wäre das Risiko von Datenverlust oder Ausfall der Dienste zu groß.
+			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
 
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen. Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
 
 		\subsubsection{Docker}\label{Docker}
 			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
@@ -296,14 +296,14 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
-		Bei der Provider Wahl wurde zunächst eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Außerdem würde dies die nötige Anonymität und Rechtssicherheit geben.
+		Bei der Provider Wahl wurde eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Außerdem würde dies die nötige Anonymität und Rechtssicherheit geben.
 		
-		Nachfolgend wird die DMZ des Rechenzentrum und externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
+		Nachfolgend wird das Rechenzentrum der Hochschule und im Vergleich externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
 		
-		\subsubsection{DMZ Hochschulrechenzentrum}\label{sec:AuswahlLösungDMZHochschulrechenzentrum}
-			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck in der DMZ des Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Außerdem soll das \nameref{itm:OpenRelay} als Mailserver wirken, der unbewusst falsch konfiguriert wurde. Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
+		\subsubsection{Hochschulrechenzentrum}\label{sec:AuswahlLösungDMZHochschulrechenzentrum}
+			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck im Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Eine Verbindung zur Hochschule könnte auch die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken, da er als falsch konfiguriert wirken soll.
 			
-			Abgesehen davon wurde der Antrag über eine VM im Rechenzentrum der Hochschule abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und den Mailverkehr der Hochschule einschränken oder blockieren. Sofern von der VM Spam-Mails nach außen gelangen.
+			Der Antrag über eine VM im Rechenzentrum der Hochschule wurde abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und den Mailverkehr der Hochschule einschränken oder blockieren, falls Spam-Mails nach außen geschickt werden.
 			
 			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
 		
