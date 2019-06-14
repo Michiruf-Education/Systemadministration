@@ -362,9 +362,8 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 			
 \newpage
 \section{Umsetzung}\label{sec:Umsetzung}
-%	TODO
 	
-	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} %Mario
+	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} 
 		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{itm:VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen Provider gehostet, da das RZ der Hochschule zu diesem Zweck keine VM zur Verfügung stellen konnte.
 		
 		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inkl. einer Domain von der Hochschule bestätigt.  
@@ -409,7 +408,7 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		Der Mail-Eingangserver besteht aus mehreren Compenenten die in verschiedenen Container aufgesetzt werden.
 		\subsubsection{Docker Konfiguration}\label{Mail-In-Container}
 			%referenz zum docker image und konfig code
-			Es wird ein Full-Stack-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert. Um Mails empfangen und per Imap über einen Mail Client beziehen zu können benötigen wir die Ports:
+			Es wird ein Full-Stack-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert. Um Mails empfangen und per Imap über einen Mail Client beziehen zu können werden die folgende Ports benötigt:
 		\begin{itemize}
 			\item
 				25 für TLS SMTP
@@ -433,28 +432,27 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{DB-Hook-Container}
 			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert.
 
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay}
 	
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
 
-	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten} %Manu
+	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
 		\subsubsection{bei Diversen Diensten registrieren}\label{}
 			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle im Mai 2019 auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
 		\subsubsection{auf Spam reagieren}\label{}
 			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
 	
-	\subsection{Website}\label{sec:UmsetzungWebsite} %Manu
+	\subsection{Website}\label{sec:UmsetzungWebsite}
 		Hierfür wird ein Docker-Webserver-Container aufgesetzt und eine Statische HTML Seite angezeigt
 		\subsubsection{Webservice konfigurieren}\label{}
 			Für den Container wird ein nginx:alpine Image geladen und Konfiguriert das eine statische Seite angezeigt werden kann, hierfür wird der Port 80/TCP benötigt.
-% link markieren
-			Die Seite ist under der Adresse https://babedibubip.de erreichbar.
+			Die Seite ist under der Adresse\url{https://babedibubip.de} erreichbar.
 		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
 			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
 			
 		\subsubsection{HTML-Seite einrichten}\label{}
-			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse https://babedibubip.de erreichbar.
+			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse \url{https://babedibubip.de} erreichbar.
 
 		\subsubsection{WP-Login-Honeypot konfigurieren}\label{}
 			Da wir auch schauen wollten ob versucht wird sich mit Fake-Daten bei unseren Diensten anzumelden wurde auf der HTML-Seite noch ein Login hinzugefügt der nur die versuchten Login-Daten in die Datenbank speichert. Es ist kein Login möglich.
