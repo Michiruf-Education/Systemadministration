@@ -260,15 +260,12 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 	\subsection{Mailserver}\label{sec:Mailserver}
 		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
-<<<<<<< HEAD
 		Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen die folgenden Tools in Frage. 
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
 			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
 		\subsubsection{Dovecot}\label{sec:Dovecot}
 		Dovecot ist ein Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
-=======
-		Als Mailserver für diesen Anwendungsfall kommen die folgenden Tools in Frage. 
->>>>>>> af3c3d2f0207e539f7aa7efd2f108936e6ce43e9
+
 		\subsubsection{Postfix}\label{sec:Postfix}
 			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:FullstackDockerMailserver}
@@ -287,11 +284,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
 
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-<<<<<<< HEAD
 			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen. Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
-=======
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt. Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, des weiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
->>>>>>> af3c3d2f0207e539f7aa7efd2f108936e6ce43e9
 
 		\subsubsection{Docker}\label{Docker}
 			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
