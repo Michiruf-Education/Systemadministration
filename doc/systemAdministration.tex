@@ -18,30 +18,16 @@
 
 % Configuration
 \sloppy
-\setlength{\parindent}{0ex} % Absatzeinrückung verhindern
 \graphicspath{ {images/} }
 
-%% listings in bash style
-%\lstset{
-%  language=bash,
-%  keywordstyle=\color{blue},
-%  commentstyle=\color{dkgreen},
-%  stringstyle=\color{mauve},
-%  numbers=left,
-%  basicstyle=\scriptsize\ttfamily,
-%  showspaces=false,
-%  frame=shadowbox,
-%  xleftmargin=0.5cm,
-%  escapeinside={(*@}{@*)},
-%  morecomment={[l]\#\ }
-%}
-
-\begin{document}
-\pagenumbering{roman}
-
-% Cover
+% Cover setup
 \title{Systemadministration - Mailserver Honeypot zum analysieren von Spam}
 \author{Manuel Adams 27470, Michael Ruf 27428, Mario Waizenegger 29608}
+
+\begin{document}
+\setlength{\parindent}{0ex} % Absatzeinrückung verhindern
+\pagenumbering{roman}
+
 \maketitle
 
 \begin{abstract}
@@ -164,6 +150,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 \newpage
 
+
 \section{Problemstellung}\label{sec:Problemstellung}
 	Spammer dokumentieren ihre Arbeit eher nicht.
 	Daher sind deren Vorgehensweisen unklar.
@@ -207,8 +194,9 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\item Inwiefern lässt sich der Inhalt der Mail auf Schreibweise, Textinhalt oder auch Anhänge analysieren?
 		\end{itemize}
 
-
 \newpage
+
+
 \section{Anforderungsanalyse}\label{sec:Anforderungsanalyse}
 	Folgende Anforderungen \textbf{MÜSSEN}/\textbf{SOLLEN}/\textbf{KÖNNEN} erarbeitet werden, damit die \nameref{sec:Problemstellung} gelöst werden kann:
 
@@ -243,10 +231,12 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		(\ref{sec:ProblemstellungPublizieren})
 	\end{enumerate}
 
-
 \newpage
+
+
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
 	Nachfolgende Lösungsvoschläge werden recherchiert und im nachfolgenden Kapitel auf ihre Eignung überprüft.
+
 	\subsection{Provider}\label{sec:Provider}
 		Für das Hosting des Mailserver \nameref{itm:Honeypot} muss ein geeigneter Provider für eine \nameref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
 		\begin{itemize}
@@ -259,7 +249,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
-		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen
+		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen.
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
 			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine auf Sicherheit ausgelegte UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
 		\subsubsection{Debian}\label{sec:Debian}
@@ -270,15 +260,25 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 	\subsection{Mailserver}\label{sec:Mailserver}
 		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
+<<<<<<< HEAD
 		Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen die folgenden Tools in Frage. 
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
 			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
 		\subsubsection{Dovecot}\label{sec:Dovecot}
 		Dovecot ist ein Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+=======
+		Als Mailserver für diesen Anwendungsfall kommen die folgenden Tools in Frage. 
+>>>>>>> af3c3d2f0207e539f7aa7efd2f108936e6ce43e9
 		\subsubsection{Postfix}\label{sec:Postfix}
 			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:FullstackDockerMailserver}
 			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Handhabung über Konfigurations-Dateien eine Menge an Tools mitliefert, um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. Er beinhaltet unter anderem \nameref{sec:Postfix} für SMTP und \nameref{sec:Dovecot} für IMAP und  POP3 mit LDAP Authentifizierung. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
+		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
+			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+		\subsubsection{Dovecot}\label{sec:Dovecot}
+		Dovecot ist ein sicherer Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+		
+		
 
 	\subsection{Virtualisierung}\label{sec:Virtualisierung}
 		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
@@ -287,12 +287,20 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
 
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
+<<<<<<< HEAD
 			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen. Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
+=======
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt. Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, des weiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
+>>>>>>> af3c3d2f0207e539f7aa7efd2f108936e6ce43e9
 
 		\subsubsection{Docker}\label{Docker}
-			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
+%			Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
+Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Außerdem können diese leicht auf andere Host-System portiert werden. Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
 
 \newpage
+
+
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
@@ -308,47 +316,47 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
 		
 		\subsubsection{Externe Provider}\label{sec:AuswahlLösungExterneProvider}
-			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern ist die Entscheidung auf \textsf{Netcup} gefallen, da das Preisleistungsangebot für eine \nameref{itm:VirtuelleMaschine} die Anforderungen erfüllt hat.
-			Hier ist eine \nameref{itm:VirtuelleMaschine} inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
-			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und die \nameref{itm:VirtuelleMaschine} bietet für den Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
+			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern wurde einer der die Anforderungen erfüllt und ein entsprechendes Preisleistungsangebot für einen virtuellen Server bietet ausgewählt.
+			Hier ist ein privater virtueller Server inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
+			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und der Server bietet für diesen Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
 			
 			
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-	\subsubsection{Debian}\label{sec:Debian}
-			Die Wahl des Host-Betriebsystems fiel auf eine Virtuelle Debian Maschine.
-			Diese wird uns vorkonfiguriert von unserem Provider Netcup bereitgestellt, im Projekt verlauf müssen somit nur noch Änderungen der bestehenden Konfiguration vorgenommen werden, ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang mit Debian hat und die nötigen Konfigurationen gut Dokumentiert sind.
-Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten Gründen.
+			Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
+			Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden. Ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
+Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
 
 	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
-		Aufgrund der verfügbaren Zeit für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das schnell und einfach in einem Docker-\nameref{itm:Container}	eingerichtet werden kann. Aus diesem Grund können für die beiden Anwendungsfälle auch unterschiedliche Mailserver aufgesetzt werden.
+		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container}	bietet. Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
 		
 		\subsubsection{Postfix}\label{sec:AuswahlLösungPostfix}	
-			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig einen höheren Konfigurationsaufwand, um die gleichen Vorteile und eine sichere Authentifizierung einzurichten.
+			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
 			
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:AuswahlLösungFullstackDockerMailserver}
 			Ist ein Mailserver der speziell für eine einfache Konfiguration in einem Docker-\nameref{itm:Container} entwickelt wurde. Die Grundkonfiguration lässt sich auf GitHub downloaden und kann für die eigenen Bedürfnisse angepasst werden. 
 			
-			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an. Da die vorhandene Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
+			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an, weil die Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
 		
 		\subsubsection{OpenSMTPD}\label{sec:AuswahlLösungOpenSMTPD}
-			Da der OpenSMTP Mailserver nur wenig Konfiguration erfordert, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
+			Da der OpenSMTP Mailserver eine kompakte und übersichtliche Konfiguration bietet, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
 			Damit muss nur noch sicher gestellt werden, das diese Spam-Mails nicht wirklich nach außen gelangen, sondern lediglich empfangen und gespeichert werden.
 		
 		\subsubsection{Dovecot}\label{sec:AuswahlLösungDovecot}
-			Eine weitere Alternative bietet der Dovcot Mailserver. Da sich dieser laut der Webseite auch für kleinere Projekte eignen soll, kann er ebenfalls für das \nameref{itm:OpenRelay} eingesetzt werden. Ein Vorteil dabei kann auch die beschriebene Schnelligkeit des Mailservers sein, und damit die  Attraktivität für Spammer erhöhen.
+		Der Dienst Dovecot bietet eine Möglichkeit Mails über IMAP oder POP3 abzuholen. Damit kann dieser für den \nameref{itm:OpenRelay} eingesetzt werden, um die eingehenden Mails vom Mailserver abzuholen und zu speichern. Damit stehen die empfangenen Mails zur Spam-Analyse bereit.
 
 		\subsubsection{Mailserver Auswahl}\label{sec:MailserverAuswahl}	
 		Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen. Damit kann innerhalb kürzester Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
 		
-	Der Einfachheit halber wird das \nameref{itm:OpenRelay} zunächst mit dem \nameref{sec:OpenSMTPD} umgesetzt. Sollte sich dieser allerdings aus irgend einem Grund als ungeeignet herausstellen, könnte auf den \nameref{sec:Dovecot} Mailserver zurückgegriffen werden.
+	Der \nameref{itm:OpenRelay} soll mit dem \nameref{sec:OpenSMTPD} umgesetzt. Der \nameref{sec:Dovecot} soll dabei als Dienst für das abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
 		
 		
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
-		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
-		
-			
+		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
+
 \newpage
+
+
 \section{Umsetzung}\label{sec:Umsetzung}
 	
 	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} 
@@ -358,7 +366,7 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		
 		Bei der Registrierung auf \textsf{Netcup} wurde der kleinste Virtuelle Server (VPS 200 G8) gewählt, da dieser mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist. Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
 		
-		Für die Domain haben wir uns für den unauffälligen Namen \textit{babedibubip.de} entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei \textsf{Netcup} ist für die Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zu uns hergestellt werden kann. 
+		Für die Domain haben wir uns für den unauffälligen Namen entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei der Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zum Besitzer der Domain hergestellt werden kann. Damit bleibt der Betreiber der Dienste, die unter dieser Domain erreichbar sind anonym.
 		
 		
 	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung}
@@ -409,83 +417,115 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 			Spam soll nicht gefiltert oder geblockt werden, daher werden Module wie Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
 		\end{itemize}
 			
-		\subsubsection{Konfiguration für ssl}\label{SSl-Container}
+		\subsubsection{SSL Konfiguration}\label{SSl-Container}
 			%referenz zum ssl docker code
 			Das beziehen der SSL-Zertifikate erfolg über den SSL-Docker-Container, dieser wurde vorkonfiguriert bezogen und wird dann angepasst um automatisch die Zertifikate auszustellen und zu prüfen.
 
-		\subsubsection{Docker für Datenbank aufsetzenl}\label{DB-Container}
+		\subsubsection{Datenbank Container}\label{DB-Container}
 %referenz zu DB-Container code
 			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden wird über ein Phpmyadmin-Image eingebunden und ist eine mySQl Datenbank, um  per Cronjob alle 30 Minuten die Mails mittels Php-Script zu speichern wird hier der Port 80/TCP benötigt. 
 
-		\subsubsection{Datenbank Hook für Mails konfigurieren}\label{DB-Hook-Container}
+		\subsubsection{Datenbank Hook}\label{DB-Hook-Container}
 			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert.
 
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay}
-	
+	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert, der von Mails von allen Adressen akzeptiert und damit so wirkt als würde er diese weiterleiten.
+		
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
+			Da die Konfiguration des \textsf{OpenSmtpd} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
+			
+			Die Ports die nach außen im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} definiert. Darin werden außerdem die Speicherbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Speicherbereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSmtpd} abgelegt. Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
+			
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt. Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt, als in den meisten Tutorials. Dies hat zur Folge das die Konfiguration eines \textsf{OpenSmtpd} innerhalb des Docker-\nameref{itm:Container} diverse Schwierigkeiten und Tücken mit sich bringt. 
+			Nach zahlreichen Konfigurationsversuchen, die nicht zum gewünschten Erfolg geführt haben, wurde deshalb beschlossen das \nameref{itm:OpenRelay} auf eine andere Weise zu konfigurieren. Um innerhalb des Projektzeitraums noch den gewünschten Erfolg erzielen zu können.
+			
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
+			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSmtpd} eigenständig in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} ergänzt.
+			
+			Dabei dient der \textsf{OpenSmtpd} als \nameref{itm:OpenRelay} der Mails von allen Absendeadressen an alle Zieladressen weiterleitet. Allerding werden diese nicht nach außen ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Mailserver. Dieser dient als zusätzlicher SMTP-Knoten, an den der \textsf{OpenSmtpd} seine ausgehenden Mails weiterleitet. Der \nameref{sec:Dovecot} wird so konfiguriert, dass dieser keine Mails weiterleitet, sonder diese nur speichert. Somit versiegen die Mails die vom \textsf{OpenSmtpd} weitergeleitet werden. Trotzdem wirkt der \textsf{OpenSmtpd} als \nameref{itm:OpenRelay}, weil er weiter leitet und keine negative Rückmeldung an den Absender gibt.
+			
+			Die Komplikationen bei der Konfiguration des \nameref{itm:OpenRelay} haben dazu geführt, dass dieser erst zum Ende des Projektzeitraums publiziert werden kann. Somit werden sich die Erkenntnisse daraus voraussichtlich erst im Anschluss an dieses Projekt ergeben.
+
 
 	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
-		\subsubsection{bei Diversen Diensten registrieren}\label{}
-			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle im Mai 2019 auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
-		\subsubsection{auf Spam reagieren}\label{}
-			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
+		Um den Empfang von Spam sicher zu stellen, werden verschiedene Maßnahmen ergriffen um Mailadressen zu verteilen und Spammer die Möglichkeit zu geben diese im Netz anzugreifen.
+
+		\subsubsection{Registrierung bei Diensten}\label{AdressenVerbreitenRegistrierenDiensten}
+		Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle im Mai 2019 auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
+		
+		\subsubsection{Reaktion auf Spam}\label{AdressenVerbreitenReaktionSpam}
+		Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
 	
 	\subsection{Website}\label{sec:UmsetzungWebsite}
 		Hierfür wird ein Docker-Webserver-Container aufgesetzt und eine Statische HTML Seite angezeigt
-		\subsubsection{Webservice konfigurieren}\label{}
+
+		\subsubsection{Webservice}\label{WebsiteWebservice}
 			Für den Container wird ein nginx:alpine Image geladen und Konfiguriert das eine statische Seite angezeigt werden kann, hierfür wird der Port 80/TCP benötigt.
-			Die Seite ist under der Adresse\url{https://babedibubip.de} erreichbar.
-		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
+% link markieren
+			Die Seite ist under der Adresse https://babedibubip.de erreichbar.
+		\subsubsection{Wordpress}\label{WebsiteWordpress}
 			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
 			
-		\subsubsection{HTML-Seite einrichten}\label{}
+		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
 			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse \url{https://babedibubip.de} erreichbar.
 
-		\subsubsection{WP-Login-Honeypot konfigurieren}\label{}
+		\subsubsection{WP-Login-Honeypot}\label{WebsiteWP-Login-Honeypot}
 			Da wir auch schauen wollten ob versucht wird sich mit Fake-Daten bei unseren Diensten anzumelden wurde auf der HTML-Seite noch ein Login hinzugefügt der nur die versuchten Login-Daten in die Datenbank speichert. Es ist kein Login möglich.
+
+\newpage
+
 	
 \section{Fazit}\label{sec:Fazit}
 %	Fazit knüpft bei Einleitung an (bzw. Literaturüberblick - den haben wir nicht)
 %	"Wir" ist hier erlaubt
 %	TODO
 
-
 \newpage
+
 
 % Quotes
 \bibliography{zitate}
 \bibliographystyle{plain}
 \addcontentsline{toc}{section}{Literatur}
+\newpage
+
 
 % Image listing
 \listoffigures
 \addcontentsline{toc}{section}{Abbildungsverzeichnis}
+\newpage
 
-%% Listings (code examples, ...)
-\lstlistoflistings
+
+% Listings (code examples, ...)
+% Enable bash style
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{RGB}{224, 176, 255}
+\lstset{
+  language=bash,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  numbers=left,
+  basicstyle=\scriptsize\ttfamily,
+  showspaces=false,
+  frame=shadowbox,
+  xleftmargin=0.5cm,
+  escapeinside={(*@}{@*)},
+  morecomment={[l]\#\ }
+}
 \addcontentsline{toc}{section}{Listings}
-	
-	
-	
+\lstlistoflistings
 \begin{lstlisting}[caption={Maileingangsserver}]
 mail-in:
   container_name: mail-in
   ports:
-    # Ports in this order:
-    # TLS SMTP
-    # TLS IMAP
-    # Unknown (by research now)
-    # SSL IMAP
-
     - "25:25/tcp"
     - "143:143/tcp"
     - "587:587/tcp"
     - "993:993/tcp"
   hostname: mail
-  domainname: babedibubip.de
+  domainname: example.com
   environment:
-    # TODO Disable all security / spam stuff
     # One dir for docker backups
     - ONE_DIR=1
     
@@ -499,17 +539,13 @@ mail-in:
     - ENABLE_POSTGREY=0
     - SPOOF_PROTECTION=0
     
-    # Create ssl cert and embed it manually
-    ### This is not working properly for any reason
-    ### To get shit done, domain is set up in ssl container
-    #- VIRTUAL_HOST=mail.babedibubip.de
-    #- VIRTUAL_PORT=80
+    # Embed ssl manually
     - SSL_TYPE=manual
     - SSL_CERT_PATH=/etc/manual-ssl/signed.crt
     - SSL_KEY_PATH=/etc/manual-ssl/domain.key
     
     # Set the post master
-    - POSTMASTER_ADDRESS=postmaster@babedibubip.de
+    - POSTMASTER_ADDRESS=postmaster@example.com
   image: tvial/docker-mailserver:latest
   volumes:
     - ../DATA/mail-in/data:/var/mail
@@ -517,8 +553,7 @@ mail-in:
     - ../DATA/mail-in/config:/tmp/docker-mailserver
     - ../DATA/mail-in/logs:/var/log/mail
     # Mount the ssl for this service manually
-    - ../DATA/ssl/mail.babedibubip.de/production:/etc/manual-ssl
-    #- ../DATA/ssl/mail.babedibubip.de/staging:/etc/manual-ssl
+    - ../DATA/ssl/mail.example.com/production:/etc/manual-ssl
   cap_add:
     - NET_ADMIN
     - SYS_PTRACE
@@ -533,16 +568,15 @@ ssl:
     - "80:80/tcp"
     - "443:443/tcp"
   environment:
-    DOMAINS: '
-      mail.babedibubip.de
-    '
+    DOMAINS: 'mail.example.com'
     STAGE: 'production'
     SERVER_NAMES_HASH_BUCKET_SIZE: 64
     CLIENT_MAX_BODY_SIZE: 0
   image: steveltn/https-portal:1.6.1
   volumes:
     - ../DATA/ssl:/var/lib/https-portal
-    # Enables a docker lookup of services for them to configure https themselves
+    # Enables a docker lookup of services for
+    # them to configure https themselves
     - /var/run/docker.sock:/var/run/docker.sock:ro
   tty: true
   stdin_open: true
@@ -552,7 +586,7 @@ ssl:
 db:
   container_name: mail-db
   environment:
-    MYSQL_ROOT_PASSWORD: ElyIg2G9RKkEglizc58A
+    MYSQL_ROOT_PASSWORD: YOUR_PASSWORD
     MYSQL_DATABASE: mail
   image: mysql:5.7
   volumes:
@@ -565,9 +599,6 @@ phpmyadmin:
   container_name: mail-db_phpmyadmin
   ports:
     - "14080:80/tcp"
-  #environment:
-  #  VIRTUAL_HOST: maildb.babedibubip.de
-  #  VIRTUAL_PORT: 14080
   image: phpmyadmin/phpmyadmin
   links:
     - db
@@ -576,19 +607,20 @@ phpmyadmin:
   restart: always
 	\end{lstlisting}
 \newpage
-%
-%% Additional stuff
+
+
+% Additional stuff
 \section*{Anhang}\label{Anhang}
 \addcontentsline{toc}{section}{Anhang}
-%
+\newpage
 
-%
-%% Plagiarism declaration
+
+% Plagiarism declaration
 \begin{newpage}
 \vspace*{\fill}
 \section*{Eidesstattliche Erklärung}\label{sec:Eidesstattliche Erklärung}
 \addcontentsline{toc}{section}{Eidesstattliche Erklärung}
-	Hiermit versichere ich, die vorliegende Arbeit selbstständig und unter ausschließlicher Verwendung der angegebenen Literatur und Hilfsmittel erstellt zu haben. Die Arbeit wurde bisher, in gleicher oder ähnlicher Form, keiner anderen Prüfungsbehörde vorgelegt und auch nicht veröffentlicht.\\
+	Hiermit versichere ich, die vorliegende Arbeit selbstständig und unter ausschlie{\ss}licher Verwendung der angegebenen Literatur und Hilfsmittel erstellt zu haben. Die Arbeit wurde bisher, in gleicher oder ähnlicher Form, keiner anderen Prüfungsbehörde vorgelegt und auch nicht veröffentlicht.\\
 
 \vspace{3cm}
 \begin{tabular*}{\textwidth}{c@{\extracolsep\fill}cc}
