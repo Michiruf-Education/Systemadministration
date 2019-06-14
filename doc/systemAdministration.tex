@@ -440,40 +440,25 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 
 
 	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
-<<<<<<< HEAD
 		Um den Empfang von Spam sicher zu stellen, werden verschiedene Maßnahmen ergriffen um Mailadressen zu verteilen und Spammer die Möglichkeit zu geben diese im Netz anzugreifen.
-	 %Manu
+
 		\subsubsection{Registrierung bei Diensten}\label{AdressenVerbreitenRegistrierenDiensten}
-			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
+		Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle im Mai 2019 auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
+		
 		\subsubsection{Reaktion auf Spam}\label{AdressenVerbreitenReaktionSpam}
-			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vorallem wird geschaut ob sich evtl noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl den Erhalt von mehr Spam beschleunigen kann.
-=======
-		\subsubsection{bei Diversen Diensten registrieren}\label{}
-			Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und unseren Catch all Mails registriert, danach wurde geschaut ob durch die Dienste und/oder 3rd party Dienste noch mehr Fake-Mails registriert werden können. Danach wurde versucht die Konten bei Diensten als Aktiv wirken zu lassen durch z.b. Ändern von Profildaten und anklicken der Links in erhaltenen Mails. Durch die Spam-Welle im Mai 2019 auf den FH-E-Mail-Adressen konnten wir uns dann auch direkt bei Diensten anmelden die Spam verteilen.
-		\subsubsection{auf Spam reagieren}\label{}
-			Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
->>>>>>> e74e7c793780898cd47957662995fa9f7e6a580e
+		Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
 	
 	\subsection{Website}\label{sec:UmsetzungWebsite}
 		Hierfür wird ein Docker-Webserver-Container aufgesetzt und eine Statische HTML Seite angezeigt
 		\subsubsection{Webservice}\label{WebsiteWebservice}
 			Für den Container wird ein nginx:alpine Image geladen und Konfiguriert das eine statische Seite angezeigt werden kann, hierfür wird der Port 80/TCP benötigt.
-<<<<<<< HEAD
 % link markieren
 			Die Seite ist under der Adresse https://babedibubip.de erreichbar.
 		\subsubsection{Wordpress}\label{WebsiteWordpress}
 			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
 			
 		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
-			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse https://babedibubip.de erreichbar.
-=======
-			Die Seite ist under der Adresse\url{https://babedibubip.de} erreichbar.
-		\subsubsection{Wordpress-Docker-Container aufsetzen}\label{}
-			Über einen Docker-Container wurde ein einfacher Wordpress-Blog erstellt der die Mail Einträge beinhaltet, dieser war unter der Adresse https://babedibubip.de erreichbar.
-			
-		\subsubsection{HTML-Seite einrichten}\label{}
 			Da wir nur Crawlern das erhalten unserer Fakemails einfach ermöglichen wollten haben wir dann eine statische HTML-Seite mit Href-Einträgen für die Mails erstellt und diese Live gestellt, die Seite ist unter der Adresse \url{https://babedibubip.de} erreichbar.
->>>>>>> e74e7c793780898cd47957662995fa9f7e6a580e
 
 		\subsubsection{WP-Login-Honeypot}\label{WebsiteWP-Login-Honeypot}
 			Da wir auch schauen wollten ob versucht wird sich mit Fake-Daten bei unseren Diensten anzumelden wurde auf der HTML-Seite noch ein Login hinzugefügt der nur die versuchten Login-Daten in die Datenbank speichert. Es ist kein Login möglich.
