@@ -249,7 +249,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
-		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen
+		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen.
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
 			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine eher selten verwendete UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
 		\subsubsection{Debian}\label{sec:Debian}
@@ -260,15 +260,17 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 	\subsection{Mailserver}\label{sec:Mailserver}
 		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
-		Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen die folgenden Tools in Frage. 
-		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
-			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
-		\subsubsection{Dovecot}\label{sec:Dovecot}
-		Dovecot ist ein sicherer Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+		Als Mailserver für diesen Anwendungsfall kommen die folgenden Tools in Frage. 
 		\subsubsection{Postfix}\label{sec:Postfix}
 			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:FullstackDockerMailserver}
 			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Handhabung über Konfigurations-Dateien eine Menge an Tools mitliefert, um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. Er beinhaltet unter anderem \nameref{sec:Postfix} für SMTP und \nameref{sec:Dovecot} für IMAP und  POP3 mit LDAP Authentifizierung. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
+		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
+			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+		\subsubsection{Dovecot}\label{sec:Dovecot}
+		Dovecot ist ein sicherer Open-Source Mailserver mit Unterstützung von IMAP und POP3 für UNIX Distribution. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für größere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Außerdem ist der Mailserver schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+		
+		
 
 	\subsection{Virtualisierung}\label{sec:Virtualisierung}
 		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
@@ -277,10 +279,12 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können große Schäden entstehen. Für Test-Konfigurationen und Backups wäre das Risiko von Datenverlust oder Ausfall der Dienste zu groß.
 
 		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt. Virtuelle-Maschinen sind jedoch sehr langsam was das Neustarten angeht, des weiteren können die Backups von Virtuellen-Maschinen sehr groß werden und es dauert lange Backups im Fehlerfall neu einzuspielen.Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen umständlich zum Hostsystem geschickt werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups verlangsamt.
 
 		\subsubsection{Docker}\label{Docker}
-			Da die Konfiguration eines  Docker-\nameref{itm:Container}s in der docker-compose.yml hinterlegt wird, ist sie gut Dokumentiert und für jedes Teammitglied verständlich. Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. Docker-\nameref{itm:Container} sind mit sehr wenig Aufwand reproduzierbar und austauschbar, auch das Host-System ist einfach austauschbar. Docker-\nameref{itm:Container} können in Sekundenschnelle herunter und wieder hochgefahren werden was das Testen von neuen Konfigurationen sehr effizient macht. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell zurücksetzen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. falls Schadsoftware in den Container gelangt kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden ohne umständlich Ports neu belegen zu müssen. 	Durch Volume und Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert und beschleunigt.
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
+%			Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
+Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Außerdem können diese leicht auf andere Host-System portiert werden. Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
 
 \newpage
 
@@ -300,44 +304,43 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
 		
 		\subsubsection{Externe Provider}\label{sec:AuswahlLösungExterneProvider}
-			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern ist die Entscheidung auf \textsf{Netcup} gefallen, da das Preisleistungsangebot für eine \nameref{itm:VirtuelleMaschine} die Anforderungen erfüllt hat.
-			Hier ist eine \nameref{itm:VirtuelleMaschine} inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
-			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und die \nameref{itm:VirtuelleMaschine} bietet für den Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
+			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern wurde einer der die Anforderungen erfüllt und ein entsprechendes Preisleistungsangebot für einen virtuellen Server bietet ausgewählt.
+			Hier ist ein privater virtueller Server inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
+			Für die Domain ist ein Whois-Schutz standardmäßig eingerichtet und der Server bietet für diesen Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.
 			
 			
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-		\subsubsection{Debian}\label{sec:Debian}
-			Die Wahl des Host-Betriebsystems fiel auf eine Virtuelle Debian Maschine.
-			Diese wird uns vorkonfiguriert von unserem Provider Netcup bereitgestellt, im Projekt verlauf müssen somit nur noch Änderungen der bestehenden Konfiguration vorgenommen werden, ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang mit Debian hat und die nötigen Konfigurationen gut Dokumentiert sind.
-Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten Gründen.
+			Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
+			Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden. Ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
+Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
 
 	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
-		Aufgrund der verfügbaren Zeit für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das schnell und einfach in einem Docker-\nameref{itm:Container}	eingerichtet werden kann. Aus diesem Grund können für die beiden Anwendungsfälle auch unterschiedliche Mailserver aufgesetzt werden.
+		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container}	bietet. Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
 		
 		\subsubsection{Postfix}\label{sec:AuswahlLösungPostfix}	
-			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig einen höheren Konfigurationsaufwand, um die gleichen Vorteile und eine sichere Authentifizierung einzurichten.
+			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
 			
 		\subsubsection{Fullstack Docker Mailserver}\label{sec:AuswahlLösungFullstackDockerMailserver}
 			Ist ein Mailserver der speziell für eine einfache Konfiguration in einem Docker-\nameref{itm:Container} entwickelt wurde. Die Grundkonfiguration lässt sich auf GitHub downloaden und kann für die eigenen Bedürfnisse angepasst werden. 
 			
-			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an. Da die vorhandene Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
+			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an, weil die Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
 		
 		\subsubsection{OpenSMTPD}\label{sec:AuswahlLösungOpenSMTPD}
-			Da der OpenSMTP Mailserver nur wenig Konfiguration erfordert, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
+			Da der OpenSMTP Mailserver eine kompakte und übersichtliche Konfiguration bietet, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
 			Damit muss nur noch sicher gestellt werden, das diese Spam-Mails nicht wirklich nach außen gelangen, sondern lediglich empfangen und gespeichert werden.
 		
 		\subsubsection{Dovecot}\label{sec:AuswahlLösungDovecot}
-			Eine weitere Alternative bietet der Dovcot Mailserver. Da sich dieser laut der Webseite auch für kleinere Projekte eignen soll, kann er ebenfalls für das \nameref{itm:OpenRelay} eingesetzt werden. Ein Vorteil dabei kann auch die beschriebene Schnelligkeit des Mailservers sein, und damit die  Attraktivität für Spammer erhöhen.
+		Der Dienst Dovecot bietet eine Möglichkeit Mails über IMAP oder POP3 abzuholen. Damit kann dieser für den \nameref{itm:OpenRelay} eingesetzt werden, um die eingehenden Mails vom Mailserver abzuholen und zu speichern. Damit stehen die empfangenen Mails zur Spam-Analyse bereit.
 
 		\subsubsection{Mailserver Auswahl}\label{sec:MailserverAuswahl}	
 		Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen. Damit kann innerhalb kürzester Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
 		
-	Der Einfachheit halber wird das \nameref{itm:OpenRelay} zunächst mit dem \nameref{sec:OpenSMTPD} umgesetzt. Sollte sich dieser allerdings aus irgend einem Grund als ungeeignet herausstellen, könnte auf den \nameref{sec:Dovecot} Mailserver zurückgegriffen werden.
+	Der \nameref{itm:OpenRelay} soll mit dem \nameref{sec:OpenSMTPD} umgesetzt. Der \nameref{sec:Dovecot} soll dabei als Dienst für das abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
 		
 		
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
-		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfur in einem eigenen Container realisiert werden und somit einfach ausgetauscht werden können, im Fehlerfall oder zu Testzwecken.
+		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
 
 \newpage
 
@@ -351,7 +354,7 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in 5.2 erwähnten G
 		
 		Bei der Registrierung auf \textsf{Netcup} wurde der kleinste Virtuelle Server (VPS 200 G8) gewählt, da dieser mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist. Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
 		
-		Für die Domain haben wir uns für den unauffälligen Namen \textit{babedibubip.de} entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei \textsf{Netcup} ist für die Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zu uns hergestellt werden kann. 
+		Für die Domain haben wir uns für den unauffälligen Namen entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei der Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zum Besitzer der Domain hergestellt werden kann. Damit bleibt der Betreiber der Dienste, die unter dieser Domain erreichbar sind anonym.
 		
 		
 	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung}
