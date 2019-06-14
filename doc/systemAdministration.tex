@@ -15,7 +15,6 @@
 \usepackage[numbers,round]{natbib}
 \usepackage{textcomp}
 \usepackage{float} % For image floating ([H] -> "here")
-\usepackage{geometry}
 
 % Configuration
 \sloppy
@@ -37,14 +36,6 @@
 %  morecomment={[l]\#\ }
 %}
 
-% Margin Stuff
-\geometry{
-	inner=2.5cm, % Inner margin
-	outer=2.5cm, % Outer margin
-	bindingoffset=.5cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
-}
 \begin{document}
 \pagenumbering{roman}
 
@@ -52,8 +43,6 @@
 \title{Systemadministration - Mailserver Honeypot zum analysieren von Spam}
 \author{Manuel Adams 27470, Michael Ruf 27428, Mario Waizenegger 29608}
 \maketitle
-
-\newpage
 
 \begin{abstract}
 Heutzutage wird viel \nameref{itm:Spam} verschickt. Einiges davon wird erkannt und gefiltert.
@@ -68,38 +57,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 \newpage
 \pagenumbering{arabic}
-
-\section{Grundbegriffe}\label{sec:Grundbegriffe}
-	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
-	
-	% NOTE Alle nochmal durchnudeln
-	\begin{description}
-	\item[Spam\label{itm:Spam}]\hfill \\
-		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten (Informationen) bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
-	\item[Honeypot\label{itm:Honeypot}]\hfill \\
-		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
-	\item[Open-Relay\label{itm:OpenRelay}]\hfill \\
-		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
-	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
-		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
-	\item[Blacklist \label{itm:Blacklist}]\hfill \\
-		Eine Blacklist oder "`schwarze Liste"' enthält eine Auflistung von Daten, die von einem Prozess ausgeschlossen werden solle. Das Gegenteil dazu ist eine Whitelist. \cite{Blacklist}
-	\item[Container\label{itm:Container}]\hfill \\
-		Containervirtualisierung ist eine Methode, um mehrere Instanzen eines Betriebssystems isoliert voneinander auf einem Hostsystem zu betreiben.\cite{Container}
-	\item[DNS\label{itm:DNS}]\hfill \\
-		Das Domain Name System (DNS) ist einer der wichtigsten Dienste in vielen IP-basierten Netzwerken. Seine Hauptaufgabe ist die Beantwortung von Anfragen zur Namensauflösung.\cite{DNS}
-	\item[SPF\label{itm:SPF}]\hfill \\
-		Das Sender Policy Framework (SPF; früher Sender Permitted From) ist ein Verfahren, mit dem das Fälschen der Absenderadresse einer E-Mail verhindert werden soll, genauer das Versenden von E-Mail über nicht legitimierte Mail Transfer Agents (MTAs) unterbindet.\cite{SPF}
-	\item[DKIM\label{itm:DKIM}]\hfill \\
-		DKIM (DomainKeys Identified Mail) ist eine Methode der E-Mail-Authentifizierung. DKIM fügt Ihren Mails eine Signatur hinzu, die Ihrer Domain zugeordnet ist und bei allen ausgehenden E-Mails genutzt wird. Das Verwenden eines DomainKey ist eine Technik (ähnlich wie  \nameref{itm:SPF}), die das Fälschen des Absenders einer E-Mail erschweren soll.\cite{DKIM}
-	\item[Hook\label{itm:Hook}]\hfill \\
-		Hook (englisch für Haken, auch Einschubmethode genannt) bezeichnet in der Programmierung eine Schnittstelle, mit der fremder Programmcode in eine bestehende Anwendung integriert werden kann, um diese zu erweitern, deren Ablauf zu verändern oder um bestimmte Ereignisse abzufangen.\cite{Hook}
-	\item[Catch-All-Mail-Adressen\label{itm:Catch-All-Mail}]\hfill \\
-		Als Catch-all (auch Catch-all-Weiterleitung) wird eine Adressweiterleitung von einer beliebigen Zeichenfolge im ersten Teil einer E-Mail- bzw. WWW-Adresse auf ein Postfach bzw. eine Webseite bezeichnet.\cite{Catch-All-Mail}
-	\end{description}
-
-
-\newpage
 
 % Content
 \section{Einleitung}\label{sec:Einleitung}
@@ -173,6 +130,37 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			\item
 				In Abschnitt 8 wird das Projekt nochmals zusammengefasst und ein Fazit gezogen.
 		\end{itemize}
+
+\newpage
+
+\section{Grundbegriffe}\label{sec:Grundbegriffe}
+	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
+	
+	% NOTE Alle nochmal durchnudeln
+	\begin{description}
+	\item[Spam\label{itm:Spam}]\hfill \\
+		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten (Informationen) bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
+	\item[Honeypot\label{itm:Honeypot}]\hfill \\
+		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
+	\item[Open-Relay\label{itm:OpenRelay}]\hfill \\
+		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
+	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
+		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
+	\item[Blacklist \label{itm:Blacklist}]\hfill \\
+		Eine Blacklist oder "`schwarze Liste"' enthält eine Auflistung von Daten, die von einem Prozess ausgeschlossen werden solle. Das Gegenteil dazu ist eine Whitelist. \cite{Blacklist}
+	\item[Container\label{itm:Container}]\hfill \\
+		Containervirtualisierung ist eine Methode, um mehrere Instanzen eines Betriebssystems isoliert voneinander auf einem Hostsystem zu betreiben.\cite{Container}
+	\item[DNS\label{itm:DNS}]\hfill \\
+		Das Domain Name System (DNS) ist einer der wichtigsten Dienste in vielen IP-basierten Netzwerken. Seine Hauptaufgabe ist die Beantwortung von Anfragen zur Namensauflösung.\cite{DNS}
+	\item[SPF\label{itm:SPF}]\hfill \\
+		Das Sender Policy Framework (SPF; früher Sender Permitted From) ist ein Verfahren, mit dem das Fälschen der Absenderadresse einer E-Mail verhindert werden soll, genauer das Versenden von E-Mail über nicht legitimierte Mail Transfer Agents (MTAs) unterbindet.\cite{SPF}
+	\item[DKIM\label{itm:DKIM}]\hfill \\
+		DKIM (DomainKeys Identified Mail) ist eine Methode der E-Mail-Authentifizierung. DKIM fügt Ihren Mails eine Signatur hinzu, die Ihrer Domain zugeordnet ist und bei allen ausgehenden E-Mails genutzt wird. Das Verwenden eines DomainKey ist eine Technik (ähnlich wie  \nameref{itm:SPF}), die das Fälschen des Absenders einer E-Mail erschweren soll.\cite{DKIM}
+	\item[Hook\label{itm:Hook}]\hfill \\
+		Hook (englisch für Haken, auch Einschubmethode genannt) bezeichnet in der Programmierung eine Schnittstelle, mit der fremder Programmcode in eine bestehende Anwendung integriert werden kann, um diese zu erweitern, deren Ablauf zu verändern oder um bestimmte Ereignisse abzufangen.\cite{Hook}
+	\item[Catch-All-Mail-Adressen\label{itm:Catch-All-Mail}]\hfill \\
+		Als Catch-all (auch Catch-all-Weiterleitung) wird eine Adressweiterleitung von einer beliebigen Zeichenfolge im ersten Teil einer E-Mail- bzw. WWW-Adresse auf ein Postfach bzw. eine Webseite bezeichnet.\cite{Catch-All-Mail}
+	\end{description}
 
 \newpage
 
