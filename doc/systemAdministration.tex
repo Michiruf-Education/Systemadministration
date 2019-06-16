@@ -466,10 +466,10 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Wie das Image des Containers aufgebaut ist, wird in der Konfigurationsdatei in \autoref{lst:RelayContainerDockerfile} angegeben.
 
 			Die Konfiguration für den \textsf{OpenSMTPD} wird in einer separaten Datei wie im \autoref{lst:smtpdConf} angegeben.
-			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei \autoref{sec:OpenRelayDovecot} definiert.
+			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei \autoref{OpenRelayDovecot} definiert.
 			Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um jegliche Mails zu persistieren.
 
-			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem \nameref{itm:OpenBSD} System der Fall wäre.
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem \nameref{sec:OpenBSD} System der Fall wäre.
 			Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war.
 			Die Konfigurationsdatei in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben.
 
@@ -820,9 +820,9 @@ phpmyadmin:
 
 
 % Additional stuff
-\section*{Anhang}\label{Anhang}
-\addcontentsline{toc}{section}{Anhang}
-\newpage
+%\section*{Anhang}\label{Anhang}
+%\addcontentsline{toc}{section}{Anhang}
+%\newpage
 
 
 % Plagiarism declaration
