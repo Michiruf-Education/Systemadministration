@@ -276,8 +276,8 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Wenn ein Dienst konfiguriert oder angepasst wird ist der Dienst während dieser Zeit nicht erreichbar.
 
 		\subsubsection{Virtuelle-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.
-			Backups der kompletten virtuellen Maschine können sehr groß werden und es dauert unter Umständen lange diese im Fehlerfall wieder einzuspielen.
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver ist die Host-Maschine vor Schadsoftware geschützt.
+			Backups der kompletten virtuellen Maschine können sehr groß sein und es dauert unter Umständen lange diese im Fehlerfall wieder einzuspielen.
 
 		\subsubsection{Docker}\label{Docker}
 			Docker-\nameref{itm:Container} sind gegen das Host-System abgeschottet. Falls Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
@@ -403,63 +403,79 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	Anhand der im vorherigen Abschnitt benannten einzusetzenden Techniken wird im folgenden die praktische Umsetzung beschrieben.
 	
 	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} 
-		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{itm:VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen Provider gehostet, da das RZ der Hochschule zu diesem Zweck keine VM zur Verfügung stellen konnte.
+		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{itm:VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen Provider gehostet.
+		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inklusive einer Domain von der Hochschule bestätigt.
+
+		Bei der Registrierung wurde der kleinste Virtuelle Server gewählt, der mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist.
+		Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
+		% TODO Link Traffic; evtl. ebenfalls die Daten?
 		
-		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inkl. einer Domain von der Hochschule bestätigt.  
-		
-		Bei der Registrierung wurde der kleinste Virtuelle Server gewählt, der mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist. Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
-		
-		Für die Domain haben wir uns für den unauffälligen Namen entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei der Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zum Besitzer der Domain hergestellt werden kann. Damit bleibt der Betreiber der Dienste, die unter dieser Domain erreichbar sind anonym.
-		
+		Für die Domain haben wir uns für einen unauffälligen Namen entschieden, sodass Spammer keinen Verdacht schöpfen.
+		Der Provider bietet einen Whois-Schutz, womit die Domain keinen Bezug zum Besitzer hat.
 		
 	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung}
-		Auf der angemieteten Maschine läuft ein Debian als Host und die Docker Software wurde installiert, somit können die Docker-\nameref{itm:Container} aufgesetzt werden. Für die Mailserver wird au{\ss}erdem der DNS entsprechend konfiguriert, hierfür wird ein passender MX-Rekord benötigt.
-		
-		Zu Beginn werden Systemupdates geladen und die DNS Einträge erstellt wie im nachfolgenden Abschnitt beschrieben.
+		Nachfolgende Schritte wurden auf der angemieteten Maschine ausgeführt.
 		
 		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
-			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser MX-Rekord zeigt dann auf die IP-Adresse des Servers. Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschlie{\ss}end bei den Konfigurationen in den  Docker-\nameref{itm:Container}n.
+			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser MX-Rekord zeigt auf die IP-Adresse des Servers.
+			% TODO Mario: Link MX-Record + Def
 			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein \texttt{www} Eintrag für die Website erstellt.
+			% TODO Wir haben keinen WWW-Eintrag, die Webseite aber zu erwähnen ist aber geil
+			% TODO Mario: Welche Webseite? Siehe ... hinzufügen
 
 		\subsubsection{Docker}\label{sec:DockerAufsetzen}
-			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert werden.
-			
-			Zunächst müssen allgemeine Updates geladen und installiert werden. Danach können Docker-Images einfach geladen und eingebunden werden.
+			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert sein.
+			Danach können Docker-Images einfach bezogen und eingebunden werden.
+			Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschlie{\ss}end bei den Konfigurationen in den Docker-\nameref{itm:Container}n.
+			% TODO Mario: Ref auf Listing mit der Installation von Docker bzw. evtl. auf die Installationsseite von Docker, damit hier ein belegt ist wie das gemacht wird
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
-		Der Mail-Eingangserver besteht aus den Compenenten Docker-Mailserver-Image und dem Datenbank Script.
-		Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität der Mails Sicherstellt und eine SQL-Datenbank um die Mails zu persistieren.
-		Im folgenden Abschnitt wird die konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
+		Der Mail-Eingangserver besteht aus den Komponenten Mailserver und dem Datenbank Script.
+		Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität des Mailservers sicherstellt und eine SQL-Datenbank um die Mails zu persistieren.
+		% TODO Mario: Link SSL, SQL, evtl. Authentizität?
+		Im folgenden Abschnitt wird die Konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
 
-		\subsubsection{Docker Konfiguration}\label{Mail-In-Container}
-			%referenz zum docker image und konfig code
-			Es wird ein Docker-Image-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert (siehe \autoref{lst:Maileingangsserver}). Um Mails empfangen und per IMAP über einen Mail Client beziehen zu können werden die folgende Ports benötigt:
-		\begin{itemize}
-			\item
-				25 für TLS SMTP
-			\item
-				143 TLS IMAP
-			\item
-				587 TLS default mail submission port
-			\item
-				993 SSL IMAP
-			Spam soll nicht gefiltert oder geblockt werden, daher werden Module wie Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
-		\end{itemize}
+		\subsubsection{Mail-Container Konfiguration}\label{Mail-In-Container}
+			Wie in 6.4.2 beschrieben wird das Image verwendet und wie in \autoref{lst:Maileingangsserver} konfiguriert.
+			% TODO Ref 6.4.2
+			Um Mails zu Empfangen und per IMAP über einen Mail-Client beziehen zu können werden die folgende Ports benötigt:
+			\begin{itemize}
+				\item 25 für TLS SMTP
+				\item 143 TLS IMAP
+				\item 587 TLS default mail submission port
+				\item 993 SSL IMAP
+			\end{itemize}
+			Da für den Erhalt von Spam dieser nicht gefiltert werden soll, werden die Module Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
+			% TODO Mario: Italic oder sowas (also Zitat-mäßig / Code-mäßig) für die Module
 			
-		\subsubsection{SSL Konfiguration}\label{SSl-Container}
-			%referenz zum ssl docker code
-			Die SSL-Zertifikate werden über den SSL-Docker-Container bezogen, dieser wurde vorkonfiguriert eingebunden und entsprechend angepasst um automatisch Zertifikate auszustellen und diese zu prüfen. (siehe \autoref{lst:SSL-Container})
+		\subsubsection{SSL Konfiguration}\label{SSL-Container}
+			Die SSL-Zertifikate werden über einen Container bezogen, dieser wurde konfiguriert und entsprechend angepasst um automatisch Zertifikate auszustellen und zu erneuern.
+			Intern benutzt dieser Let's Encrypt als Dienst für die Bereitstellung der Zertifikate.
+			% TODO Mario: Link zu https://letsencrypt.org/
+			Die komplette SSL-Konfiguration ist in \autoref{lst:SSL-Container} aufgeführt.
 
-		\subsubsection{Datenbank Container}\label{DB-Container}
-%referenz zu DB-Container code
-			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
+		\subsubsection{Datenbank Konfiguration}\label{DB-Container}
+			Die Datenbank in der die Mails persistiert werden, wird über ein Docker-Image eingebunden.
+			Es handelt sich hierbei um eine MySQL Datenbank.
+			% TODO Mario: Link MySQL
+			Zur Verwaltung der Datenbank wird phpMyAdmin verwendet.
+			% TODO Mario: Link phpMyAdmin
+			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
-			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert.
-			Dieses Script wird mittels Cronjob alle 30 Minuten aufgerufen.
+			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert. 
+			Dieses holt sich per IMAP die Mails vom Eingangsserver und speichert diese in die SQL-Datenbank.
+			Um das zu erreichen hat der Container eine Verlinkung zu den beiden anderen verwendeten Containern.
+			Alle 30 Minuten wird das Script per cronjob aufgerufen.
+
+			Das Script ist in \autoref{lst:PHP-Script} aufgeführt.
+			% TODO Mario: PHP-Script in die Listings rein
+			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 	\subsection{Ausgangsserver}\label{sec:UmsetzungOpenRelay}
-		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert. Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
+% TODO HERE WE ARE
+		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert.
+		Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
 		
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
 			Da die Konfiguration des \textsf{OpenSMTPD} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
