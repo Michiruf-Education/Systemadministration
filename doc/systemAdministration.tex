@@ -150,6 +150,16 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Das Post Office Protocol 3 (POP3) ist wie \nameref{itm:IMAP} zum  Empfangen und Versenden von E-Mails. Allerdings löscht dieses Protokoll die MAils auf dem Server nachdem diese vom Server auf den Client heruntergeladen wurden. Somit ist keine Synchronisierung zwischen verschiedenen Endgeräten möglich.\cite{pop3}
 	\item[SMTP\label{itm:SMTP}]\hfill \\
 		Das Simple Mail Transfer Protocol (SMTP) dient in IP-Netzen zum weiterleiten von E-Mails zwischen den einzelnen Servern. \cite{smtp}
+	\item[SSL\label{itm:SSL}]\hfill \\
+		Secure Socets Layer soll die Internetverbindung absichern und sensible Daten, die zwischen zwei Systemen übertragen werden, schützen. Dabei sorgen Verschlüsselungsalgorithmen bei der Datenübertragung dafür diese zu kodieren, um das Mitlesen zu verhindern. \cite{ssl}
+	\item[Traffic\label{itm:Traffic}]\hfill \\
+		Unter Traffic oder auch Datenverkehr wird der Datenfluss in Netzwerken verstanden. \cite{traffic}
+	\item[MX-Rekord\label{itm:MX-Rekord}]\hfill \\
+		Ein MX-Rekord definiert unter welchem Domain Name ein Mail-Server einer Domain erreicht werden kann. \cite{mxRekord}
+	\item[SQL\label{itm:SQL}]\hfill \\
+		SQL ist eine Datenbanksprache die es ermöglicht in relationalen Datenbanken Datenstrukturen zu verwalten. \cite{sql}
+	\item[Tracking\label{itm:Tracking}]\hfill \\
+		Eine Tracking URL beinhaltet bestimmte ID´s oder Parameter, über die der Weg des Nutzers dieses Links beim Aufruf verfolgt werden kann. \cite{tracking}
 	\end{description}
 
 \newpage
@@ -183,7 +193,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\item und bei möglichst vielen Diensten benutzt werden.
 		\end{itemize}
 		Es soll identifiziert werden können von welchem Dienst eine Mail eingeht.
-		Zudem bietet es sich an auf eingehende Spam-Mails zu reagieren indem man bspw. auf vorhandene Links klickt, da Tracking-Links enthalten sein können oder auf die Mail antwortet. % TODO Def Tracking
+		Zudem bietet es sich an auf eingehende Spam-Mails zu reagieren indem man bspw. auf vorhandene Links klickt, da \nameref{itm:Tracking}-Links enthalten sein können oder auf die Mail antwortet.
 
 	\subsection{Open-Relay Publizieren}\label{sec:ProblemstellungPublizieren}
 		Der \nameref{itm:Honeypot} muss bei Spammern als unsicher wirkender \nameref{itm:OpenRelay} und guter Spamverteiler bekannt werden.
@@ -371,7 +381,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Damit muss nur noch sicher gestellt werden, das diese Spam-Mails nicht wirklich nach au{\ss}en gelangen, sondern lediglich empfangen und gespeichert werden.
 
 		\subsubsection{Dovecot}\label{sec:AuswahlLösungDovecot}
-			%TODO Mario: Link überall: IMAP, POP3
 			Dovecot bietet eine Möglichkeit Mails über \nameref{itm:IMAP} oder \nameref{itm:POP3} abzuholen. \citep{dovecot}
 			Dieser kann für den \nameref{itm:OpenRelay} eingesetzt werden, um die ausgehenden Mails vom Mailserver zu persistieren.
 			Dadurch können die im Dovecot gespeicherten Mails via \nameref{itm:IMAP} oder \nameref{itm:POP3} bezogen und analysiert werden.
@@ -394,8 +403,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inklusive einer Domain von der Hochschule bestätigt.
 
 		Bei der Registrierung wurde der kleinste Virtuelle Server gewählt, der mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist.
-		Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
-		% TODO Link Traffic; evtl. ebenfalls die Daten?
+		Weitere Features wie ungedrosselter \nameref{itm:Traffic} sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
 		
 		Für die Domain haben wir uns für einen unauffälligen Namen entschieden, sodass Spammer keinen Verdacht schöpfen.
 		Der Provider bietet einen Whois-Schutz, womit die Domain keinen Bezug zum Besitzer hat.
@@ -404,27 +412,21 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Nachfolgende Schritte wurden auf der angemieteten Maschine ausgeführt.
 		
 		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
-			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser MX-Rekord zeigt auf die IP-Adresse des Servers.
-			% TODO Mario: Link MX-Record + Def
-			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein \texttt{www} Eintrag für die Website erstellt.
-			% TODO Wir haben keinen WWW-Eintrag, die Webseite aber zu erwähnen ist aber geil
-			% TODO Mario: Welche Webseite? Siehe ... hinzufügen
+			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser \nameref{itm:MX-Rekord} zeigt auf die IP-Adresse des Servers.
+			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein Eintrag für die Website \href{https://babedibubip.de}{babedibubip.de} erstellt.
 
 		\subsubsection{Docker}\label{sec:DockerAufsetzen}
-			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert sein.
+			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert sein. Dies kann wie auf der  \href{https://docs.docker.com/install/linux/docker-ce/debian/}{Website} beschrieben, für  Debian nachgemacht werden.
 			Danach können Docker-Images einfach bezogen und eingebunden werden.
 			Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschlie{\ss}end bei den Konfigurationen in den Docker-\nameref{itm:Container}n.
-			% TODO Mario: Ref auf Listing mit der Installation von Docker bzw. evtl. auf die Installationsseite von Docker, damit hier ein belegt ist wie das gemacht wird
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
 		Der Mail-Eingangserver besteht aus den Komponenten Mailserver und dem Datenbank Script.
-		Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität des Mailservers sicherstellt und eine SQL-Datenbank um die Mails zu persistieren.
-		% TODO Mario: Link SSL, SQL, evtl. Authentizität?
+		Des weiteren wird noch ein \nameref{itm:SSL}-Zertifikat benötigt welches die Authentizität des Mailservers sicherstellt und eine \nameref{itm:SQL}-Datenbank um die Mails zu persistieren.
 		Im folgenden Abschnitt wird die Konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
 
 		\subsubsection{Mail-Container Konfiguration}\label{Mail-In-Container}
-			Wie in 6.4.2 beschrieben wird das Image verwendet und wie in \autoref{lst:Maileingangsserver} konfiguriert.
-			% TODO Ref 6.4.2
+			Wie in \autoref{sec:AuswahlLösungVorkonfigurierterDockerMailserver} beschrieben wird das Image verwendet und wie in \autoref{lst:Maileingangsserver} konfiguriert.
 			Um Mails zu Empfangen und per \nameref{itm:IMAP} über einen Mail-Client beziehen zu können werden die folgende Ports benötigt:
 			\begin{itemize}
 				\item 25 für TLS \nameref{itm:SMTP}
@@ -435,27 +437,23 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Da für den Erhalt von Spam dieser nicht gefiltert werden soll, werden die Module \textit{Spamassassin}, \textit{Clamav}, \textit{Fail2ban}, \textit{Postgrey} und \textit{Spoof-Protection} deaktiviert.
 			
 		\subsubsection{SSL Konfiguration}\label{SSL-Container}
-			Die SSL-Zertifikate werden über einen Container bezogen, dieser wurde konfiguriert und entsprechend angepasst um automatisch Zertifikate auszustellen und zu erneuern.
-			Intern benutzt dieser Let's Encrypt als Dienst für die Bereitstellung der Zertifikate.
-			% TODO Mario: Link zu https://letsencrypt.org/
-			Die komplette SSL-Konfiguration ist in \autoref{lst:SSL-Container} aufgeführt.
+			Die \nameref{itm:SSL}-Zertifikate werden über einen Container bezogen, dieser wurde konfiguriert und entsprechend angepasst um automatisch Zertifikate auszustellen und zu erneuern.
+			Intern benutzt dieser \href{https://letsencrypt.org/}{Let's Encrypt} als Dienst für die Bereitstellung der Zertifikate.
+			Die komplette \nameref{itm:SSL}-Konfiguration ist in \autoref{lst:SSL-Container} aufgeführt.
 
 		\subsubsection{Datenbank Konfiguration}\label{DB-Container}
 			Die Datenbank in der die Mails persistiert werden, wird über ein Docker-Image eingebunden.
-			Es handelt sich hierbei um eine MySQL Datenbank.
-			% TODO Mario: Link MySQL
-			Zur Verwaltung der Datenbank wird phpMyAdmin verwendet.
-			% TODO Mario: Link phpMyAdmin
+			Es handelt sich hierbei um eine \href{https://www.mysql.com/de/}{MySQL} Datenbank.
+			Zur Verwaltung der Datenbank wird \href{https://www.phpmyadmin.net/}{phpMyAdmin} verwendet.
 			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
 			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert. 
-			Dieses holt sich per \nameref{itm:IMAP} die Mails vom Eingangsserver und speichert diese in die SQL-Datenbank.
+			Dieses holt sich per \nameref{itm:IMAP} die Mails vom Eingangsserver und speichert diese in die \nameref{itm:SQL}-Datenbank.
 			Um das zu erreichen hat der Container eine Verlinkung zu den beiden anderen verwendeten Containern.
 			Alle paar Minuten wird das Script per Cronjob aufgerufen.
 
 			Das Script ist in \autoref{lst:PHP-Script} aufgeführt.
-			% TODO Mario: PHP-Script in die Listings rein
 			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 	\subsection{Ausgangsserver}\label{sec:UmsetzungOpenRelay}
@@ -513,14 +511,12 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein.
 	Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren.
 
-	Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken.
-	% TODO Ref Open-Relay / Textformat
+	Das Verbreiten des \nameref{itm:OpenRelay}-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken.
 
-	Auch an den für Crawler angelegten Adressen auf der Webseite wurde kein Spam empfangen.
-	% TODO Ref Crawler
+	Auch an den für \nameref{itm:crawler} angelegten Adressen auf der Webseite wurde kein Spam empfangen.
 	Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails sinnvoll analysieren und herausfinden was sich bei der Analyse lohnt.
 	Aus Zeitgründen ist noch nicht genügend Spam eingegangen und es konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen.
-	Das Konzept an sich ist geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die \nameref{itm:Catch-All-Mail} und der Open-Relay-Server unter Spammern publizieren lassen.
+	Das Konzept eignet sich um Spam zu erhalten und diesen zu analysieren, insofern sich die \nameref{itm:Catch-All-Mail} und der \nameref{itm:OpenRelay}-Server unter Spammern publizieren lassen.
 
 \newpage
 
@@ -742,6 +738,23 @@ userdb {
 protocol lda {
   postmaster_address = postmaster@example.com
 }
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:PHP-Script},caption={PHP-Script}]
+<?php
+    error_reporting(E_ALL);
+	require_once('db.class.php');
+	require_once('template.class.php');
+	$db = new DB('db', 'root', 'P2VER3usSoD6dkWoHlQG', 'honeypot', false);
+	$tpl = new Template('honeypot.html');
+	if (isset($_POST['log']) && isset($_POST['pwd'])) {
+	    $db->query('INSERT INTO `honeypot` (name,password,ip,agent) VALUES ("'.$db->sanitize($_POST['log']).'", "'.$db->sanitize($_POST['pwd']).'", "'.$db->sanitize($_SERVER['HTTP_X_FORWARDED_FOR']).'", "'.$db->sanitize($_SERVER['HTTP_USER_AGENT']).'");');
+	    $tpl->assign('error', 'ERROR: Invalid username.');
+	} else {
+	    $tpl->assign('error', '');
+	}
+	echo $tpl->get();
+?>
 \end{lstlisting}
 
 \newpage
