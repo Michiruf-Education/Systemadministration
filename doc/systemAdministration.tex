@@ -372,23 +372,6 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert werden.
 			
 			Zunächst müssen allgemeine Updates geladen und installiert werden. Danach können Docker-Images einfach geladen und eingebunden werden.
-
-		\subsubsection{Ordner Strukturen}\label{OrdnerStrukturen}
-	
-			Um eine übersichtliche Struktur für die Docker-\nameref{itm:Container} und die zugehörigen Daten auf dem Hostsystem zu erhalten, wird eine entsprechende Ordnerstruktur angelegt, die ebenfalls in der Versionsverwaltung übernommen wird.
-			
-			Jeder der übergeordneten Ordner repräsentiert einen \nameref{itm:Container} (\autoref{fig:HostsystemOrdnerstruktur}).
-			
-			Unter \texttt{dummy-frontpage} befindet sich eine PHP Anwendung und eine einfache Website mit einem Wordpress Admin-Panel, wie in \autoref{sec:UmsetzungWebsite} beschrieben. 
-			Nachfolgend sind die Docker-\nameref{itm:Container} für die Maildatenbank (\texttt{mail-db}), den Maileingangsserver (\texttt{mail-in}) mit dem dazugehörigen \nameref{itm:Hook} (\texttt{mail-in-hook}) und der \nameref{itm:OpenRelay} (\texttt{mail-out}). Im Ordner \texttt{ssl} ist ein \nameref{itm:Container} mit einem \texttt{HTTPS}-Portal definiert, um die \texttt{SSL} Zertifikate zu verwalten.
-			
-			Innerhalb dieser Ordner befinden sich die Konfigurationsdateien für die Docker-\nameref{itm:Container}, sowie Test- und Informationsdateien.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.9]{hostTree.png}
-	 	\caption{Hostsystem - Ordnerstruktur}
-		\label{fig:HostsystemOrdnerstruktur}
-	\end{figure}	
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
 		Der Mail-Eingangserver besteht aus den Compenenten Docker-Mailserver-Image und dem Datenbank Script. Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität der Mails Sicherstellt und eine SQL-Datenbank um die Mails zu persistieren. Im folgenden Abschnitt wird die konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
@@ -452,14 +435,14 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 			Für den Container wird ein nginx:alpine Docker-Image geladen und konfiguriert so das beim Aufruf einer URL eine statische Seite angezeigt wird die statische Einträge mit E-Mail-Adressen enthält, hierfür wird der Port 80/TCP benötigt.
 			
 		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
-			Um den Erhalt von Spam Nachrichten zu beschleunigen wird eine \nameref{itm:HTML}-Webseite mit E-Mail Einträgen angelegt, diese Webseite ist statisch und erfüllt nur den Zweck von \nameref{itm:crawler}n gefunden zu werden, welche diese dann an Spammer weiterleiten könnten.
+			Um den Erhalt von Spam Nachrichten zu beschleunigen wird eine \nameref{itm:HTML}-Webseite mit E-Mail-Links angelegt, diese Webseite ist statisch und erfüllt nur den Zweck von \nameref{itm:crawler}n gefunden zu werden, welche diese dann an Spammer weiterleiten könnten.
 
 \newpage
 
 	
 \section{Fazit}\label{sec:Fazit}
 Spam zu bekommen, wenn man wirklich welchen bekommen möchte, ist einfacher als es sich zuerst darstellt. Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein oder es wird zufällig die eigene Mail, durch einen Spammer der einfach E-Mail-Adressen ausprobiert, gespammt. Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren. 
-Das Verbreiten des Open-Relay-Servers unter Spammern ist an dieser Stelle gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken. Auch an die für Crawler angelegten Mailadressen auf der Webseite wurde kein Spam empfangen. Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails besser  analysieren und herausfinden was sich bei der Analyse lohnt. Da dies jedoch nicht gelang, konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen. Trotz alledem wäre dieses Projektkonzept geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die Catch-All-Mail-Adresse und der Open-Relay-Server unter Spammern publizieren lässt.
+Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken. Auch an die für Crawler angelegten Mailadressen auf der Webseite wurde kein Spam empfangen. Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails besser  analysieren und herausfinden was sich bei der Analyse lohnt. Da dies jedoch nicht gelang, konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen. Trotz alledem wäre dieses Projektkonzept geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die Catch-All-Mail-Adresse und der Open-Relay-Server unter Spammern publizieren lässt.
 
 \newpage
 
@@ -495,8 +478,7 @@ Das Verbreiten des Open-Relay-Servers unter Spammern ist an dieser Stelle gesche
   morecomment={[l]\#\ }
 }
 \addcontentsline{toc}{section}{Listings}
-%\lstlistoflistings
-\section*{Listings}\label{Listings}
+\lstlistoflistings
 \begin{lstlisting}[label={lst:Maileingangsserver},caption={Maileingangsserver}]
 mail-in:
   container_name: mail-in
