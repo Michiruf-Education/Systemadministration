@@ -248,7 +248,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			\item anonymes Hosting, also kein Bezug zu Personen inklusive Domain mit Whois-Schutz,
 			\item ausreichend Speicher für mehrere Docker-Instanzen sowie den empfangenen Spam-Mails,
 			\item ein Domain sowie die Möglichkeit zur DNS Administration und
-			\item vertretbare Kosten
 		\end{itemize}
 		erfüllt.\\
 		Hierfür kann eine \nameref{itm:VirtuelleMaschine} im Rechenzentrum der Hochschule Ravensburg-Weingarten oder ein externer Provider angemietet werden.
@@ -323,56 +322,79 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
 
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
-		Bei der Provider Wahl wurde eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Au{\ss}erdem würde dies die nötige Anonymität und Rechtssicherheit geben.
-		
-		Nachfolgend wird das Rechenzentrum der Hochschule und im Vergleich externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
+		Bei der Provider Auswahl wurde eine VM beim Hochschulrechenzentrum beantragt, da sich dies bei einer Arbeit im Rahmen des Studiums anbietet.
+		% TODO Mario: Link VM
+		Nachfolgend wird eine VM im Rechenzentrum der Hochschule und externe Provider verglichen und bewertet.
+		% TODO Mario: Link VM, Provider, Externer Link zur RZ Seite evtl.?
 		
 		\subsubsection{Hochschulrechenzentrum}\label{sec:AuswahlLösungDMZHochschulrechenzentrum}
-			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck im Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Eine Verbindung zur Hochschule könnte auch die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken, da er als falsch konfiguriert wirken soll.
-			
-			Der Antrag über eine VM im Rechenzentrum der Hochschule wurde abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und den Mailverkehr der Hochschule einschränken oder blockieren, falls Spam-Mails nach au{\ss}en geschickt werden.
-			
-			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
-		
-		\subsubsection{Externe Provider}\label{sec:AuswahlLösungExterneProvider}
-			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern wurde einer der die Anforderungen erfüllt und ein entsprechendes Preisleistungsangebot für einen virtuellen Server bietet ausgewählt.
-			Hier ist ein privater virtueller Server inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
-			Für die Domain ist ein Whois-Schutz standardmä{\ss}ig eingerichtet und der Server bietet für diesen Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.		
+			Die Tatsache, dass keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen, erschwert den Antrag auf eine \nameref{itm:VirtuelleMaschine} im Hochschulrechenzentrum.
+			Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
+			Zudem befürchtet die Hochschule einen Eintrag der IP-Adressen in Spam-Blacklists.
+
+			Folglich wurde der Antrag über eine \nameref{itm:VirtuelleMaschine} im Rechenzentrum der Hochschule abgelehnt.
+			Das Rechenzentrum ist der Meinung, dass es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann.
+			Aus diesem Grund kann für die Umsetzung nur ein externer Provider in Betracht gezogen werden.
+
+		\subsubsection{Externer Provider}\label{sec:AuswahlLösungExterneProvider}
+			Anhand der Kriterien wie in 5.1 beschrieben wurde ein Hosting-Provider für den VPS ausgewählt.
+			% TODO Mario: Link zu 5.1
+			Weitere berücksichtige Merkmal waren
+			\begin{itemize}
+				\item ein akzeptables Preisleistungsangebot,
+				\item eine simple Konfigurationsoberfläche für den DNS, sowie
+				\item die Verfügbarkeit von Debian als Betriebssystem (siehe 6.2).
+				% TODO Mario: Link zu 6.2, ist zwar eine vorwärts Referenz, aber scheiß drauf
+			\end{itemize}		
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-		Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
-		Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden.
-		% TODO Nächste Zeile subjektiv
-		Ein weiterer Vorteil von Debian ist, dass jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
-		Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+		Windows und OpenBSD als Betriebssystem entfallen aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+		Auf dem VPS soll folglich Debian als Betriebssystem laufen.
+		% TODO Mario: Link VPS
+		Der Server wird von einem externen Provider vorkonfiguriert bereitgestellt.
+		Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden.
 
 	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
 		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet.
-		Jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
+		Jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können.
 
 	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
 		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container} bietet.
-		Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
-		
+		Aus diesem Grund bietet es sich an für die beiden Anwendungsfälle unterschiedliche Mailserver aufzusetzen.
+
 		\subsubsection{Postfix}\label{sec:AuswahlLösungPostfix}	
-			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
-			
+			Da Postfix im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features.
+			Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
+			Daher wird auf eine Konfiguration für Postfix alleinstehend verzichtet.
+
 		\subsubsection{Docker Mailserver-Image}\label{sec:AuswahlLösungVorkonfigurierterDockerMailserver}
-			Das Docker-Image kann von \url{https://github.com/tomav/docker-mailserver} heruntergeladen und mit der Docker-Software genutzt werden. Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können, auch das einrichten der Catch-All-E-Mail-Adresse ist problemlos möglich.
-			
-			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an, weil die Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
-		
+			Das Docker-Image kann von \url{https://github.com/tomav/docker-mailserver} heruntergeladen werden.
+			% TODO Mario: Statt URL lieber eine Quelle angeben evtl.? Formatierung läuft so nicht wirklich gut mit Blocksatz
+			Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können.
+			Auch das einrichten von Catch-All-E-Mail-Adressen ist problemlos möglich.
+			% TODO Mario: Link Catch-All..
+
+			Da die Grundkonfiguration des Containers sinnvoll gewählt wurde sind nur wenige Schritte nötig um den Spam-Empfang zu ermöglichen.
+			Aus diesem Grund bietet sich der \nameref{sec:FullstackDockerMailserver} an.
+
 		\subsubsection{OpenSMTPD}\label{sec:AuswahlLösungOpenSMTPD}
-			Da der OpenSMTP Mailserver eine kompakte und übersichtliche Konfiguration bietet, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
+			Da der OpenSMTP Mailserver eine kompakte und übersichtliche Konfiguration bietet, ist dieser für den \nameref{itm:OpenRelay} geeignet.
+			% TODO Mario: Link OpenSMTPD
+			In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
 			Damit muss nur noch sicher gestellt werden, das diese Spam-Mails nicht wirklich nach au{\ss}en gelangen, sondern lediglich empfangen und gespeichert werden.
-		
+
 		\subsubsection{Dovecot}\label{sec:AuswahlLösungDovecot}
-		Der Dienst Dovecot bietet eine Möglichkeit Mails über IMAP oder POP3 abzuholen. Damit kann dieser für den \nameref{itm:OpenRelay} eingesetzt werden, um die eingehenden Mails vom Mailserver abzuholen und zu speichern. Damit stehen die empfangenen Mails zur Spam-Analyse bereit.
+			% TODO Mario: Link überall: IMAP, POP3, Dovecot Quelle für Behauptungen
+			Dovecot bietet eine Möglichkeit Mails über IMAP oder POP3 abzuholen.
+			Dieser kann für den \nameref{itm:OpenRelay} eingesetzt werden, um die ausgehenden Mails vom Mailserver zu persistieren.
+			Dadurch können die im Dovecot gespeicherten Mails via IMAP oder POP3 bezogen und analysiert werden.
 
 		\subsubsection{Mailserver Auswahl}\label{sec:MailserverAuswahl}	
-		Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen. Damit kann innerhalb kürzester Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
-		
-		Der \nameref{itm:OpenRelay} soll mit \nameref{sec:OpenSMTPD} umgesetzt werden. \nameref{sec:Dovecot} soll dabei als Dienst zum Abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
+			Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen.
+			Damit kann innerhalb kurzer Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
+
+			Der \nameref{itm:OpenRelay} soll mit \nameref{sec:OpenSMTPD} umgesetzt werden.
+			\nameref{sec:Dovecot} soll dabei als Dienst zum Abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
 
 \newpage
 
