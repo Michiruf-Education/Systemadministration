@@ -429,14 +429,10 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Wie in \autoref{sec:AuswahlLösungVorkonfigurierterDockerMailserver} beschrieben wird das Image verwendet und wie in \autoref{lst:Maileingangsserver} konfiguriert.
 			Um Mails zu Empfangen und per \nameref{itm:IMAP} über einen Mail-Client beziehen zu können werden die folgende Ports benötigt:
 			\begin{itemize}
-				\item
-					25 für TLS \nameref{itm:SMTP}
-				\item
-					143 TLS \nameref{itm:IMAP}
-				\item
-					587 TLS default mail submission port
-				\item
-					993 \nameref{itm:SSL} \nameref{itm:IMAP}
+				\item 25 für TLS \nameref{itm:SMTP}
+				\item 143 TLS \nameref{itm:IMAP}
+				\item 587 TLS default mail submission port
+				\item 993 SSL \nameref{itm:IMAP}
 			\end{itemize}
 			Da für den Erhalt von Spam dieser nicht gefiltert werden soll, werden die Module \textit{Spamassassin}, \textit{Clamav}, \textit{Fail2ban}, \textit{Postgrey} und \textit{Spoof-Protection} deaktiviert.
 			
@@ -461,54 +457,68 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 	\subsection{Ausgangsserver}\label{sec:UmsetzungOpenRelay}
-% TODO HERE WE ARE
-		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert.
+		Um Spammern einen \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert.
 		Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
 		
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
-			Da die Konfiguration des \textsf{OpenSMTPD} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
-			
-			Die Ports die nach au{\ss}en im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} wie in \autoref{lst:RelayContainer} und \autoref{lst:RelayContainerDockerfile} definiert. Die Konfiguration für die \textsf{OpenSMTPD} wird in einer separaten
-Datei angelegt.
-%			Darin werden au{\ss}erdem die Plattenbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Bereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSMTPD} abgelegt. 
-			Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
-			
-			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt, wie es auf einem OpenBSD System der Fall ist. 
-%			Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt. 
-Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war. Das Konfigurationsfile in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben. 
-						
+			Da die Konfiguration eines \textsf{OpenSMTPD} Dienstes kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
+			Die Ports, die nach au{\ss}en im Netz verfügbar sind, werden dabei in der Konfigurationsdatei für Docker wie in \autoref{lst:RelayContainer} definiert.
+			Wie das Image des Containers aufgebaut ist, wird in der Konfigurationsdatei in \autoref{lst:RelayContainerDockerfile} angegeben.
+
+			Die Konfiguration für den \textsf{OpenSMTPD} wird in einer separaten Datei wie im \autoref{lst:smtpdConf} angegeben.
+			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei 7.4.2 definiert.
+			% TODO Mario: Link: Dovecot, 7.4.2
+			Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um jegliche Mails zu persistieren.
+
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem OpenBSD System der Fall wäre.
+			% TODO Mario: Ref OpenBSD
+			Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war.
+			Die Konfigurationsdatei in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben.
+
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
-			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSMTPD} eigenständig in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} ergänzt (siehe \autoref{lst:DovecotKonfiguration}).
-			
-			Dabei dient der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay} der Mails von allen Absendeadressen an alle Zieladressen weiterleitet. Allerdings werden diese nicht nach au{\ss}en ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Service. Dieser dient als zusätzlicher SMTP-Knoten, an den der \textsf{OpenSMTPD} seine ausgehenden Mails weiterleitet. Der \nameref{sec:Dovecot} wird so konfiguriert, dass dieser keine Mails weiterleitet, sonder diese nur speichert. Somit versiegen die Mails die vom \textsf{OpenSMTPD} weitergeleitet werden. Trotzdem wirkt der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay}, weil er weiter leitet und keine negative Rückmeldung an den Absender gibt.
-			
-			Die Komplikationen bei der Konfiguration des \nameref{itm:OpenRelay} haben dazu geführt, dass dieser erst zum Ende des Projektzeitraums publiziert werden kann. Somit werden sich die Erkenntnisse daraus voraussichtlich erst im Anschluss an dieses Projekt ergeben.
+			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSMTPD} in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} wie in \autoref{lst:DovecotKonfiguration} ergänzt.
 
+			Dabei dient der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay} der Mails von allen Absenderadressen an alle Zieladressen weiterleitet.
+			Allerdings werden diese nicht nach au{\ss}en ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Service.
+			Der \textsf{OpenSMTPD} gibt keine negative Rückmeldung an den Absender um als \nameref{itm:OpenRelay} zu wirken.
 
-	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
-		Um den Empfang von Spam sicher zu stellen, werden verschiedene Email-Adressen bei Diensten registriert und es wird auf die links in eingehenden E-Mails reagiert, bzw. geklickt. Dadurch sollten diese E-Mail-Adressen wirken als werden sie genutzt und somit für Spam Empfang sorgen. Im nachfolgenden wird beschrieben wie die umgesetzt wird.
+			Durch die Komplikationen des \textsf{OpenSMTPD} und \textsf{Dovecot} konnte der \nameref{itm:OpenRelay} nicht publiziert werden.
+
+		\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
+			Um den Empfang von Spam sicherzustellen, werden verschiedene \nameref{itm:Catch-All-Mail} bei Diensten registriert und es wird auf die links in eingehenden E-Mails reagiert.
+			Die E-Mail-Adressen sollen hierdurch wie authentische normale Adressen wirken um nicht aufzufallen.
+			Im nachfolgenden wird beschrieben wie dies umgesetzt wird.
 
 		\subsubsection{Registrierung bei Diensten}\label{AdressenVerbreitenRegistrierenDiensten}
-		Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und \nameref{itm:Catch-All-Mail}-Adressen registriert, danach wurde geschaut ob durch die Dienste und/oder Diensten von dritten noch mehr Fake-Mails registriert werden können. im Anschluss wurde versucht die Konten bei Diensten als aktiv wirken zu lassen durch z.b. ändern von Profildaten und anklicken der Links in erhaltenen Mails. Da im Mai 2019 auf den E-Mail-Adressen der Fachhochschule Ravensburg-Weingarten Spammails eingingen wurden auch dort \nameref{itm:Catch-All-Mail}-Adressen registriert um direkt diese Spammer zum senden weiteren Spams anzuregen.
-		
-		\subsubsection{Reaktion auf Spam}\label{AdressenVerbreitenReaktionSpam}
-		Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
-	
-	\subsection{Website}\label{sec:UmsetzungWebsite}
-		Um auch durch \nameref{itm:crawler} auf Spammerlisten zu landen wird eine statische Webseite angelegt, hierfür wird ein Docker-Webserver-Container aufgesetzt und eine HTML Seite angezeigt.
+			Zunächst wurden bei diversen Diensten wie Facebook, Twitter, Parship, usw. Konten mit \nameref{itm:Catch-All-Mail} registriert.
+			Danach wurde geschaut ob durch die Dienste und/oder Diensten von Dritten noch mehr Adressen registriert werden können.
+			Durch beispielsweise Ändern von Profildaten oder Anklicken der in Mails enthaltenen Links wurde versucht die Konten als aktiv wirken zu lassen und um den Erhalt vom Spam zu beschleunigen.
 
-		\subsubsection{Webservice}\label{WebsiteWebservice}
-			Für den Container wird ein nginx:alpine Docker-Image geladen und konfiguriert so das beim Aufruf einer URL eine statische Seite angezeigt wird die statische Einträge mit E-Mail-Adressen enthält, hierfür wird der Port 80/TCP benötigt.
-			
-		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
-			Um den Erhalt von Spam Nachrichten zu beschleunigen wird eine \nameref{itm:HTML}-Webseite mit E-Mail-Links angelegt, diese Webseite ist statisch und erfüllt nur den Zweck von \nameref{itm:crawler}n gefunden zu werden, welche diese dann an Spammer weiterleiten könnten.
+	\subsection{Webseite}\label{sec:UmsetzungWebsite}
+		Um auch durch \nameref{itm:crawler} auf Spamlisten zu landen wird eine statische Webseite angelegt.
+		Hierfür wird ein Webserver über Docker aufgesetzt und eine HTML Seite angezeigt.
+		Auf der HTML Seite befinden sich lediglich die verschiedenen \nameref{itm:Catch-All-Mail} aufgelistet als Links.
+		Die Webseite wurde hierfür bei google indexiert.
+		% TODO Mario: Link google zum indexer
+		Der Container wurde wie im Listing X konfiguriert.
+		% TODO Mario: Config Webseite (aber lediglich nginx, nicht das PHP-Zeugs)
 
 \newpage
 
-	
+
 \section{Fazit}\label{sec:Fazit}
-Spam zu bekommen, wenn man wirklich welchen bekommen möchte, ist einfacher als es sich zuerst darstellt. Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein oder es wird zufällig die eigene Mail, durch einen Spammer der einfach E-Mail-Adressen ausprobiert, gespammt. Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren. 
-Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken. Auch an die für Crawler angelegten Mailadressen auf der Webseite wurde kein Spam empfangen. Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails besser  analysieren und herausfinden was sich bei der Analyse lohnt. Da dies jedoch nicht gelang, konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen. Trotz alledem wäre dieses Projektkonzept geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die \nameref{itm:Catch-All-Mail}-Adresse und der Open-Relay-Server unter Spammern publizieren lässt.
+	Spam zu bekommen, wenn man wirklich welchen bekommen möchte, ist einfacher als es zuerst vermutet.
+	Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein.
+	Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren.
+
+	Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken.
+	% TODO Ref Open-Relay / Textformat
+
+	Auch an den für Crawler angelegten Adressen auf der Webseite wurde kein Spam empfangen.
+	% TODO Ref Crawler
+	Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails sinnvoll analysieren und herausfinden was sich bei der Analyse lohnt.
+	Aus Zeitgründen ist noch nicht genügend Spam eingegangen und es konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen.
+	Das Konzept an sich ist geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die \nameref{itm:Catch-All-Mail} und der Open-Relay-Server unter Spammern publizieren lassen.
 
 \newpage
 
@@ -590,7 +600,7 @@ mail-in:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
+\end{lstlisting}
 	
 \begin{lstlisting}[label={lst:SSL-Container},caption={SSL-Container}]
 ssl:
@@ -612,7 +622,7 @@ ssl:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
+\end{lstlisting}
 	
 \begin{lstlisting}[label={lst:DB-Container},caption={DB-Container}]
 db:
@@ -637,23 +647,27 @@ phpmyadmin:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
-	
+\end{lstlisting}
+
 \begin{lstlisting}[label={lst:smtpdConf},caption={OpenSMTPD Konfiguration}]
-# Load stuff
 table aliases file:/etc/smtpd/aliases
 #table secrets file:/etc/mail/secrets
 
 # Listen to external mails
-# All does not work @see https://bugs.launchpad.net/ubuntu/+source/opensmtpd/+bug/1542684
-# To achieve the same, listen on the only interface besides local loopback
+# The keyword all does not work
+# ... @see https://bugs.launchpad.net/ubuntu/+source/opensmtpd/+bug/1542684
+# To achieve the same, listen on the only interface
+# ... besides local loopback
 #listen on all
 listen on eth0
 
+## For any reason, none of the below work
+## But they should work on OpenBSD
+
 # Accept mail sent from mail account to mail-in relay
 #accept from any \
-#    for domain "babedibubip.de"
-#    relay via smtp://#mail-in:2526
+#    for domain "example.com"
+#    relay via smtp://mail-in:2526
 #
 ## Accept mail sent from anywhere to persist in local dovecot
 #accept from any \
