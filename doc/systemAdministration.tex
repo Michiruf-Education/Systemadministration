@@ -279,7 +279,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
 
 
-	\subsection{Mailserver}\label{sec:Mailserver}
+	\subsection{Maildienste}\label{sec:Mailserver}
 		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
 			Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen verschiedene Mailserver in Frage von denen nachfolgend eine Auswahl geprüft wird.
 
@@ -325,7 +325,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet.
 		Jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
 
-	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
+	\subsection{Maildienst}\label{sec:AuswahlLösungMailserver}
 		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container} bietet.
 		Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
 		
@@ -417,9 +417,14 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
 			Da die Konfiguration des \textsf{OpenSMTPD} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
 			
-			Die Ports die nach au{\ss}en im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} wie in \autoref{lst:RelayContainer} und \autoref{lst:RelayContainerDockerfile} definiert. Darin werden au{\ss}erdem die Plattenbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Bereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSMTPD} abgelegt. Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
+			Die Ports die nach au{\ss}en im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} wie in \autoref{lst:RelayContainer} und \autoref{lst:RelayContainerDockerfile} definiert. Die Konfiguration für die \textsf{OpenSMTPD} wird in einer separaten
+Datei angelegt.
+%			Darin werden au{\ss}erdem die Plattenbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Bereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSMTPD} abgelegt. 
+			Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
 			
-			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt. Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt. Dies hat zur Folge das die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container} sich schwieriger darstellt als anzunehmen war. Das Konfigurationsfile in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben. 
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt, wie es auf einem OpenBSD System der Fall ist. 
+%			Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt. 
+Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war. Das Konfigurationsfile in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben. 
 						
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
 			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSMTPD} eigenständig in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} ergänzt (siehe \autoref{lst:DovecotKonfiguration}).
