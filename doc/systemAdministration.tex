@@ -72,64 +72,55 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Um den Honeypot zu realisieren muss der Mail-Dienst aus dem Internet zugänglich sein.
 		Dieser besteht hierbei aus Ausgangsserver und Eingangsserver.
 		Hierzu werden auf einer \nameref{itm:VirtuelleMaschine} die Dienste in \nameref{itm:Container}n aufgesetzt.
-		Aus Sicherheitsgründen muss die VM ins interne Netz abgeschottet sein.
+		Aus Sicherheitsgründen muss die \nameref{itm:VirtuelleMaschine} ins interne Netz abgeschottet sein.
 		Der Aufbau ist in \autoref{fig:Hierarchy} visualisiert.
 
 		\begin{figure}[H]
-		\includegraphics[width=\linewidth]{2-Hierarchy.png}
-		\caption{Netzwerkstruktur}
-		\label{fig:Hierarchy}
+			\includegraphics[width=\linewidth]{2-Hierarchy.png}
+			\caption{Netzwerkstruktur}
+			\label{fig:Hierarchy}
 		\end{figure}
 
 		Um den Eingangsserver zu realisieren sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
-		\item Mail Eingangsserver bereitstellen und konfigurieren
-		\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
-		\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
-		\item Mails analysieren indem per Script geprüft wird, ob sich Informationen  über den Versender ermitteln lassen.
+			\item Mail Eingangsserver bereitstellen und konfigurieren
+			\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
+			\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
+			\item Mails analysieren indem per Script geprüft wird, ob sich Informationen  über den Versender ermitteln lassen.
 		\end{enumerate}
 
 		Den Ausgangsserver betreffend sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
-		\item Mail Ausgangsserver bereitstellen und konfigurieren
-		\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
-		\item Eingehende Mails tatsächlich weiterleiten
-		\item Mails analysieren
+			\item Mail Ausgangsserver bereitstellen und konfigurieren
+			\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
+			\item Eingehende Mails tatsächlich weiterleiten
+			\item Mails analysieren
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
 		\begin{itemize}
-			\item
-				In Abschnitt 1 werden die nötigen Grundbegriffe zum Verständnis abgesteckt.
-			\item
-				In Abschnitt 2 wird das Projekt und die Zielsetzung zusammengefasst.
-			\item
-				In Abschnitt 3 geht es die Problemstellung des Projekts.
-			\item
-				In Abschnitt 4 werden die zu erarbeitenden Ziele genannt.
-			\item
-				In Abschnitt 5 werden mögliche technische Lösungen zur Problemstellung benannt und bewertet.
-			\item
-				In Abschnitt 6 werden die am besten passenden Lösungen aus Abschnitt 5 genannt.
-			\item
-				In Abschnitt 7 wird beschrieben wie die tatsächliche Umsetzung anhand der technischen Lösungen aus Abschnitt 6 aussieht.
-			\item
-				In Abschnitt 8 wird das Projekt nochmals zusammengefasst und ein Fazit gezogen.
+			\item In Abschnitt 1 werden die nötigen Grundbegriffe zum Verständnis abgesteckt.
+			\item In Abschnitt 2 wird das Projekt und die Zielsetzung zusammengefasst.
+			\item In Abschnitt 3 geht es die Problemstellung des Projekts.
+			\item In Abschnitt 4 werden die zu erarbeitenden Ziele genannt.
+			\item In Abschnitt 5 werden mögliche technische Lösungen zur Problemstellung benannt und bewertet.
+			\item In Abschnitt 6 werden die am besten passenden Lösungen aus Abschnitt 5 genannt.
+			\item In Abschnitt 7 wird beschrieben wie die tatsächliche Umsetzung anhand der technischen Lösungen aus Abschnitt 6 aussieht.
+			\item In Abschnitt 8 wird das Projekt nochmals zusammengefasst und ein Fazit gezogen.
 		\end{itemize}
 
 \newpage
 
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
-	
-	% NOTE Alle nochmal durchnudeln
+
 	\begin{description}
 	\item[Spam\label{itm:Spam}]\hfill \\
 		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten[...] bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
 	\item[Honeypot\label{itm:Honeypot}]\hfill \\
 		Sicherheitstechnisch scheinbar verwundbares Computerprogramm, das Computerviren, -würmer und Trojaner anlockt, um sie zu registrieren und unschädlich zu machen.\cite{Honeypot}
 	\item[Open-Relay\label{itm:OpenRelay}]\hfill \\
-		Ein SMTP-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
+		Ein \nameref{itm:SMTP}-Relay-Server der durch unzureichende Sicherheitskonfiguration auch Mails weiterleitet bei denen er weder für die Absender- noch für die Zieladresse zuständig ist, wird als "`Open relay"' bezeichnet.\cite{SMTP-Relay-Server}
 	\item[Virtuelle Maschine (VM)\label{itm:VirtuelleMaschine}]\hfill \\
 		Eine VM ist eine Kapselung eines Rechnersystems auf Softwareebene. Dadurch lässt sich eine Rechnerarchitektur in einem Container simulieren. \cite{VM}
 	\item[Blacklist \label{itm:Blacklist}]\hfill \\
@@ -148,6 +139,17 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		A Web crawler, sometimes called a spider or spiderbot and often shortened to crawler, is an Internet bot that systematically browses the World Wide Web \cite{crawler}
 	\item[HTML\label{itm:HTML}]\hfill \\
 		Hypertext Markup Language (HTML) is the standard markup language for documents designed to be displayed in a web browser.\cite{HTML}
+	\item[Virtueller privater Server (VPS)\label{itm:VPS}]\hfill \\
+        	Definiert ist der Virtual Private Server als ein virtueller Webserver auf der Basis eines physikalischen Servers.
+		Der leistungsstarke physikalische Server wird unterteilt in mehrere Virtual Private Server.\cite{VPS}
+	\item[Provider\label{itm:Provider}]\hfill \\
+		Ist ein Unternehmen, das Dienstleistungen im Bereich EDV und Internet anbietet. \cite{provider}
+	\item[IMAP\label{itm:IMAP}]\hfill \\
+		Das Internet Message Access Protocol (IMAP) ist ein Client-Server Protokoll, dass das Empfangen und Versenden von E-Mails über einen Mail-Server ermöglicht. Es synchronisiert alle Änderungen zurück auf den Server, sodass auf allen Endgeräten die gleichen Daten zugreifbar sind. \cite{imap}
+	\item[POP3\label{itm:POP3}]\hfill \\
+		Das Post Office Protocol 3 (POP3) ist wie \nameref{itm:IMAP} zum  Empfangen und Versenden von E-Mails. Allerdings löscht dieses Protokoll die MAils auf dem Server nachdem diese vom Server auf den Client heruntergeladen wurden. Somit ist keine Synchronisierung zwischen verschiedenen Endgeräten möglich.\cite{pop3}
+	\item[SMTP\label{itm:SMTP}]\hfill \\
+		Das Simple Mail Transfer Protocol (SMTP) dient in IP-Netzen zum weiterleiten von E-Mails zwischen den einzelnen Servern. \cite{smtp}
 	\end{description}
 
 \newpage
@@ -237,111 +239,149 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
-	Nachfolgende Lösungsvoschläge werden recherchiert und im nachfolgenden Kapitel auf ihre Eignung überprüft.
+	Nachfolgende Lösungsvorschläge werden recherchiert und auf ihre Eignung für die Arbeit überprüft.
 
 	\subsection{Provider}\label{sec:Provider}
-		Für das Hosting des Mailserver \nameref{itm:Honeypot} muss ein geeigneter Provider für eine \nameref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
+		Für das Hosting des Mailserver-\nameref{itm:Honeypot}s muss ein geeigneter \nameref{itm:Provider} für einen \nameref{itm:VPS} gefunden werden, welcher die Anforderungen
 		\begin{itemize}
-		    \item anonymes Hosting (kein Bezug zur Hochschule oder uns als Personen), Domain mit Whois-Schutz
-			\item ausreichend Speicher für mehrere Docker-\nameref{itm:Container} und die empfangenen Spam-Mails
-			\item Möglichkeit zur DNS Administration
-			\item vertretbare Kosten bzw. Mietlaufzeit
+			\item anonymes Hosting, also kein Bezug zu Personen inklusive Domain mit Whois-Schutz,
+			\item ausreichend Speicher für mehrere Docker-Instanzen sowie den empfangenen Spam-Mails,
+			\item ein Domain sowie die Möglichkeit zur DNS Administration und
 		\end{itemize}
-		
-		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
+		erfüllt.\\
+		Hierfür kann eine \nameref{itm:VirtuelleMaschine} im Rechenzentrum der Hochschule Ravensburg-Weingarten oder ein externer \nameref{itm:Provider} angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
-		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen.
+		Das Betriebssystem des \nameref{itm:VPS} hat die Anforderung mit möglichst wenig Hardware-Ressourcen sowie ohne GUI lauffähig zu sein.
+		Nachfolgende Systeme werden betrachtet und evaluiert.
+
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
-			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine auf Sicherheit ausgelegte UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
+			OpenBSD ist kompakt und übersichtlich.
+			Da das System eine auf Sicherheit ausgelegte UNIX-Distribution ist, könnten Spammer möglicherweise abgeschreckt werden den Mail-Relay-Server zu verwenden. \cite{openBSD}
+
 		\subsubsection{Debian}\label{sec:Debian}
-			Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich als Server-Betriebssystem.
-		\subsubsection{Windows}\label{sec:Windows}
-			Ist trotz gro{\ss}er Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da viel Open-Source-Software nur für Linux Distributionen erhältlich ist.
-
-
-	\subsection{Mailserver}\label{sec:Mailserver}
-		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
-			Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen verschiedene Mailserver in Frage von denen nachfolgend eine Auswahl geprüft wird.
-
-		\subsubsection{Postfix}\label{sec:Postfix}
-			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
-		\subsubsection{Docker Mailserver}\label{sec:FullstackDockerMailserver}
-			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Handhabung über Konfigurations-Dateien eine Menge an Tools mitliefert, um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. Er beinhaltet unter anderem \nameref{sec:Postfix} für SMTP und \nameref{sec:Dovecot} für IMAP und  POP3 mit LDAP Authentifizierung. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
-		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
-			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
-		\subsubsection{Dovecot}\label{sec:Dovecot}
-		Dovecot ist ein sicherer Open-Source Mail-Dienst mit Unterstützung von IMAP und POP3 für UNIX Distributionen. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für grö{\ss}ere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Au{\ss}erdem ist der Mail-Dienst schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
-		
-		
+			Debian ist weit verbreitet, einfach zu konfigurieren und freies Betriebssystem.
+			Da Debian wenig Hardware Ressourcen braucht und Distributionen ohne GUI existieren, eignet es sich als Server-Betriebssystem. \cite{debianVerbreitet} \cite{debian}
 
 	\subsection{Virtualisierung}\label{sec:Virtualisierung}
-		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
+		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung stattfinden.
+		Nachfolgend werden Varianten dazu überprüft.
 
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
-			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen. Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
+			Die direkte Verwendung der Host-Maschine spart den Aufwand der Virtualisierungsumsetzung.
+			Sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen.
+			Wenn ein Dienst konfiguriert oder angepasst wird ist der Dienst während dieser Zeit nicht erreichbar.
 
-		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr gro{\ss} werden und es dauert lange Backups im Fehlerfall neu einzuspielen. Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
+		\subsubsection{Virtuelle-Maschine}\label{Virtual-Maschine}
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver ist die Host-Maschine vor Schadsoftware geschützt.
+			Backups der kompletten virtuellen Maschine können sehr groß sein und es dauert unter Umständen lange diese im Fehlerfall wieder einzuspielen.
 
 		\subsubsection{Docker}\label{Docker}
-			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
-%			Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
-Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden. Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
+			Docker-\nameref{itm:Container} sind gegen das Host-System abgeschottet. Falls Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
+			Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden.
+			Es ist mit Docker möglich Ports an die einzelnen Container weiter zu leiten. Dadurch können Dienste mehrfach ausgeführt werden.
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in einer externen Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese automatisch dokumentiert, kann versioniert werden und ist folglich für Gruppenprojekte geeignet. (siehe z.B. in \autoref{lst:Maileingangsserver})
+			\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird.
+
+	\subsection{Maildienste}\label{sec:Mailserver}
+		Um Spam-Mails zu empfangen sowie einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden.
+		Als Eingangsserver und als Ausgangsserver für den \nameref{itm:OpenRelay} kommen verschiedene Mailserver in Frage von denen nachfolgend eine Auswahl geprüft wird.
+
+		\subsubsection{Postfix}\label{sec:Postfix}
+			Postfix ist ein Mailserver für UNIX der mit Fokus auf Sicherheitsaspekte entwickelt wurde.
+			Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail bieten.
+			\cite{postfix}
+
+		\subsubsection{Docker Mailserver}\label{sec:FullstackDockerMailserver}
+			Es gibt Docker-Images, welche komplette Mailserver mit ihrer Konfiguration bereitstellen.
+			Nachfolgend wird eines dieser von \href{https://github.com/tomav/docker-mailserver}{GitHub} betrachtet.
+			Funktionen wie \nameref{itm:SMTP}, \nameref{itm:IMAP}, Antispam, Antivirus und viele weitere sind in diesem Image enthalten.
+			Intern verwendet der Container ebenso \nameref{sec:Postfix} und \nameref{sec:Dovecot} sowie LDAP Authentifizierung.
+			Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Anti-Spam-Funktionen deaktiviert bzw. so konfiguriert werden um Spam zu erhalten.
+
+		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
+			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt.
+			Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+			\cite{openSMTPD}
+
+		\subsubsection{Dovecot}\label{sec:Dovecot}
+			Dovecot ist ein sicherer Open-Source Dienst mit Unterstützung von \nameref{itm:IMAP} und \nameref{itm:POP3} für UNIX Distributionen.
+			Das Tool eignet sich sowohl für einfach gehaltene, aber auch für grö{\ss}ere komplexere Konfigurationen.
+			Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration.
+			Dovecot ist schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
 
 \newpage
 
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
+
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
-		Bei der Provider Wahl wurde eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Au{\ss}erdem würde dies die nötige Anonymität und Rechtssicherheit geben.
-		
-		Nachfolgend wird das Rechenzentrum der Hochschule und im Vergleich externe Provider bewertet und die Auswahl für die Umsetzung des Projekts beschrieben und begründet.
+		Bei der \nameref{itm:Provider} Auswahl wurde eine \nameref{itm:VirtuelleMaschine} beim Hochschulrechenzentrum beantragt, da sich dies bei einer Arbeit im Rahmen des Studiums anbietet.
+		Nachfolgend wird eine \nameref{itm:VirtuelleMaschine} im \href{https://www.hs-weingarten.de/web/rechenzentrum}{Rechenzentrum} der Hochschule und externe \nameref{itm:Provider} verglichen und bewertet.
 		
 		\subsubsection{Hochschulrechenzentrum}\label{sec:AuswahlLösungDMZHochschulrechenzentrum}
-			Die Schwierigkeit eine \nameref{itm:VirtuelleMaschine} zum gewünschten Zweck im Hochschulrechenzentrum einzurichten, ist die Tatsache das keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen. Ansonsten könnten die Adressen der Hochschule mit Spam-Mails überflutet werden. Eine Verbindung zur Hochschule könnte auch die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken, da er als falsch konfiguriert wirken soll.
-			
-			Der Antrag über eine VM im Rechenzentrum der Hochschule wurde abgelehnt. Das RZ war der Meinung das es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann. Darüber hinaus besitzt das Rechenzentrum nur IP-Adressen aus dem HRW-Adressraum, damit könnten diese auf Blacklists landen und den Mailverkehr der Hochschule einschränken oder blockieren, falls Spam-Mails nach au{\ss}en geschickt werden.
-			
-			Auch wenn nicht geplant war, dass die Eingehenden Spam-Mails an den \nameref{itm:OpenRelay} weitergeleitet werden, hätte eine weitere Diskussion mit dem RZ den Zeitplan des Projekts durcheinander gebracht. Aus diesem Grund wird für die Umsetzung ein externer Provider in Betracht gezogen.
-		
-		\subsubsection{Externe Provider}\label{sec:AuswahlLösungExterneProvider}
-			Nach einem Leistungsvergleich von unterschiedlichen Hosting-Providern wurde einer der die Anforderungen erfüllt und ein entsprechendes Preisleistungsangebot für einen virtuellen Server bietet ausgewählt.
-			Hier ist ein privater virtueller Server inklusive Domain nötig um darauf die Konfiguration für Eingangsmailserver und \nameref{itm:OpenRelay} aufbauen zu können.
-			Für die Domain ist ein Whois-Schutz standardmä{\ss}ig eingerichtet und der Server bietet für diesen Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.		
+			Die Tatsache, dass keinerlei Rückschlüsse auf die Hochschule gezogen werden dürfen, erschwert den Antrag auf eine \nameref{itm:VirtuelleMaschine} im Hochschulrechenzentrum.
+			Eine Verbindung zur Hochschule könnte die Glaubwürdigkeit des \nameref{itm:OpenRelay} einschränken.
+			Zudem befürchtet die Hochschule einen Eintrag der IP-Adressen in Spam-Blacklists.
+
+			Folglich wurde der Antrag über eine \nameref{itm:VirtuelleMaschine} im Rechenzentrum der Hochschule abgelehnt.
+			Das Rechenzentrum ist der Meinung, dass es aus sicherheitsrelevanten Gründen für dieses Projekt keine \nameref{itm:VirtuelleMaschine} zur Verfügung stellen kann.
+			Aus diesem Grund kann für die Umsetzung nur ein externer \nameref{itm:Provider} in Betracht gezogen werden.
+
+		\subsubsection{Externer Provider}\label{sec:AuswahlLösungExterneProvider}
+			Anhand der Kriterien wie in \autoref{sec:Provider} beschrieben wurde ein Hosting-\nameref{itm:Provider} für den \nameref{itm:VPS} ausgewählt.
+			Weitere berücksichtige Merkmal waren
+			\begin{itemize}
+				\item ein akzeptables Preisleistungsangebot,
+				\item eine simple Konfigurationsoberfläche für den DNS, sowie
+				\item die Verfügbarkeit von Debian als Betriebssystem (siehe \autoref{sec:AuswahlLösungDMZHochschulrechenzentrum}).
+			\end{itemize}		
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-			Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
-			Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden. Ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
-Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+		Windows und OpenBSD als Betriebssystem entfallen aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+		Auf dem \nameref{itm:VPS} soll folglich Debian als Betriebssystem laufen.
+		Der Server wird von einem externen \nameref{itm:Provider} vorkonfiguriert bereitgestellt.
+		Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden.
 
-	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
-		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container}	bietet. Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
-		
+	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
+		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet.
+		Jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können.
+
+	\subsection{Maildienste}\label{sec:AuswahlLösungMailserver}
+		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container} bietet.
+		Aus diesem Grund bietet es sich an für die beiden Anwendungsfälle unterschiedliche Mailserver aufzusetzen.
+
 		\subsubsection{Postfix}\label{sec:AuswahlLösungPostfix}	
-			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
-			
+			Da Postfix im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features.
+			Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
+			Daher wird auf eine Konfiguration für Postfix alleinstehend verzichtet.
+
 		\subsubsection{Docker Mailserver-Image}\label{sec:AuswahlLösungVorkonfigurierterDockerMailserver}
-			Das Docker-Image kann von \url{https://github.com/tomav/docker-mailserver} heruntergeladen und mit der Docker-Software genutzt werden. Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können, auch das einrichten der Catch-All-E-Mail-Adresse ist problemlos möglich.
-			
-			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an, weil die Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
-		
+			Das Docker-Image kann von \href{https://github.com/tomav/docker-mailserver}{GitHub} heruntergeladen werden.
+			Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können. \cite{fullstackDockerMailserver}
+			Auch das einrichten der \nameref{itm:Catch-All-Mail}-Adresse ist problemlos möglich.
+
+			Da die Grundkonfiguration des Containers sinnvoll gewählt wurde sind nur wenige Schritte nötig um den Spam-Empfang zu ermöglichen.
+			Aus diesem Grund bietet sich der \nameref{sec:FullstackDockerMailserver} an.
+
 		\subsubsection{OpenSMTPD}\label{sec:AuswahlLösungOpenSMTPD}
-			Da der OpenSMTP Mailserver eine kompakte und übersichtliche Konfiguration bietet, kann dieser für den \nameref{itm:OpenRelay} zum Einsatz kommen. In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
+			Da der \nameref{sec:OpenSMTPD} Mailserver eine kompakte und übersichtliche Konfiguration bietet, ist dieser für den \nameref{itm:OpenRelay} geeignet.
+			In den Konfigurationsfiles kann sehr einfach angegeben werden, dass der Server Mails von allen Adressen an beliebige Zieladressen weiterleitet.
 			Damit muss nur noch sicher gestellt werden, das diese Spam-Mails nicht wirklich nach au{\ss}en gelangen, sondern lediglich empfangen und gespeichert werden.
-		
+
 		\subsubsection{Dovecot}\label{sec:AuswahlLösungDovecot}
-		Der Dienst Dovecot bietet eine Möglichkeit Mails über IMAP oder POP3 abzuholen. Damit kann dieser für den \nameref{itm:OpenRelay} eingesetzt werden, um die eingehenden Mails vom Mailserver abzuholen und zu speichern. Damit stehen die empfangenen Mails zur Spam-Analyse bereit.
+			%TODO Mario: Link überall: IMAP, POP3
+			Dovecot bietet eine Möglichkeit Mails über \nameref{itm:IMAP} oder \nameref{itm:POP3} abzuholen. \citep{dovecot}
+			Dieser kann für den \nameref{itm:OpenRelay} eingesetzt werden, um die ausgehenden Mails vom Mailserver zu persistieren.
+			Dadurch können die im Dovecot gespeicherten Mails via \nameref{itm:IMAP} oder \nameref{itm:POP3} bezogen und analysiert werden.
 
 		\subsubsection{Mailserver Auswahl}\label{sec:MailserverAuswahl}	
-		Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen. Damit kann innerhalb kürzester Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
-		
-	Der \nameref{itm:OpenRelay} soll mit dem \nameref{sec:OpenSMTPD} umgesetzt. Der \nameref{sec:Dovecot} soll dabei als Dienst für das abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
-		
-		
-	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
-		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
+			Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen.
+			Damit kann innerhalb kurzer Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
+
+			Der \nameref{itm:OpenRelay} soll mit \nameref{sec:OpenSMTPD} umgesetzt werden.
+			\nameref{sec:Dovecot} soll dabei als Dienst zum Abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
 
 \newpage
 
@@ -350,99 +390,137 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 	Anhand der im vorherigen Abschnitt benannten einzusetzenden Techniken wird im folgenden die praktische Umsetzung beschrieben.
 	
 	\subsection{Provider Registrierung}\label{sec:ProviderRegistrierung} 
-		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{itm:VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen Provider gehostet, da das RZ der Hochschule zu diesem Zweck keine VM zur Verfügung stellen konnte.
+		Wie bereits in \autoref{sec:AuswahlLösungProvider} erwähnt, wird die benötigte \nameref{itm:VirtuelleMaschine} für die Umsetzung des Projekts bei einem externen \nameref{itm:Provider} gehostet.
+		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inklusive einer Domain von der Hochschule bestätigt.
+
+		Bei der Registrierung wurde der kleinste Virtuelle Server gewählt, der mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist.
+		Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
+		% TODO Link Traffic; evtl. ebenfalls die Daten?
 		
-		Nach Absprache mit dem betreuenden Professor, wurde die Übernahme der Kosten für die Anmietung eines Virtuellen Servers inkl. einer Domain von der Hochschule bestätigt.  
-		
-		Bei der Registrierung wurde der kleinste Virtuelle Server gewählt, der mit einer virtuellen CPU, 2GB Arbeitsreicher sowie 20GB SSD Festplatte für das geplante Projekt ausreichend ist. Weitere Features wie ungedrosselter Traffic sind für den geplanten Spam-Empfang ebenfalls von Vorteil.
-		
-		Für die Domain haben wir uns für den unauffälligen Namen entschieden, sodass Spammer anhand dieser keinen Verdacht schöpfen. Bei der Domain ein Whois-Schutz eingerichtet, womit von dieser kein Bezug zum Besitzer der Domain hergestellt werden kann. Damit bleibt der Betreiber der Dienste, die unter dieser Domain erreichbar sind anonym.
-		
+		Für die Domain haben wir uns für einen unauffälligen Namen entschieden, sodass Spammer keinen Verdacht schöpfen.
+		Der Provider bietet einen Whois-Schutz, womit die Domain keinen Bezug zum Besitzer hat.
 		
 	\subsection{Host Einrichtung}\label{sec:UmsetzungHostEinrichtung}
-		Auf der angemieteten Maschine läuft ein Debian als Host und die Docker Software wurde installiert, somit können die Docker-\nameref{itm:Container} aufgesetzt werden. Für die Mailserver wird au{\ss}erdem der DNS entsprechend konfiguriert, hierfür wird ein passender MX-Rekord benötigt.
-		
-		Zu Beginn werden Systemupdates geladen und die DNS Einträge erstellt wie im nachfolgenden Abschnitt beschrieben.
+		Nachfolgende Schritte wurden auf der angemieteten Maschine ausgeführt.
 		
 		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
-			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser MX-Rekord zeigt dann auf die IP-Adresse des Servers. Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschlie{\ss}end bei den Konfigurationen in den  Docker-\nameref{itm:Container}n.
+			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser MX-Rekord zeigt auf die IP-Adresse des Servers.
+			% TODO Mario: Link MX-Record + Def
 			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein \texttt{www} Eintrag für die Website erstellt.
+			% TODO Wir haben keinen WWW-Eintrag, die Webseite aber zu erwähnen ist aber geil
+			% TODO Mario: Welche Webseite? Siehe ... hinzufügen
 
 		\subsubsection{Docker}\label{sec:DockerAufsetzen}
-			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert werden.
-			
-			Zunächst müssen allgemeine Updates geladen und installiert werden. Danach können Docker-Images einfach geladen und eingebunden werden.
+			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert sein.
+			Danach können Docker-Images einfach bezogen und eingebunden werden.
+			Die Weiterleitung der Anfragen an die unterschiedlichen Mailserver erfolgt anschlie{\ss}end bei den Konfigurationen in den Docker-\nameref{itm:Container}n.
+			% TODO Mario: Ref auf Listing mit der Installation von Docker bzw. evtl. auf die Installationsseite von Docker, damit hier ein belegt ist wie das gemacht wird
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
-		Der Mail-Eingangserver besteht aus den Compenenten Docker-Mailserver-Image und dem Datenbank Script. Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität der Mails Sicherstellt und eine SQL-Datenbank um die Mails zu persistieren. Im folgenden Abschnitt wird die konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
-		\subsubsection{Docker Konfiguration}\label{Mail-In-Container}
-			%referenz zum docker image und konfig code
-			Es wird ein Docker-Image-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert (siehe \autoref{lst:Maileingangsserver}). Um Mails empfangen und per IMAP über einen Mail Client beziehen zu können werden die folgende Ports benötigt:
-		\begin{itemize}
-			\item
-				25 für TLS SMTP
-			\item
-				143 TLS IMAP
-			\item
-				587 TLS default mail submission port
-			\item
-				993 SSL IMAP
-			Spam soll nicht gefiltert oder geblockt werden, daher werden Module wie Spamassassin, Clamav, Fail2ban, Postgrey und Spoof-Protection deaktiviert.
-		\end{itemize}
-			
-		\subsubsection{SSL Konfiguration}\label{SSl-Container}
-			%referenz zum ssl docker code
-			Die SSL-Zertifikate werden über den SSL-Docker-Container bezogen, dieser wurde vorkonfiguriert eingebunden und entsprechend angepasst um automatisch Zertifikate auszustellen und diese zu prüfen. (siehe \autoref{lst:SSL-Container})
+		Der Mail-Eingangserver besteht aus den Komponenten Mailserver und dem Datenbank Script.
+		Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität des Mailservers sicherstellt und eine SQL-Datenbank um die Mails zu persistieren.
+		% TODO Mario: Link SSL, SQL, evtl. Authentizität?
+		Im folgenden Abschnitt wird die Konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
 
-		\subsubsection{Datenbank Container}\label{DB-Container}
-%referenz zu DB-Container code
-			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
+		\subsubsection{Mail-Container Konfiguration}\label{Mail-In-Container}
+			Wie in 6.4.2 beschrieben wird das Image verwendet und wie in \autoref{lst:Maileingangsserver} konfiguriert.
+			% TODO Ref 6.4.2
+			Um Mails zu Empfangen und per \nameref{itm:IMAP} über einen Mail-Client beziehen zu können werden die folgende Ports benötigt:
+			\begin{itemize}
+				\item 25 für TLS \nameref{itm:SMTP}
+				\item 143 TLS \nameref{itm:IMAP}
+				\item 587 TLS default mail submission port
+				\item 993 SSL \nameref{itm:IMAP}
+			\end{itemize}
+			Da für den Erhalt von Spam dieser nicht gefiltert werden soll, werden die Module \textit{Spamassassin}, \textit{Clamav}, \textit{Fail2ban}, \textit{Postgrey} und \textit{Spoof-Protection} deaktiviert.
+			
+		\subsubsection{SSL Konfiguration}\label{SSL-Container}
+			Die SSL-Zertifikate werden über einen Container bezogen, dieser wurde konfiguriert und entsprechend angepasst um automatisch Zertifikate auszustellen und zu erneuern.
+			Intern benutzt dieser Let's Encrypt als Dienst für die Bereitstellung der Zertifikate.
+			% TODO Mario: Link zu https://letsencrypt.org/
+			Die komplette SSL-Konfiguration ist in \autoref{lst:SSL-Container} aufgeführt.
+
+		\subsubsection{Datenbank Konfiguration}\label{DB-Container}
+			Die Datenbank in der die Mails persistiert werden, wird über ein Docker-Image eingebunden.
+			Es handelt sich hierbei um eine MySQL Datenbank.
+			% TODO Mario: Link MySQL
+			Zur Verwaltung der Datenbank wird phpMyAdmin verwendet.
+			% TODO Mario: Link phpMyAdmin
+			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
-			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert. Dieses Script wird mittels Cronjob alle 30 Minuten aufgerufen.
+			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert. 
+			Dieses holt sich per \nameref{itm:IMAP} die Mails vom Eingangsserver und speichert diese in die SQL-Datenbank.
+			Um das zu erreichen hat der Container eine Verlinkung zu den beiden anderen verwendeten Containern.
+			Alle paar Minuten wird das Script per Cronjob aufgerufen.
 
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
-		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert. Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
+			Das Script ist in \autoref{lst:PHP-Script} aufgeführt.
+			% TODO Mario: PHP-Script in die Listings rein
+			Die komplette Datenbank-Konfiguration ist in \autoref{lst:DB-Container} aufgeführt.
+
+	\subsection{Ausgangsserver}\label{sec:UmsetzungOpenRelay}
+		Um Spammern einen \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert.
+		Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
 		
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
-			Da die Konfiguration des \textsf{OpenSMTPD} kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
-			
-			Die Ports die nach au{\ss}en im Netz verfügbar sind, werden dabei im Konfigurationsfile des Docker-\nameref{itm:Container} wie in \autoref{lst:RelayContainer} und \autoref{lst:RelayContainerDockerfile} definiert. Darin werden au{\ss}erdem die Plattenbereiche des \nameref{itm:Container}s mit den auf dem Host dafür vorgesehenen Speicher verlinkt und beim Start der VM gemounted. In diesem Bereich auf dem Hostsystem werden auch die Konfigurationsdateien für den \textsf{OpenSMTPD} abgelegt. Darin ist die Weiterleitung für alle eingehenden Adressen an alle ausgehenden definiert. Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um für den Versand von sämtlichen Mails als Verteiler zu dienen.
-			
-			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt. Bzw. wird die Kommunikation zwischen Mailserver Dienst im \nameref{itm:Container} und der \nameref{itm:Container} Konfiguration zum Host anders umgesetzt. Dies hat zur Folge das die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container} sich schwieriger darstellt als anzunehmen war. Das Konfigurationsfile in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben. 
-						
+			Da die Konfiguration eines \textsf{OpenSMTPD} Dienstes kompakt und einfach ist, wird mit diesem der \nameref{itm:OpenRelay} in einem Docker-\nameref{itm:Container} eingerichtet.
+			Die Ports, die nach au{\ss}en im Netz verfügbar sind, werden dabei in der Konfigurationsdatei für Docker wie in \autoref{lst:RelayContainer} definiert.
+			Wie das Image des Containers aufgebaut ist, wird in der Konfigurationsdatei in \autoref{lst:RelayContainerDockerfile} angegeben.
+
+			Die Konfiguration für den \textsf{OpenSMTPD} wird in einer separaten Datei wie im \autoref{lst:smtpdConf} angegeben.
+			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei 7.4.2 definiert.
+			% TODO Mario: Link: Dovecot, 7.4.2
+			Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um jegliche Mails zu persistieren.
+
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem OpenBSD System der Fall wäre.
+			% TODO Mario: Ref OpenBSD
+			Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war.
+			Die Konfigurationsdatei in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben.
+
 		\subsubsection{Dovecot}\label{OpenRelayDovecot}
-			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSMTPD} eigenständig in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} ergänzt (siehe \autoref{lst:DovecotKonfiguration}).
-			
-			Dabei dient der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay} der Mails von allen Absendeadressen an alle Zieladressen weiterleitet. Allerdings werden diese nicht nach au{\ss}en ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Service. Dieser dient als zusätzlicher SMTP-Knoten, an den der \textsf{OpenSMTPD} seine ausgehenden Mails weiterleitet. Der \nameref{sec:Dovecot} wird so konfiguriert, dass dieser keine Mails weiterleitet, sonder diese nur speichert. Somit versiegen die Mails die vom \textsf{OpenSMTPD} weitergeleitet werden. Trotzdem wirkt der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay}, weil er weiter leitet und keine negative Rückmeldung an den Absender gibt.
-			
-			Die Komplikationen bei der Konfiguration des \nameref{itm:OpenRelay} haben dazu geführt, dass dieser erst zum Ende des Projektzeitraums publiziert werden kann. Somit werden sich die Erkenntnisse daraus voraussichtlich erst im Anschluss an dieses Projekt ergeben.
+			Der gescheiterte Versuch den \nameref{itm:OpenRelay} mit einem \textsf{OpenSMTPD} in einem Docker-\nameref{itm:Container} zu implementierten, wurde nun durch eine Konfiguration mit \nameref{sec:Dovecot} wie in \autoref{lst:DovecotKonfiguration} ergänzt.
 
+			Dabei dient der \textsf{OpenSMTPD} als \nameref{itm:OpenRelay} der Mails von allen Absenderadressen an alle Zieladressen weiterleitet.
+			Allerdings werden diese nicht nach au{\ss}en ins Internet weitergeleitet, sondern an den \nameref{sec:Dovecot} Service.
+			Der \textsf{OpenSMTPD} gibt keine negative Rückmeldung an den Absender um als \nameref{itm:OpenRelay} zu wirken.
 
-	\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
-		Um den Empfang von Spam sicher zu stellen, werden verschiedene Email-Adressen bei Diensten registriert und es wird auf die links in eingehenden E-Mails reagiert, bzw. geklickt. Dadurch sollten diese E-Mail-Adressen wirken als werden sie genutzt und somit für Spam Empfang sorgen. Im nachfolgenden wird beschrieben wie die umgesetzt wird.
+			Durch die Komplikationen des \textsf{OpenSMTPD} und \textsf{Dovecot} konnte der \nameref{itm:OpenRelay} nicht publiziert werden.
+
+		\subsection{Adressen verbreiten}\label{sec:UmsetzungAdressenverbreiten}
+			Um den Empfang von Spam sicherzustellen, werden verschiedene \nameref{itm:Catch-All-Mail} bei Diensten registriert und es wird auf die links in eingehenden E-Mails reagiert.
+			Die E-Mail-Adressen sollen hierdurch wie authentische normale Adressen wirken um nicht aufzufallen.
+			Im nachfolgenden wird beschrieben wie dies umgesetzt wird.
 
 		\subsubsection{Registrierung bei Diensten}\label{AdressenVerbreitenRegistrierenDiensten}
-		Zuerst wurden bei Diversen Diensten wie z.b. Facebook, Twitter, Parship usw. Konten mit Fake-Daten und Catch-All-Mail-Adressen registriert, danach wurde geschaut ob durch die Dienste und/oder Diensten von dritten noch mehr Fake-Mails registriert werden können. im Anschluss wurde versucht die Konten bei Diensten als aktiv wirken zu lassen durch z.b. ändern von Profildaten und anklicken der Links in erhaltenen Mails. Da im Mai 2019 auf den E-Mail-Adressen der Fachhochschule Ravensburg-Weingarten Spammails eingingen wurden auch dort Catch-All-Mail-Adressen registriert um direkt diese Spammer zum senden weiteren Spams anzuregen.
-		
-		\subsubsection{Reaktion auf Spam}\label{AdressenVerbreitenReaktionSpam}
-		Auf die eingehenden Spammails wird von Hand reagiert, d.h. links werden angeklickt und die jeweilig verlinkten Seiten angeschaut. Vor allem wird geschaut ob sich evtl. noch mehr Mails bei den verlinkten Diensten registrieren lassen und ob man durch eine Anmeldung mit Fake-Daten evtl. den Erhalt von mehr Spam beschleunigen kann.
-	
-	\subsection{Website}\label{sec:UmsetzungWebsite}
-		Um auch durch \nameref{itm:crawler} auf Spammerlisten zu landen wird eine statische Webseite angelegt, hierfür wird ein Docker-Webserver-Container aufgesetzt und eine HTML Seite angezeigt.
+			Zunächst wurden bei diversen Diensten wie Facebook, Twitter, Parship, usw. Konten mit \nameref{itm:Catch-All-Mail} registriert.
+			Danach wurde geschaut ob durch die Dienste und/oder Diensten von Dritten noch mehr Adressen registriert werden können.
+			Durch beispielsweise Ändern von Profildaten oder Anklicken der in Mails enthaltenen Links wurde versucht die Konten als aktiv wirken zu lassen und um den Erhalt vom Spam zu beschleunigen.
 
-		\subsubsection{Webservice}\label{WebsiteWebservice}
-			Für den Container wird ein nginx:alpine Docker-Image geladen und konfiguriert so das beim Aufruf einer URL eine statische Seite angezeigt wird die statische Einträge mit E-Mail-Adressen enthält, hierfür wird der Port 80/TCP benötigt.
-			
-		\subsubsection{HTML-Seite}\label{WebsiteHTML-Seite}
-			Um den Erhalt von Spam Nachrichten zu beschleunigen wird eine \nameref{itm:HTML}-Webseite mit E-Mail-Links angelegt, diese Webseite ist statisch und erfüllt nur den Zweck von \nameref{itm:crawler}n gefunden zu werden, welche diese dann an Spammer weiterleiten könnten.
+	\subsection{Webseite}\label{sec:UmsetzungWebsite}
+		Um auch durch \nameref{itm:crawler} auf Spamlisten zu landen wird eine statische Webseite angelegt.
+		Hierfür wird ein Webserver über Docker aufgesetzt und eine HTML Seite angezeigt.
+		Auf der HTML Seite befinden sich lediglich die verschiedenen \nameref{itm:Catch-All-Mail} aufgelistet als Links.
+		Die Webseite wurde hierfür bei google indexiert.
+		% TODO Mario: Link google zum indexer
+		Der Container wurde wie im Listing X konfiguriert.
+		% TODO Mario: Config Webseite (aber lediglich nginx, nicht das PHP-Zeugs)
 
 \newpage
 
-	
+
 \section{Fazit}\label{sec:Fazit}
-Spam zu bekommen, wenn man wirklich welchen bekommen möchte, ist einfacher als es sich zuerst darstellt. Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein oder es wird zufällig die eigene Mail, durch einen Spammer der einfach E-Mail-Adressen ausprobiert, gespammt. Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren. 
-Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken. Auch an die für Crawler angelegten Mailadressen auf der Webseite wurde kein Spam empfangen. Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails besser  analysieren und herausfinden was sich bei der Analyse lohnt. Da dies jedoch nicht gelang, konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen. Trotz alledem wäre dieses Projektkonzept geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die Catch-All-Mail-Adresse und der Open-Relay-Server unter Spammern publizieren lässt.
+	Spam zu bekommen, wenn man wirklich welchen bekommen möchte, ist einfacher als es zuerst vermutet.
+	Um auf Spam-Listen zu landen müssen entweder bei Diensten Nutzerdaten in die Hände Dritter gelangt sein.
+	Da wir aktiv viel Spam erhalten wollten gestaltete sich die Verbreitung der Mails als eher langwieriger Prozess, dennoch konnten wir am Ende des Projektes einige Spam-Mails identifizieren.
+
+	Das Verbreiten des Open-Relay-Servers unter Spammern ist gescheitert, da Spammer ihre Methoden weder dokumentieren, noch offen über ihr Vorgehen sprechen und somit keine Möglichkeit gefunden werden konnte, tatsächliche Spammer anzulocken.
+	% TODO Ref Open-Relay / Textformat
+
+	Auch an den für Crawler angelegten Adressen auf der Webseite wurde kein Spam empfangen.
+	% TODO Ref Crawler
+	Falls man einen Weg findet um als vertrauenerweckenden \nameref{itm:Honeypot} für Spammer zu wirken, könnte man die Mails sinnvoll analysieren und herausfinden was sich bei der Analyse lohnt.
+	Aus Zeitgründen ist noch nicht genügend Spam eingegangen und es konnten nur theoretische Überlegungen angestellt werden, was sich hätte analysieren lassen.
+	Das Konzept an sich ist geeignet Spam zu erhalten und diesen zu analysieren, insofern sich die \nameref{itm:Catch-All-Mail} und der Open-Relay-Server unter Spammern publizieren lassen.
 
 \newpage
 
@@ -524,7 +602,7 @@ mail-in:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
+\end{lstlisting}
 	
 \begin{lstlisting}[label={lst:SSL-Container},caption={SSL-Container}]
 ssl:
@@ -546,7 +624,7 @@ ssl:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
+\end{lstlisting}
 	
 \begin{lstlisting}[label={lst:DB-Container},caption={DB-Container}]
 db:
@@ -571,23 +649,27 @@ phpmyadmin:
   tty: true
   stdin_open: true
   restart: always
-	\end{lstlisting}
-	
+\end{lstlisting}
+
 \begin{lstlisting}[label={lst:smtpdConf},caption={OpenSMTPD Konfiguration}]
-# Load stuff
 table aliases file:/etc/smtpd/aliases
 #table secrets file:/etc/mail/secrets
 
 # Listen to external mails
-# All does not work @see https://bugs.launchpad.net/ubuntu/+source/opensmtpd/+bug/1542684
-# To achieve the same, listen on the only interface besides local loopback
+# The keyword all does not work
+# ... @see https://bugs.launchpad.net/ubuntu/+source/opensmtpd/+bug/1542684
+# To achieve the same, listen on the only interface
+# ... besides local loopback
 #listen on all
 listen on eth0
 
+## For any reason, none of the below work
+## But they should work on OpenBSD
+
 # Accept mail sent from mail account to mail-in relay
 #accept from any \
-#    for domain "babedibubip.de"
-#    relay via smtp://#mail-in:2526
+#    for domain "example.com"
+#    relay via smtp://mail-in:2526
 #
 ## Accept mail sent from anywhere to persist in local dovecot
 #accept from any \
