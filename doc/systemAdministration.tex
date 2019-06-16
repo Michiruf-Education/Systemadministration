@@ -259,13 +259,11 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
 			OpenBSD ist kompakt und übersichtlich.
-			Da das System eine auf Sicherheit ausgelegte UNIX-Distribution ist, is es möglich dass Spammer abgeschreckt werden den Mail-Relay-Server zu verwenden.
-			% TODO Mario: Quelle für das mit der Sicherheit
+			Da das System eine auf Sicherheit ausgelegte UNIX-Distribution ist, könnten Spammer möglicherweise abgeschreckt werden den Mail-Relay-Server zu verwenden. \cite{openBSD}
 
 		\subsubsection{Debian}\label{sec:Debian}
-			Debian ist weit verbreitet und einfach zu konfigurieren.
-			Da Debian wenig Hardware Ressourcen braucht und Distributionen ohne GUI existieren, eignet es sich als Server-Betriebssystem.
-			% TODO Mario: Quelle mit Verbeitung und evtl. Hardware-Ressourcen
+			Debian ist weit verbreitet, einfach zu konfigurieren und freies Betriebssystem.
+			Da Debian wenig Hardware Ressourcen braucht und Distributionen ohne GUI existieren, eignet es sich als Server-Betriebssystem. \cite{debianVerbreitet} \cite{debian}
 
 	\subsection{Virtualisierung}\label{sec:Virtualisierung}
 		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung stattfinden.
@@ -284,8 +282,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Docker-\nameref{itm:Container} sind gegen das Host-System abgeschottet. Falls Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
 			Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden.
 			Es ist mit Docker möglich Ports an die einzelnen Container weiter zu leiten. Dadurch können Dienste mehrfach ausgeführt werden.
-			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in einer externen Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese automatisch dokumentiert, kann versioniert werden und ist folglich für Gruppenprojekte geeignet.
-			% TODO Mario: Code-Snippet-Formatierung für "docker-compose.yml" (oder alternativ Anführungszeichen)
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in einer externen Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese automatisch dokumentiert, kann versioniert werden und ist folglich für Gruppenprojekte geeignet. (siehe z.B. in \autoref{lst:Maileingangsserver})
 			\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird.
 
 	\subsection{Maildienste}\label{sec:Mailserver}
@@ -299,8 +296,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 		\subsubsection{Docker Mailserver}\label{sec:FullstackDockerMailserver}
 			Es gibt Docker-Images, welche komplette Mailserver mit ihrer Konfiguration bereitstellen.
-			Nachfolgend wird eines dieser von GitHub \cite{fullstackDockerMailserver} betrachtet.
-			% TODO Mario: Link zum Docker-Mailserver soll auf dem Text "GitHub" sitzen
+			Nachfolgend wird eines dieser von \href{https://github.com/tomav/docker-mailserver}{GitHub} betrachtet.
 			Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere sind in diesem Image enthalten.
 			Intern verwendet der Container ebenso \nameref{sec:Postfix} und \nameref{sec:Dovecot} sowie LDAP Authentifizierung.
 			Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Anti-Spam-Funktionen deaktiviert bzw. so konfiguriert werden um Spam zu erhalten.
@@ -308,7 +304,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
 			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt.
 			Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
-			% TODO Mario: Quelle
+			\cite{openSMTPD}
 
 		\subsubsection{Dovecot}\label{sec:Dovecot}
 			Dovecot ist ein sicherer Open-Source Dienst mit Unterstützung von IMAP und POP3 für UNIX Distributionen.
@@ -358,7 +354,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
 			
 		\subsubsection{Docker Mailserver-Image}\label{sec:AuswahlLösungVorkonfigurierterDockerMailserver}
-			Das Docker-Image kann von \url{https://github.com/tomav/docker-mailserver} heruntergeladen und mit der Docker-Software genutzt werden. Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können, auch das einrichten der Catch-All-E-Mail-Adresse ist problemlos möglich.
+			Das Docker-Image kann von \href{https://github.com/tomav/docker-mailserver}{GitHub} heruntergeladen und mit der Docker-Software genutzt werden. Der Container muss dann nur noch konfiguriert werden und beinhaltet alle nötigen Komponenten um Mails empfangen und senden zu können, auch das einrichten der Catch-All-E-Mail-Adresse ist problemlos möglich.
 			
 			Damit bietet sich der \nameref{sec:FullstackDockerMailserver} für den Spam-Empfang am besten an, weil die Grundkonfiguration eine schnelle Einbindung in einen Docker-\nameref{itm:Container} bietet.
 		
@@ -425,11 +421,9 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\end{itemize}
 			
 		\subsubsection{SSL Konfiguration}\label{SSl-Container}
-			%referenz zum ssl docker code
 			Die SSL-Zertifikate werden über den SSL-Docker-Container bezogen, dieser wurde vorkonfiguriert eingebunden und entsprechend angepasst um automatisch Zertifikate auszustellen und diese zu prüfen. (siehe \autoref{lst:SSL-Container})
 
 		\subsubsection{Datenbank Container}\label{DB-Container}
-%referenz zu DB-Container code
 			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
