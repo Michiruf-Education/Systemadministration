@@ -148,6 +148,9 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		A Web crawler, sometimes called a spider or spiderbot and often shortened to crawler, is an Internet bot that systematically browses the World Wide Web \cite{crawler}
 	\item[HTML\label{itm:HTML}]\hfill \\
 		Hypertext Markup Language (HTML) is the standard markup language for documents designed to be displayed in a web browser.\cite{HTML}
+	\item[Virtueller privater Server (VPS)\label{itm:VPS}]\hfill \\
+        	Definiert ist der Virtual Private Server als ein virtueller Webserver auf der Basis eines physikalischen Servers.
+		Der leistungsstarke physikalische Server wird unterteilt in mehrere Virtual Private Server.\cite{VPS}
 	\end{description}
 
 \newpage
@@ -237,66 +240,88 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 
 
 \section{Lösungsvorschläge}\label{sec:Lösungsvorschläge}
-	Nachfolgende Lösungsvoschläge werden recherchiert und im nachfolgenden Kapitel auf ihre Eignung überprüft.
+	Nachfolgende Lösungsvorschläge werden recherchiert und auf ihre Eignung für die Arbeit überprüft.
 
 	\subsection{Provider}\label{sec:Provider}
-		Für das Hosting des Mailserver \nameref{itm:Honeypot} muss ein geeigneter Provider für eine \nameref{itm:VirtuelleMaschine} gefunden werden, der die folgenden Voraussetzungen erfüllt:
+		Für das Hosting des Mailserver-\nameref{itm:Honeypot}s muss ein geeigneter Provider für einen \nameref{itm:VPS} gefunden werden, welcher die Anforderungen
 		\begin{itemize}
-		    \item anonymes Hosting (kein Bezug zur Hochschule oder uns als Personen), Domain mit Whois-Schutz
-			\item ausreichend Speicher für mehrere Docker-\nameref{itm:Container} und die empfangenen Spam-Mails
-			\item Möglichkeit zur DNS Administration
-			\item vertretbare Kosten bzw. Mietlaufzeit
+			\item anonymes Hosting, also kein Bezug zu Personen inklusive Domain mit Whois-Schutz,
+			\item ausreichend Speicher für mehrere Docker-Instanzen sowie den empfangenen Spam-Mails,
+			\item ein Domain sowie die Möglichkeit zur DNS Administration und
+			\item vertretbare Kosten
 		\end{itemize}
-		
-		Hierfür kann eine \nameref{itm:VirtuelleMaschine} in der DMZ des Hochschulrechenzentrums oder ein externer Provider für das Hosting der Maschine und der Domain angemietet werden.
+		erfüllt.\\
+		Hierfür kann eine \nameref{itm:VirtuelleMaschine} im Rechenzentrum der Hochschule Ravensburg-Weingarten oder ein externer Provider angemietet werden.
 
 	\subsection{Host-OS}\label{sec:Host-Maschine}
-		Für den Server muss ein passendes Betreibsystem ausgewählt werden, dieses soll ohne GUI verwendet werden und möglichst wenig Hardware Ressourcen benötigen.
+		Das Betriebssystem des \nameref{itm:VPS} hat die Anforderung mit möglichst wenig Hardware-Ressourcen sowie ohne GUI lauffähig zu sein.
+		Nachfolgende Systeme werden betrachtet und evaluiert.
+
 		\subsubsection{OpenBSD}\label{sec:OpenBSD}
-			OpenBSD ist sehr kompakt und übersichtlich, jedoch eine auf Sicherheit ausgelegte UNIX-Distribution, daher könnte es sein das Spammer abgeschreckt werden diesen Mail-Relay-Server zu verwenden.
+			OpenBSD ist kompakt und übersichtlich.
+			Da das System eine auf Sicherheit ausgelegte UNIX-Distribution ist, is es möglich dass Spammer abgeschreckt werden den Mail-Relay-Server zu verwenden.
+			% TODO Mario: Quelle für das mit der Sicherheit
+
 		\subsubsection{Debian}\label{sec:Debian}
-			Debian wird häufig genutzt und ist einfach zu konfigurieren, da Debian wenig Hardware Ressourcen braucht und ohne GUI gut nutzbar ist eignet es sich als Server-Betriebssystem.
-		\subsubsection{Windows}\label{sec:Windows}
-			Ist trotz gro{\ss}er Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da viel Open-Source-Software nur für Linux Distributionen erhältlich ist.
+			Debian ist weit verbreitet und einfach zu konfigurieren.
+			Da Debian wenig Hardware Ressourcen braucht und Distributionen ohne GUI existieren, eignet es sich als Server-Betriebssystem.
+			% TODO Mario: Quelle mit Verbeitung und evtl. Hardware-Ressourcen
 
 	\subsection{Virtualisierung}\label{sec:Virtualisierung}
-		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
+		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung stattfinden.
+		Nachfolgend werden Varianten dazu überprüft.
 
 		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
-			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen.
-			Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
+			Die direkte Verwendung der Host-Maschine spart den Aufwand der Virtualisierungsumsetzung.
+			Sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen.
+			Wenn ein Dienst konfiguriert oder angepasst wird ist der Dienst während dieser Zeit nicht erreichbar.
 
-		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr gro{\ss} werden und es dauert lange Backups im Fehlerfall neu einzuspielen.
-			Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
+		\subsubsection{Virtuelle-Maschine}\label{Virtual-Maschine}
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.
+			Backups der kompletten virtuellen Maschine können sehr groß werden und es dauert unter Umständen lange diese im Fehlerfall wieder einzuspielen.
 
 		\subsubsection{Docker}\label{Docker}
-			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
-% TODO: Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
+			Docker-\nameref{itm:Container} sind gegen das Host-System abgeschottet. Falls Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
 			Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden.
-			Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird.
-			Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
-			Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
-
+			Es ist mit Docker möglich Ports an die einzelnen Container weiter zu leiten. Dadurch können Dienste mehrfach ausgeführt werden.
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in einer externen Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese automatisch dokumentiert, kann versioniert werden und ist folglich für Gruppenprojekte geeignet.
+			% TODO Mario: Code-Snippet-Formatierung für "docker-compose.yml" (oder alternativ Anführungszeichen)
+			\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird.
 
 	\subsection{Mailserver}\label{sec:Mailserver}
-		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
-			Als Eingangsserver und als Mailserver für das \nameref{itm:OpenRelay} kommen verschiedene Mailserver in Frage von denen nachfolgend eine Auswahl geprüft wird.
+		Um Spam-Mails zu empfangen sowie einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden.
+		Als Eingangsserver und als Ausgangsserver für den \nameref{itm:OpenRelay} kommen verschiedene Mailserver in Frage von denen nachfolgend eine Auswahl geprüft wird.
 
 		\subsubsection{Postfix}\label{sec:Postfix}
-			Postfix ist ein Mailserver für UNIX Distribution der mit einem Fokus auf Sicherheitsaspekte entwickelt wurde. Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail darstellen. \cite{postfix}
+			Postfix ist ein Mailserver für UNIX der mit Fokus auf Sicherheitsaspekte entwickelt wurde.
+			Das Tool ist als Open-Source Projekt frei verfügbar und soll eine Alternative zu Sendmail bieten.
+			\cite{postfix}
+
 		\subsubsection{Docker Mailserver}\label{sec:FullstackDockerMailserver}
-			Ein Mailserver für die Integration in einen Docker-\nameref{itm:Container}, der durch eine einfache Handhabung über Konfigurations-Dateien eine Menge an Tools mitliefert, um Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere zu erhalten. Er beinhaltet unter anderem \nameref{sec:Postfix} für SMTP und \nameref{sec:Dovecot} für IMAP und  POP3 mit LDAP Authentifizierung. \cite{fullstackDockerMailserver} Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Antispamfunktionen deaktiviert oder so konfiguriert werden, dass sich die Mail damit kategorisieren lassen um die Analyse zu vereinfachen.
+			Es gibt Docker-Images, welche komplette Mailserver mit ihrer Konfiguration bereitstellen.
+			Nachfolgend wird eines dieser von GitHub \cite{fullstackDockerMailserver} betrachtet.
+			% TODO Mario: Link zum Docker-Mailserver soll auf dem Text "GitHub" sitzen
+			Funktionen wie SMTP, IMAP, Antispam, Antivirus und viele weitere sind in diesem Image enthalten.
+			Intern verwendet der Container ebenso \nameref{sec:Postfix} und \nameref{sec:Dovecot} sowie LDAP Authentifizierung.
+			Bei der Verwendung dieses Mailservers zum Spam-Empfang müssen die Anti-Spam-Funktionen deaktiviert bzw. so konfiguriert werden um Spam zu erhalten.
+
 		\subsubsection{OpenSMTPD}\label{sec:OpenSMTPD}
-			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt.
+			Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
+			% TODO Mario: Quelle
+
 		\subsubsection{Dovecot}\label{sec:Dovecot}
-		Dovecot ist ein sicherer Open-Source Mail-Dienst mit Unterstützung von IMAP und POP3 für UNIX Distributionen. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für grö{\ss}ere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Au{\ss}erdem ist der Mail-Dienst schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
+			Dovecot ist ein sicherer Open-Source Dienst mit Unterstützung von IMAP und POP3 für UNIX Distributionen.
+			Das Tool eignet sich sowohl für einfach gehaltene, aber auch für grö{\ss}ere komplexere Konfigurationen.
+			Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration.
+			Dovecot ist schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
 
 \newpage
 
 
 \section{Auswahl Lösung anhand Anforderungen}\label{sec:AuswahlLösungAnhandAnforderungen}
 	Nachfolgend werden die Lösungsvorschläge bewertet und die zu verwendeten Techniken werden aufgrund ihrer Eignung benannt.
+
 	\subsection{Provider}\label{sec:AuswahlLösungProvider}
 		Bei der Provider Wahl wurde eine VM beim Hochschulrechenzentrum  beantragt, da sich dies bei einem Projekt im Rahmen des Studiums anbietet. Au{\ss}erdem würde dies die nötige Anonymität und Rechtssicherheit geben.
 		
