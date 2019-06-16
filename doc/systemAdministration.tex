@@ -76,53 +76,44 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Der Aufbau ist in \autoref{fig:Hierarchy} visualisiert.
 
 		\begin{figure}[H]
-		\includegraphics[width=\linewidth]{2-Hierarchy.png}
-		\caption{Netzwerkstruktur}
-		\label{fig:Hierarchy}
+			\includegraphics[width=\linewidth]{2-Hierarchy.png}
+			\caption{Netzwerkstruktur}
+			\label{fig:Hierarchy}
 		\end{figure}
 
 		Um den Eingangsserver zu realisieren sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
-		\item Mail Eingangsserver bereitstellen und konfigurieren
-		\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
-		\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
-		\item Mails analysieren indem per Script geprüft wird, ob sich Informationen  über den Versender ermitteln lassen.
+			\item Mail Eingangsserver bereitstellen und konfigurieren
+			\item \nameref{itm:DNS} Server einrichten um realistische E-Mail-Adressen bereitzustellen
+			\item Bei möglichst vielen Diensten mit unterschiedlichen Mailadressen registrieren
+			\item Mails analysieren indem per Script geprüft wird, ob sich Informationen  über den Versender ermitteln lassen.
 		\end{enumerate}
 
 		Den Ausgangsserver betreffend sind folgende Aufgaben erforderlich:
 		\begin{enumerate}
-		\item Mail Ausgangsserver bereitstellen und konfigurieren
-		\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
-		\item Eingehende Mails tatsächlich weiterleiten
-		\item Mails analysieren
+			\item Mail Ausgangsserver bereitstellen und konfigurieren
+			\item Als "`\nameref{itm:OpenRelay}"' im Internet durchsickern lassen
+			\item Eingehende Mails tatsächlich weiterleiten
+			\item Mails analysieren
 		\end{enumerate}
 
 	\subsection{Aufbau der Arbeit}\label{sec:EinleitungAufbau}
 		\begin{itemize}
-			\item
-				In Abschnitt 1 werden die nötigen Grundbegriffe zum Verständnis abgesteckt.
-			\item
-				In Abschnitt 2 wird das Projekt und die Zielsetzung zusammengefasst.
-			\item
-				In Abschnitt 3 geht es die Problemstellung des Projekts.
-			\item
-				In Abschnitt 4 werden die zu erarbeitenden Ziele genannt.
-			\item
-				In Abschnitt 5 werden mögliche technische Lösungen zur Problemstellung benannt und bewertet.
-			\item
-				In Abschnitt 6 werden die am besten passenden Lösungen aus Abschnitt 5 genannt.
-			\item
-				In Abschnitt 7 wird beschrieben wie die tatsächliche Umsetzung anhand der technischen Lösungen aus Abschnitt 6 aussieht.
-			\item
-				In Abschnitt 8 wird das Projekt nochmals zusammengefasst und ein Fazit gezogen.
+			\item In Abschnitt 1 werden die nötigen Grundbegriffe zum Verständnis abgesteckt.
+			\item In Abschnitt 2 wird das Projekt und die Zielsetzung zusammengefasst.
+			\item In Abschnitt 3 geht es die Problemstellung des Projekts.
+			\item In Abschnitt 4 werden die zu erarbeitenden Ziele genannt.
+			\item In Abschnitt 5 werden mögliche technische Lösungen zur Problemstellung benannt und bewertet.
+			\item In Abschnitt 6 werden die am besten passenden Lösungen aus Abschnitt 5 genannt.
+			\item In Abschnitt 7 wird beschrieben wie die tatsächliche Umsetzung anhand der technischen Lösungen aus Abschnitt 6 aussieht.
+			\item In Abschnitt 8 wird das Projekt nochmals zusammengefasst und ein Fazit gezogen.
 		\end{itemize}
 
 \newpage
 
 \section{Grundbegriffe}\label{sec:Grundbegriffe}
 	Die folgenden Begriffsdefinitionen und Unterscheidungen sind zum einen zur Verdeutlichung, wie Begriffe in dieser Arbeit verstanden werden und um Fachbegriffe zu erklären.
-	
-	% NOTE Alle nochmal durchnudeln
+
 	\begin{description}
 	\item[Spam\label{itm:Spam}]\hfill \\
 		Als Spam oder Junk werden unerwünschte, in der Regel auf elektronischem Weg übertragene Nachrichten[...] bezeichnet, die dem Empfänger unverlangt zugestellt werden und häufig werbenden Inhalt enthalten. Dieser Vorgang wird Spamming oder Spammen genannt, der Verursacher Spammer.\cite{Spam}
