@@ -413,10 +413,10 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 
 		\subsubsection{Datenbank Container}\label{DB-Container}
 %referenz zu DB-Container code
-			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank, um alle 30 Minuten die Mails in die Datenbank zu speichern wird ein PHP-Script per Cronjob aufgerufen. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
+			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
-			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert.
+			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert. Dieses Script wird mittels Cronjob alle 30 Minuten aufgerufen.
 
 	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
 		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert. Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
