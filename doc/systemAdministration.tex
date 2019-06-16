@@ -259,6 +259,25 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		\subsubsection{Windows}\label{sec:Windows}
 			Ist trotz gro{\ss}er Fortschritte im Bereich Server-Betriebssystem nicht Praktikable, da viel Open-Source-Software nur für Linux Distributionen erhältlich ist.
 
+	\subsection{Virtualisierung}\label{sec:Virtualisierung}
+		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
+
+		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
+			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen.
+			Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
+
+		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
+			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr gro{\ss} werden und es dauert lange Backups im Fehlerfall neu einzuspielen.
+			Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
+
+		\subsubsection{Docker}\label{Docker}
+			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
+% TODO: Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
+			Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden.
+			Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird.
+			Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen.
+			Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
+
 
 	\subsection{Mailserver}\label{sec:Mailserver}
 		Um Spam-Mails zu empfangen und einen \nameref{itm:OpenRelay} anbieten zu können, soll ein einfach zu konfigurierender Mailserver gefunden werden, um innerhalb kürzester Zeit Adressen verbreiten zu können und an diese Spam zu erhalten.
@@ -272,22 +291,6 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Ist ein frei verfügbarer Unix basierter Mailserver von \nameref{sec:OpenBSD}, der durch seine einfach gehaltene Konfiguration überzeugt. Es werden nur wenige Files benötigt um einen Mailserver aufzusetzen.
 		\subsubsection{Dovecot}\label{sec:Dovecot}
 		Dovecot ist ein sicherer Open-Source Mail-Dienst mit Unterstützung von IMAP und POP3 für UNIX Distributionen. Das Tool eignet sich sowohl für einfach gehaltene, aber auch für grö{\ss}ere komplexere Konfigurationen. Es ist einfach aufzusetzen und erfordert dabei keine besondere Administration. Au{\ss}erdem ist der Mail-Dienst schnell und benötigt nur wenig Arbeitsspeicher. \cite{dovecot}
-		
-		
-
-	\subsection{Virtualisierung}\label{sec:Virtualisierung}
-		Um die einzelnen Dienste von einander zu trennen soll eine Virtualisierung geschaffen stattfinden.
-
-		\subsubsection{Verwendung der Host-Maschine}\label{Verwendung der Host-Maschine}
-			Die direkte Verwendung der Host-Maschine würde den Aufwand der Virtualisierungsumsetzung sparen, sollte jedoch Schadsoftware auf die Host-Maschine gelangen können gro{\ss}e Schäden entstehen. Wenn ein Dienst konfiguriert bzw. die Konfigurationen angepasst oder geändert werden ist der Dienst während dieser Zeit nicht erreichbar.
-
-		\subsubsection{Virtual-Maschine}\label{Virtual-Maschine}
-			Durch den Einsatz Virtueller-Maschinen für die Mailserver wäre die Host-Maschine vor Schadsoftware geschützt.Virtuelle-Maschinen sind jedoch langsamer als beispielsweise Container, was das Neustarten angeht, desweiteren können die Backups von Virtuellen-Maschinen sehr gro{\ss} werden und es dauert lange Backups im Fehlerfall neu einzuspielen. Die Daten liegen bei Virtuellen-Maschinen in der VM oder müssen zum Hostsystem transferiert werden, z.b Mounted-Folder, was das erzeugen von Daten-Backups kompliziert macht.
-
-		\subsubsection{Docker}\label{Docker}
-			Mit der Konfiguration eines Docker-\nameref{itm:Container}s in der Konfigurationsdatei (z.B. in der docker-compose.yml), ist diese gut dokumentiert und für allgemein verständlich und dadurch auch für Teamprojekte geeignet.
-%			Diese Konfigurationsfiles verbrauchen sehr wenig Speicher und können somit sehr schnell und einfach über Git geteilt und Versionifiziert werden. 
-Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austauschbar. Au{\ss}erdem können diese leicht auf andere Host-System portiert werden. Docker-\nameref{itm:Container} können schnell herunter und wieder hochgefahren werden, wodurch das Testen von neuen Konfigurationen sehr effizient wird. Fehlerhafte Konfigurationen lassen sich somit auch sehr schnell rückgängig machen. Docker-\nameref{itm:Container} sind gegen das Hostsystem abgeschottet, d.h. wenn Schadsoftware in den Container gelangt, kann diese auf dem Host-System keinen Schaden verursachen. Es ist mit Docker-\nameref{itm:Container}n sehr einfach möglich Ports umzumappen, d.h. Dienste können mehrfach ausgeführt werden. Durch Filemapping sind alle Daten an einem Ort gespeichert, was das erstellen von Backups erleichtert.
 
 \newpage
 
@@ -312,12 +315,19 @@ Docker-\nameref{itm:Container} sind mit wenig Aufwand reproduzierbar und austaus
 			Für die Domain ist ein Whois-Schutz standardmä{\ss}ig eingerichtet und der Server bietet für diesen Zweck ausreichend Rechenleistung und Speicher. Darüber hinaus kann der DNS über eine Konfigurationsoberfläche eingerichtet werden.		
 
 	\subsection{Host-OS}\label{sec:AuswahlLösungHost-Maschine}
-			Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
-			Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden. Ein Vorteil von Debian ist auch das jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
-Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+		Die Wahl für den Host fiel auf eine virtuelle Debian Maschine.
+		Dieser ist von einem externen Provider vorkonfiguriert  bereitgestellt. Im Projektverlauf müssen nur noch Änderungen der bestehenden Konfiguration vorgenommen werden.
+		% TODO Nächste Zeile subjektiv
+		Ein weiterer Vorteil von Debian ist, dass jeder der Projektteilnehmer Vorkenntnisse im Umgang damit hat und die nötigen Konfigurationen gut dokumentiert sind.
+		Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Host-Maschine} erwähnten Gründen.
+
+	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
+		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet.
+		Jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
 
 	\subsection{Mailserver}\label{sec:AuswahlLösungMailserver}
-		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container}	bietet. Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
+		Aus zeitlichen Gründen für die Umsetzung des Projekts, soll sowohl für den Eingangs-Mailserver als auch für das \nameref{itm:OpenRelay} ein Tool gewählt werden, das eine kompakte Einrichtung in einem Docker-\nameref{itm:Container} bietet.
+		Aus diesem Grund bietet es sich an, für die beiden Anwendungsfälle unterschiedliche Mailserver aufgesetzt werden.
 		
 		\subsubsection{Postfix}\label{sec:AuswahlLösungPostfix}	
 			Da dieser im \nameref{sec:FullstackDockerMailserver} enthalten ist bietet dieser eigenständig weniger Features. Um die gleichen Vorteile und eine sichere Authentifizierung einzurichten ist damit zusätzlicher Konfigurationsaufwand erforderlich.
@@ -337,11 +347,7 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 		\subsubsection{Mailserver Auswahl}\label{sec:MailserverAuswahl}	
 		Für den Eingangsserver ist der \nameref{sec:FullstackDockerMailserver} die geeignete Methode um schnell das gewünschte Ergebnis zu erzielen. Damit kann innerhalb kürzester Zeit mit der Verbreitung der Adressen zum Spam-Empfang begonnen werden.
 		
-	Der \nameref{itm:OpenRelay} soll mit dem \nameref{sec:OpenSMTPD} umgesetzt. Der \nameref{sec:Dovecot} soll dabei als Dienst für das abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
-		
-		
-	\subsection{Virtualisierung}\label{sec:AuswahlLösungVirtualisierung}
-		Aufgrund der guten Wartbarkeit und Änderbarkeit wird im Projekt zur Virtualisierung Docker verwendet, jeder Dienst soll hierfür in einem eigenen Container realisiert werden, sodass diese einfach ausgetauscht werden können, wenn Fehlerfall auftreten oder Tests fehlschlagen.
+		Der \nameref{itm:OpenRelay} soll mit \nameref{sec:OpenSMTPD} umgesetzt werden. \nameref{sec:Dovecot} soll dabei als Dienst zum Abgreifen der Mails dienen, die über den \nameref{itm:OpenRelay} eingehen.
 
 \newpage
 
@@ -374,7 +380,10 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 			Zunächst müssen allgemeine Updates geladen und installiert werden. Danach können Docker-Images einfach geladen und eingebunden werden.
 	
 	\subsection{Eingangsserver}\label{sec:UmsetzungEingangsserver}
-		Der Mail-Eingangserver besteht aus den Compenenten Docker-Mailserver-Image und dem Datenbank Script. Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität der Mails Sicherstellt und eine SQL-Datenbank um die Mails zu persistieren. Im folgenden Abschnitt wird die konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
+		Der Mail-Eingangserver besteht aus den Compenenten Docker-Mailserver-Image und dem Datenbank Script.
+		Des weiteren wird noch ein SSL-Zertifikat benötigt welches die Authentizität der Mails Sicherstellt und eine SQL-Datenbank um die Mails zu persistieren.
+		Im folgenden Abschnitt wird die konfiguration dieser Docker-\nameref{itm:Container} vorgenommen.
+
 		\subsubsection{Docker Konfiguration}\label{Mail-In-Container}
 			%referenz zum docker image und konfig code
 			Es wird ein Docker-Image-Mailserver verwendet, dieser wird als Docker-Image eingebunden und konfiguriert (siehe \autoref{lst:Maileingangsserver}). Um Mails empfangen und per IMAP über einen Mail Client beziehen zu können werden die folgende Ports benötigt:
@@ -399,9 +408,10 @@ Windows und OpenBSD als Betriebsystem Wahl entfällt aus den in \autoref{sec:Hos
 			Die Datenbank in der die Mails und auch die Fake-Mail-Aliases persistiert werden, wird über ein Docker-Image eingebunden. Es handelt sich hierbei um eine MySQl Datenbank. Zur Verwaltung der Datenbank wird PHPMyAdmin verwendet, hierfür wird der Port 80 benötigt welcher im Docker-\nameref{itm:Container} konfiguriert wird. (siehe \autoref{lst:DB-Container})
 
 		\subsubsection{Datenbank PHP-Script}\label{DB-Hook-Container}
-			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert. Dieses Script wird mittels Cronjob alle 30 Minuten aufgerufen.
+			Im Container für die Datenbank werden automatisch per PHP-Script die eingegangenen Mails gespeichert, hierfür werden die neun Emails über IMAP abgerufen und in die Datenbank gespeichert.
+			Dieses Script wird mittels Cronjob alle 30 Minuten aufgerufen.
 
-	\subsection{OpenRelay}\label{sec:UmsetzungOpenRelay} %Mario
+	\subsection{Ausgangsserver}\label{sec:UmsetzungOpenRelay}
 		Um Spammer einen vermeintliches \nameref{itm:OpenRelay} für die Spamverteilung anzubieten, wird ein Mailserver konfiguriert. Dieser akzeptiert Mails von allen Adressen und wirkt als würde er diese weiterleiten.
 		
 		\subsubsection{OpenSMTPD}\label{OpenRelayOpenSMTPD}
