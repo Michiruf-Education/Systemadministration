@@ -413,7 +413,7 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		
 		\subsubsection{DNS Einträge}\label{sec:DNSEinträge}
 			Im Control-Panel der Domain, wird für den Eingangsserver ein DNS-Eintrag für die \texttt{Mail} angelegt, dieser \nameref{itm:MX-Rekord} zeigt auf die IP-Adresse des Servers.
-			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein Eintrag für die Website \href{https://babedibubip.de}{babedibubip.de} erstellt.
+			Zusätzlich zu den DNS-Einträgen für die Mailserver wird noch ein Eintrag für die Website erstellt.
 
 		\subsubsection{Docker}\label{sec:DockerAufsetzen}
 			Bevor die verschiedenen \nameref{itm:Container} konfiguriert werden können, muss Docker installiert sein. Dies kann wie auf der  \href{https://docs.docker.com/install/linux/docker-ce/debian/}{Website} beschrieben, für  Debian nachgemacht werden.
@@ -466,12 +466,10 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 			Wie das Image des Containers aufgebaut ist, wird in der Konfigurationsdatei in \autoref{lst:RelayContainerDockerfile} angegeben.
 
 			Die Konfiguration für den \textsf{OpenSMTPD} wird in einer separaten Datei wie im \autoref{lst:smtpdConf} angegeben.
-			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei 7.4.2 definiert.
-			% TODO Mario: Link: Dovecot, 7.4.2
+			Darin ist die Umleitung aller eingehenden Mails an den Dovecot Server wie bei \autoref{OpenRelayDovecot} definiert.
 			Darüber hinaus werden sämtliche Spamvorrichtungen deaktiviert, um jegliche Mails zu persistieren.
 
-			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem OpenBSD System der Fall wäre.
-			% TODO Mario: Ref OpenBSD
+			In Kombination mit einem Docker-\nameref{itm:Container} werden die Konfigurationen teils etwas anders umgesetzt als es auf einem \nameref{sec:OpenBSD} System der Fall wäre.
 			Dies hat zur Folge das sich die Konfiguration eines \textsf{OpenSMTPD} innerhalb des Docker-\nameref{itm:Container}s schwieriger darstellt als anzunehmen war.
 			Die Konfigurationsdatei in \autoref{lst:smtpdConf} zeigt Teile der Konfigurationsversuche, die nicht zum gewünschten Erfolg geführt haben.
 
@@ -498,10 +496,8 @@ Dieser soll \nameref{itm:Spam}-Nachrichten erhalten können, sowie als offener V
 		Um auch durch \nameref{itm:crawler} auf Spamlisten zu landen wird eine statische Webseite angelegt.
 		Hierfür wird ein Webserver über Docker aufgesetzt und eine HTML Seite angezeigt.
 		Auf der HTML Seite befinden sich lediglich die verschiedenen \nameref{itm:Catch-All-Mail} aufgelistet als Links.
-		Die Webseite wurde hierfür bei google indexiert.
-		% TODO Mario: Link google zum indexer
-		Der Container wurde wie im Listing X konfiguriert.
-		% TODO Mario: Config Webseite (aber lediglich nginx, nicht das PHP-Zeugs)
+		Die Webseite wurde hierfür bei \href{https://search.google.com/search-console/welcome?utm_source=about-page}{google} indexiert.
+		Der Container wurde wie im \autoref{lst:WebseiteContainer} konfiguriert.
 
 \newpage
 
@@ -741,13 +737,15 @@ protocol lda {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[label={lst:PHP-Script},caption={PHP-SMTP-Persistance-Script}]
+\begin{lstlisting}[label={lst:PHP-Script},caption={PHP-SMTP-Persistance-Script (selbst erstellt)}]
 #!/usr/bin/php
 <?php
 
 error_reporting(E_ALL);
 require_once("/vendor/autoload.php");
 
+// Via composer required
+// @see https://github.com/ddeboer/imap
 use Ddeboer\Imap\Server;
 use Ddeboer\Imap\MessageInterface;
 
@@ -917,6 +915,25 @@ $analyzer->process();
 
 // Because cli does not handle a newline itself
 echo "\n";
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:WebseiteContainer},caption={Webseite Konfiguration}]
+web:
+  container_name: dummy-frontpage_web
+  ports:
+    - "12080:80/tcp"
+  environment:
+    VIRTUAL_HOST: example.com
+    VIRTUAL_PORT: 12080
+    SERVER_NAMES_HASH_BUCKET_SIZE: 64
+  image: nginx:alpine
+  volumes:
+    - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./www:/usr/share/nginx/html
+    - ../DATA/dummy-frontpage/logs:/var/log/nginx
+  tty: true
+  stdin_open: true
+  restart: always
 \end{lstlisting}
 
 \newpage
